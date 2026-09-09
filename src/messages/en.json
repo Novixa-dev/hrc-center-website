@@ -1,0 +1,528 @@
+{
+  "common": {
+    "skipToContent": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "openMenu": "Open menu",
+    "loading": "Loading",
+    "learnMore": "Learn more",
+    "readMore": "Read more",
+    "backToHome": "Back to home",
+    "onThisPage": "On this page",
+    "provisional": "Provisional — under review"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "switchTo": "Switch to {language}"
+  },
+  "nav": {
+    "about": "About",
+    "services": "Services",
+    "training": "Training",
+    "research": "Research",
+    "conferences": "Conferences",
+    "team": "Team",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "footer": {
+    "explore": "Explore",
+    "connect": "Connect",
+    "affiliation": "A center of Al-Ahgaff University",
+    "rights": "© {year} Hadramout Research Center. All rights reserved.",
+    "privacy": "Privacy",
+    "accessibility": "Accessibility",
+    "credit": "Designed & developed by {studio}",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "label": "Breadcrumb"
+  },
+  "cta": {
+    "heading": "Have a question, or a research or training project?",
+    "body": "The Center welcomes students, researchers, organizations and institutions.",
+    "action": "Contact the Center"
+  },
+  "home": {
+    "meta": {
+      "title": "Hadramout Research Center — Research, Consultancy & Training in Hadramout",
+      "description": "A scholarly center of Al-Ahgaff University, established in 2013, working in research and studies, consultancy, arbitration, translation and training across Hadramout."
+    },
+    "hero": {
+      "eyebrow": "Hadramout Research Center",
+      "title": "A knowledge beacon for Hadramout",
+      "lede": "A scholarly center of Al-Ahgaff University working in research and studies, consultancy, arbitration, translation and training — in service of Hadramout's past, present and future.",
+      "ctaPrimary": "Explore programs",
+      "ctaSecondary": "Contact the Center",
+      "affiliation": "A center of Al-Ahgaff University · established 2013"
+    },
+    "pillars": {
+      "heading": "What the Center does",
+      "lede": "Three connected fields, in the service of Hadramout.",
+      "research": {
+        "name": "Research & studies",
+        "blurb": "Research and studies on Hadramout's society, economy, law and heritage."
+      },
+      "consultancy": {
+        "name": "Consultancy & arbitration",
+        "blurb": "Financial, economic, social, legal and technical consultancy, plus arbitration and translation."
+      },
+      "training": {
+        "name": "Training & capacity building",
+        "blurb": "Professional and technical diplomas and courses that prepare a generation of local talent."
+      }
+    },
+    "programs": {
+      "heading": "Training programs",
+      "lede": "A few of the programs the Center has offered recently.",
+      "all": "All programs"
+    },
+    "journal": {
+      "eyebrow": "Peer-reviewed journal",
+      "title": "Al-Ahgaff Journal for Social Sciences",
+      "body": "A peer-reviewed scholarly journal published by the Center in the social sciences.",
+      "browse": "Browse issues",
+      "guidelines": "Author guidelines"
+    },
+    "news": {
+      "heading": "Latest news",
+      "all": "All news"
+    },
+    "audiences": {
+      "heading": "How can the Center help you?",
+      "prompt": "I am a…",
+      "trainee": "student or trainee",
+      "researcher": "researcher or academic",
+      "organization": "organization or institution"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About — Hadramout Research Center",
+      "description": "The Hadramout Research Center is a scholarly center of Al-Ahgaff University, established in 2013 with financial and administrative independence, working in research, consultancy and training."
+    },
+    "header": {
+      "eyebrow": "About the Center",
+      "title": "A scholarly center in the service of Hadramout",
+      "lede": "The Hadramout Research Center is a specialized scholarly center of Al-Ahgaff University, working in research and studies, consultancy, arbitration, training and translation."
+    },
+    "sections": {
+      "establishment": "Establishment & status",
+      "visionMission": "Vision & mission",
+      "university": "Our relationship with Al-Ahgaff University",
+      "departments": "The Center's departments",
+      "governance": "Governance"
+    },
+    "establishment": {
+      "body": "Established in 2013 as a scholarly center of Al-Ahgaff University with financial and administrative independence, the Center conducts research and studies, provides consultancy, arbitration, training and translation, organizes conferences, seminars and scholarly workshops, and publishes books and peer-reviewed periodicals."
+    },
+    "visionMission": {
+      "visionLabel": "Vision",
+      "vision": "Excellence and leadership in research, studies, consultancy and training that achieves sustainable development.",
+      "missionLabel": "Mission",
+      "mission": "To provide the right environment for encouraging intellectual and cultural production and strengthening belonging; to reach the highest levels of scholarly and research competence and to care for Hadramout's cultural and civilizational life; to contribute a renewed culture of knowledge; and to build an effective community partnership in the service of Hadramout and its heritage.",
+      "purposeLabel": "Our purpose",
+      "purpose": "The Center works to illuminate Hadramout's past, present and future through research, counsel and training, and to build community partnerships in service of sustainable development."
+    },
+    "university": {
+      "body": "Al-Ahgaff University is a private, charitable university established by Ministerial Decree No. 5 of 1994 — the first university founded in Hadramout Governorate. The Hadramout Research Center is the University's arm for research and community service."
+    },
+    "departments": {
+      "lede": "Six departments cover the Center's work.",
+      "training": {
+        "name": "Vocational, Technical & Professional Training",
+        "blurb": "Professional and technical diplomas and courses."
+      },
+      "research": {
+        "name": "Scientific Research & Studies",
+        "blurb": "Research and studies focused on Hadramout's questions."
+      },
+      "consultancy": {
+        "name": "Financial, Economic, Social & Legal Consultancy & Studies",
+        "blurb": "Consultancy and studies for organizations and institutions."
+      },
+      "translation": {
+        "name": "Translation & Language Editing",
+        "blurb": "Translation and linguistic proofreading of scholarly work."
+      },
+      "arbitration": {
+        "name": "Arbitration & Legal Studies",
+        "blurb": "Arbitration, dispute settlement and legal studies."
+      },
+      "technical": {
+        "name": "Technical Consultancy & Services",
+        "blurb": "Technical consultancy and services for projects."
+      }
+    },
+    "governance": {
+      "body": "The Center is run by an Executive Director and overseen by a Board of Trustees. Leadership and Board names are listed on the Team page.",
+      "cta": "Team page"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The link may be outdated or mistyped.",
+    "cta": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "Sorry about that. You can try again or head back to the homepage.",
+    "retry": "Try again"
+  },
+  "training": {
+    "meta": {
+      "title": "Training & Programs — Hadramout Research Center",
+      "description": "Professional and technical diplomas and courses from the Hadramout Research Center’s training department."
+    },
+    "header": {
+      "eyebrow": "Training",
+      "title": "Programs that prepare a generation of local talent",
+      "lede": "The Center’s Vocational, Technical and Professional Training department offers diplomas and courses in languages, design, digital skills and more."
+    },
+    "filterField": "Field",
+    "filterStatus": "Status",
+    "results": "{count, plural, =0 {No programs match} one {# program matches} other {# programs match}}",
+    "clearFilters": "Clear filters",
+    "fields": {
+      "languages": "Languages",
+      "design": "Design",
+      "digital-skills": "Digital skills"
+    },
+    "status": {
+      "open": "Enrolling",
+      "upcoming": "Upcoming",
+      "archived": "Recently offered"
+    },
+    "empty": {
+      "title": "No open intakes right now",
+      "body": "New intake dates are announced on the Center’s channels. Register your interest and we’ll let you know.",
+      "cta": "Register interest"
+    },
+    "howto": {
+      "heading": "How enrolment works",
+      "steps": [
+        "Browse the programs and pick one that fits.",
+        "Contact the Center about the next intake and its dates.",
+        "Complete enrolment and start the program."
+      ]
+    },
+    "detail": {
+      "keyFacts": "Key facts",
+      "duration": "Duration",
+      "format": "Format",
+      "language": "Language of instruction",
+      "certificate": "Certificate",
+      "cost": "Fees",
+      "award": "Award",
+      "yes": "Yes",
+      "register": "Register interest",
+      "ask": "Ask about this program",
+      "related": "More programs",
+      "provisionalNote": "The details shown are provisional and under review with the Center."
+    },
+    "format": {
+      "in-person": "In person",
+      "online": "Online",
+      "hybrid": "Hybrid"
+    }
+  },
+  "services": {
+    "meta": {
+      "title": "Services — Hadramout Research Center",
+      "description": "Hadramout Research Center services: research and studies, consultancy, arbitration, translation, training, conference organization, and scholarly publishing."
+    },
+    "header": {
+      "eyebrow": "Services",
+      "title": "What we offer organizations and researchers",
+      "lede": "The Hadramout Research Center offers a range of scholarly and professional services to individuals, organizations and institutions."
+    },
+    "commissionLabel": "How to commission it",
+    "commission": "Contact the Center describing what you need; the relevant department coordinates with you.",
+    "requestCta": "Request a consultation",
+    "items": {
+      "research": {
+        "name": "Research & studies",
+        "body": "Scientific research and studies on Hadramout’s social, economic, legal and heritage questions — commissioned by an organization or initiated by the Center."
+      },
+      "consultancy": {
+        "name": "Consultancy",
+        "body": "Financial, economic, social, legal and technical consultancy and studies for organizations and institutions."
+      },
+      "arbitration": {
+        "name": "Arbitration",
+        "body": "Arbitration, dispute settlement and the related legal studies."
+      },
+      "translation": {
+        "name": "Translation & language editing",
+        "body": "Translation of scholarly work and linguistic proofreading."
+      },
+      "training": {
+        "name": "Training & capacity building",
+        "body": "Professional and technical diplomas and courses through the training department. See the Training page for programs."
+      },
+      "conferences": {
+        "name": "Conferences & seminars",
+        "body": "Organizing and hosting conferences, seminars and scholarly workshops."
+      },
+      "publishing": {
+        "name": "Scholarly publishing",
+        "body": "Publishing books and peer-reviewed periodicals — most notably the Al-Ahgaff Journal for Social Sciences."
+      }
+    }
+  },
+  "research": {
+    "meta": {
+      "title": "Research & the Journal — Hadramout Research Center",
+      "description": "The Hadramout Research Center conducts research and studies on Hadramout's society, economy, law and heritage, and publishes the peer-reviewed Al-Ahgaff Journal for Social Sciences."
+    },
+    "header": {
+      "eyebrow": "Research",
+      "title": "Research in the service of Hadramout",
+      "lede": "The Center conducts research and studies on Hadramout's questions — commissioned by institutions or on its own initiative — and publishes the Al-Ahgaff Journal for Social Sciences."
+    },
+    "sections": {
+      "focus": "What we research",
+      "commission": "Commissioning a study",
+      "journal": "Al-Ahgaff Journal for Social Sciences",
+      "publications": "Books & publications"
+    },
+    "focus": {
+      "lede": "The Center's research follows its mandate: Hadramout's questions, examined with scholarly method.",
+      "areas": [
+        {
+          "title": "Society & community",
+          "body": "Social change, community life, and the questions facing Hadrami society."
+        },
+        {
+          "title": "Economy & development",
+          "body": "Economic and financial studies, and the conditions for sustainable development."
+        },
+        {
+          "title": "Law & governance",
+          "body": "Legal studies, arbitration and dispute settlement, and institutional questions."
+        },
+        {
+          "title": "Heritage & culture",
+          "body": "Hadramout's cultural and civilizational life, its history and its heritage."
+        }
+      ]
+    },
+    "commission": {
+      "body": "Organizations and institutions can commission a study or a consultancy from the Center. The relevant department scopes the work with you.",
+      "cta": "Request a study",
+      "servicesCta": "Research services"
+    },
+    "journal": {
+      "body": "The Al-Ahgaff Journal for Social Sciences is a peer-reviewed scholarly journal published by the Center in the social sciences.",
+      "submitHeading": "Submitting to the journal",
+      "submitBody": "Authors complete the journal's publication form and send it with the manuscript to the editorial email:",
+      "submitEmail": "law.m@ahgaff.edu",
+      "submitNote": "The submission address and author guidelines are being confirmed with the Center.",
+      "boardHeading": "Editorial board",
+      "boardBody": "The journal's editorial board is listed on the Al-Ahgaff University website.",
+      "boardCta": "View the editorial board",
+      "archiveHeading": "Issues",
+      "archiveEmpty": "The issue archive is being compiled with the Center."
+    },
+    "publications": {
+      "lede": "Books and reports published by the Center.",
+      "empty": "Publication details are being compiled with the Center."
+    },
+    "detail": {
+      "kind": {
+        "journal-issue": "Journal issue",
+        "book": "Book",
+        "report": "Report",
+        "paper": "Paper"
+      },
+      "published": "Published",
+      "venue": "Published in",
+      "authors": "Authors",
+      "link": "External link",
+      "provisionalNote": "The details shown are provisional and under review with the Center.",
+      "back": "All research"
+    }
+  },
+  "conferences": {
+    "meta": {
+      "title": "Conferences & Seminars — Hadramout Research Center",
+      "description": "The Hadramout Research Center organizes and hosts scholarly conferences, seminars and workshops on Hadramout's questions."
+    },
+    "header": {
+      "eyebrow": "Conferences",
+      "title": "Conferences, seminars and scholarly workshops",
+      "lede": "The Center organizes its own scientific conferences and hosts seminars and workshops through the year."
+    },
+    "intro": "Announced conferences appear here. Past seminars and one-off events are covered in the Center's news.",
+    "upcomingHeading": "Upcoming & in preparation",
+    "pastHeading": "Past conferences",
+    "pastEmpty": "Earlier events and seminars are covered in the Center's news.",
+    "newsCta": "Center news",
+    "status": {
+      "upcoming": "Upcoming",
+      "planned": "In preparation",
+      "past": "Past"
+    },
+    "empty": {
+      "title": "No conferences announced yet",
+      "body": "The Center's next scientific conference is in preparation. Check back for the dates and the call for papers.",
+      "cta": "Contact the Center"
+    },
+    "detail": {
+      "date": "Date",
+      "location": "Location",
+      "theme": "Theme",
+      "tba": "To be announced",
+      "provisionalNote": "This event is still being planned; the details will be confirmed by the Center.",
+      "back": "All conferences",
+      "ask": "Ask about this event"
+    }
+  },
+  "news": {
+    "meta": {
+      "title": "News — Hadramout Research Center",
+      "description": "News and announcements from the Hadramout Research Center — the journal, training, conferences and the Center's work across Hadramout."
+    },
+    "header": {
+      "eyebrow": "News",
+      "title": "News from the Center",
+      "lede": "Announcements and updates on the Center's research, training, publishing and events."
+    },
+    "allTags": "All",
+    "filterLabel": "Filter by topic",
+    "results": "{count, plural, =0 {No items} one {# item} other {# items}}",
+    "tags": {
+      "journal": "Journal",
+      "training": "Training",
+      "conferences": "Conferences",
+      "arbitration": "Arbitration"
+    },
+    "empty": {
+      "title": "Nothing here yet",
+      "body": "There are no news items under this topic yet. Try another topic or view all news."
+    },
+    "historyNote": "This is a selection of recent updates; it is not a complete record of the Center's activity since 2013.",
+    "detail": {
+      "back": "All news",
+      "related": "More news",
+      "share": "Share",
+      "provisionalNote": "The details of this update are provisional and under review with the Center."
+    },
+    "rssTitle": "Hadramout Research Center — News"
+  },
+  "team": {
+    "meta": {
+      "title": "Team & Governance — Hadramout Research Center",
+      "description": "The Hadramout Research Center is overseen by a Board of Trustees and led by an Executive Director, within Al-Ahgaff University."
+    },
+    "header": {
+      "eyebrow": "Team",
+      "title": "The people behind the Center",
+      "lede": "The Center is overseen by a Board of Trustees and led by an Executive Director, within Al-Ahgaff University."
+    },
+    "pendingNote": "The Center is finalizing the public list of its Board and leadership. The roles are shown below; names and biographies will be published once confirmed.",
+    "groups": {
+      "board-of-trustees": "Board of Trustees",
+      "executive": "Executive leadership",
+      "advisory": "Advisory network",
+      "staff": "Staff"
+    },
+    "roles": {
+      "botChair": "Chair, Board of Trustees",
+      "botMember": "Board member",
+      "executiveDirector": "Executive Director"
+    },
+    "pending": "Appointment announced soon",
+    "affiliation": {
+      "heading": "Within Al-Ahgaff University",
+      "body": "The Hadramout Research Center is the research and community-service arm of Al-Ahgaff University in Mukalla.",
+      "cta": "About Al-Ahgaff University"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact Us — Hadramout Research Center",
+      "description": "Get in touch with the Hadramout Research Center for enquiries about research, the journal, training programs, and consulting services."
+    },
+    "header": {
+      "eyebrow": "Contact",
+      "title": "We welcome your enquiries",
+      "lede": "The Center welcomes communications from researchers, students, and institutions regarding studies, training, and consultation."
+    },
+    "form": {
+      "nameLabel": "Full name",
+      "namePlaceholder": "Enter your full name",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "name@example.com",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Select enquiry topic",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Describe your question or request here...",
+      "submit": "Send enquiry",
+      "submitting": "Sending...",
+      "successTitle": "Message sent successfully",
+      "successMessage": "Thank you for contacting Hadramout Research Center. Our team will review your message and respond promptly.",
+      "sendAnother": "Send another message",
+      "errorTitle": "Unable to send",
+      "errorMessage": "An error occurred while submitting the form. Please check the fields and try again."
+    },
+    "subjects": {
+      "general": "General enquiry",
+      "research": "Research & publishing",
+      "consultancy": "Consultancy & arbitration",
+      "training": "Training & capacity building",
+      "program": "Program enquiry",
+      "media": "Media & communications"
+    },
+    "errors": {
+      "name": "Please enter your full name (at least 2 characters).",
+      "nameLong": "Name is too long (maximum 120 characters).",
+      "email": "Please enter a valid email address.",
+      "emailLong": "Email address is too long.",
+      "subject": "Please select an enquiry subject.",
+      "messageShort": "Please enter a message of at least 20 characters to explain your enquiry.",
+      "messageLong": "Message is too long (maximum 4000 characters).",
+      "generic": "Please correct the highlighted errors before submitting.",
+      "spam": "Submission rejected. Please try again later."
+    },
+    "info": {
+      "locationTitle": "Location & Visits",
+      "locationAddress": "Al-Ahgaff University Presidency Building, 3rd Floor, Fuah – Al-Masaken, Mukalla, Hadramout, Republic of Yemen",
+      "locationNote": "The Center is located within the University Presidency Building in Fuah, welcoming visitors during academic office hours.",
+      "hoursTitle": "Office Hours",
+      "hoursText": "Sunday – Thursday: 8:00 AM – 2:00 PM (Yemen Time)",
+      "channelsTitle": "Official Channels",
+      "channelsText": "You can also follow the Center and its latest activities through our official social media channels.",
+      "privacyNote": "Information submitted via this form (name, email, message) is used solely to respond to your enquiry and is never shared with third parties or external platforms."
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy Policy — Hadramout Research Center",
+      "description": "Privacy policy and visitor data protection principles at Hadramout Research Center."
+    },
+    "header": {
+      "eyebrow": "Privacy",
+      "title": "Privacy Policy",
+      "lede": "At Hadramout Research Center, we respect your privacy and handle all visitor communications with scholarly care and transparency."
+    },
+    "note": "Provisional notice subject to administrative and university sign-off."
+  },
+  "accessibility": {
+    "meta": {
+      "title": "Accessibility Statement — Hadramout Research Center",
+      "description": "Accessibility statement and WCAG 2.2 AA compliance commitments at Hadramout Research Center."
+    },
+    "header": {
+      "eyebrow": "Accessibility",
+      "title": "Accessibility Statement",
+      "lede": "The Hadramout Research Center website is built to be accessible, usable, and welcoming to everyone regardless of ability or assistive technology."
+    },
+    "commitmentTitle": "Our Commitment",
+    "commitmentBody": "We adhere to Web Content Accessibility Guidelines (WCAG 2.2 AA), ensuring high contrast, complete keyboard operability, screen-reader compatibility, and respecting reduced-motion preferences.",
+    "feedbackTitle": "Feedback & Support",
+    "feedbackBody": "If you experience any accessibility barrier while browsing our site, please let us know via the contact form so we can resolve it promptly."
+  }
+}

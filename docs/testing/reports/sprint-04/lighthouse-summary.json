@@ -1,0 +1,60 @@
+{
+  "sprint": 4,
+  "generated": "2026-09-09",
+  "tool": "lighthouse 12.6.1 CLI (Playwright chromium), mobile form factor, simulated throttling",
+  "serving": "local `next start`, build and serve share NEXT_PUBLIC_SITE_URL",
+  "gate": "a11y / best-practices / SEO >= 95; performance recorded only (S7 owns it)",
+  "runs": [
+    {
+      "route": "/ar/services",
+      "build": "post-fix (bf8d201)",
+      "scores": {
+        "performance": 81,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": { "lcp": "3.3 s", "cls": "0.001", "tbt": "220 ms" },
+      "note": "Pre-fix (bc32c9f) best-practices was 96: per-service CTAs to /contact?subject=... prefetched an unbuilt route and logged _rsc 404s in the console. Fixed in bf8d201 (shouldPrefetch strips ?# before the routesInProgress lookup); re-run confirms best-practices 100 and errors-in-console clean. Performance re-runs this session ranged 54-65 under machine load and are not treated as a regression (the change only removes network requests) - S7 baseline stays 81."
+    },
+    {
+      "route": "/ar/training",
+      "build": "bc32c9f",
+      "scores": {
+        "performance": 75,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": { "lcp": "4.1 s", "cls": "0.022", "tbt": "120 ms" }
+    },
+    {
+      "route": "/ar/training/english-diploma",
+      "build": "bc32c9f",
+      "scores": {
+        "performance": 72,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": { "lcp": "3.4 s", "cls": "0.012", "tbt": "480 ms" }
+    },
+    {
+      "route": "/en/training",
+      "build": "bc32c9f",
+      "scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": { "lcp": "2.4 s", "cls": "0", "tbt": "210 ms" }
+    }
+  ],
+  "summary": {
+    "accessibility": "100 on all four routes",
+    "best-practices": "100 on all four routes (after bf8d201)",
+    "seo": "100 on all four routes",
+    "performance": "72-91, deferred to S7 (font weight ~342 KB is the main lever)"
+  }
+}

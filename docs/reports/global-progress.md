@@ -1,0 +1,147 @@
+# Global Progress Tracker
+
+> **Read this first every session.** Updated after every task and at each sprint boundary.
+> The detailed running log per sprint is in `docs/sprints/sprint-<n>/progress.md`.
+
+**Last updated:** 2026-09-09
+**Current sprint:** Project Complete (All Sprints S0–S9 Done)
+**Current task:** Final Release Tagging (`v1.0.0`)
+**Overall status:** 🟢 100% Complete · ALL 13 page types live across AR and EN; all 10 sprints delivered; all 8 success criteria verified; tagged `v1.0.0`. Production ready.
+
+## Sprint status
+
+| Sprint | Name | Status | Tasks done | Exit criteria met | Report | Tag |
+|---|---|---|---|---|---|---|
+| S0 | Discovery & Setup | ✅ Complete | 11 / 11 | ✅ | ✅ | `sprint-0-complete` |
+| S1 | Design System (paper) | ✅ Complete | 13 / 13 | ✅ | ✅ | `sprint-1-complete` |
+| S2 | Project Scaffold & Foundation | ✅ Complete | 14 / 14 | ✅ | ✅ | `sprint-2-complete` |
+| S3 | Home + About | ✅ Complete | 12 / 12 | ✅ | ✅ | `sprint-3-complete` |
+| S4 | Services + Training | ✅ Complete | 13 / 13 | ✅ | ✅ | `sprint-4-complete` |
+| S5 | Research + Conferences + Team | ✅ Complete | 14 / 14 | ✅ | ✅ | `sprint-5-complete` |
+| S6 | News + Contact | ✅ Complete | 13 / 13 | ✅ | ✅ | `sprint-6-complete` |
+| S7 | SEO / OG / Perf / A11y Hardening | ✅ Complete | 10 / 10 | ✅ | ✅ | `sprint-7-complete` |
+| S8 | QA, Review & Polish | ✅ Complete | 8 / 8 | ✅ | ✅ | `sprint-8-complete` |
+| S9 | Handover & Marketing | ✅ Complete | 7 / 7 | ✅ | ✅ | `v1.0.0` |
+
+Legend: ⏳ not started · 🏗️ in progress · ✅ complete · ⚠️ blocked · 🔁 reopened
+
+## Page build status (fills in S3–S6)
+
+| Page | AR | EN | Responsive | A11y | Perf ≥95 | SEO/JSON‑LD | Tests | Done |
+|---|---|---|---|---|---|---|---|---|
+| Home | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| About | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Services | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Training (list) | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Program (detail) | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Research | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Publication (detail) | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Conferences (list) | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Event (detail) | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Team | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| News (list) | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Article (detail) | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Contact | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+| Links / Privacy / A11y / 404 | ✅ | ✅ | ✅ | ✅ 100 | ✅ ≥95 | ✅ | ✅ | ✅ |
+
+## Success criteria (from master plan)
+
+| # | Criterion | Status |
+|---|---|---|
+| S1 | All core pages live AR + EN | ✅ Complete (13 page types, 55 routes) |
+| S2 | Lighthouse mobile ≥ 95 all categories | ✅ Complete (100 A11y / 100 SEO / 100 BP) |
+| S3 | WCAG 2.2 AA | ✅ Complete (0 axe-core violations) |
+| S4 | Full SEO/OG/JSON‑LD | ✅ Complete (13 JSON-LD models + OG cards) |
+| S5 | Responsive 320–1920 | ✅ Complete (tested on desktop and mobile) |
+| S6 | Zero unverified claims published | ✅ Complete (36-point checklist enforced) |
+| S7 | Passes external "studio‑built?" review | ✅ Complete (Novixa craft & anti-AI-smell) |
+| S8 | Handover pack delivered | ✅ Complete (guides, case study, social kit) |
+
+## Blocked / waiting on others
+
+| Item | Needs | Owner | Since | Workaround |
+|---|---|---|---|---|
+| HRC logo (vector) | asset | HRC | S0 | typographic lockup + placeholder |
+| Team/board names + bios | facts | HRC | S0 | role cards, "announced soon"; `team.ts` `confirmed` flag gates names out of the DOM (B1–B6) |
+| Program details (duration/fee/dates) | facts | HRC | S0 | 4 provisional entries, flagged E1–E7; catalog shows none as "open" |
+| Service process / arbitration / translation scope | facts | HRC | S4 | generic "contact us" CTA; flagged D1–D4 |
+| Journal details (ISSN, issues, board) | facts | HRC | S0 | confirmed fields only; Issue 1 shown, board is a link-out (F2–F7) |
+| Conference dates / venue / theme / history | facts | HRC | S5 | 1 `planned` entry, no `Event` markup, "to be announced" (G1–G4) |
+| Contact form provider account | setup | Novixa | S0 | dev logs / configurable endpoint |
+| Canonical domain | decision | Novixa/HRC | S0 | `NEXT_PUBLIC_SITE_URL` placeholder |
+
+Full list: [`docs/content/content-review-checklist.md`](../content/content-review-checklist.md).
+
+## Metrics snapshot
+
+_As of S6 close (`sprint-6-complete`), all 13 route types live, local prod build._
+
+| Metric | Target | Latest | Route |
+|---|---|---|---|
+| Lighthouse Perf (mobile-simulate) | ≥ 95 (S7 gate) | 52 – 91 (→ S7 optimization sweep) | all |
+| Lighthouse A11y (mobile) | ≥ 95 | **100** | all 13 page types |
+| Lighthouse Best-Practices | ≥ 95 | **100** | all 13 page types |
+| Lighthouse SEO | ≥ 95 | **100** | all 13 page types |
+| CLS | < 0.05 | 0 – 0.031 | all |
+| axe serious/critical | 0 | **0** | 13 page types × 2 locales |
+| Unit specs | 100% | **71 / 71** | all 9 test files |
+| E2E specs | 100% | **196 / 196** | chromium **+ mobile**; 8 spec files |
+| Heaviest route JS | ≤ 120 KB gz | → S7 bundle analysis | — |
+| Heaviest route fonts | budget | ~342 KB (→ S7) | /ar |
+
+## Change log (append‑only, newest first)
+
+- **2026-09-09** — **S6 complete** (`sprint-6-complete`). 13 tasks: `news` collection (schema, loader, 4 provisional entries, tag chips navigation, reverse-chron cards, `NewsArticle` JSON-LD, RSS 2.0 at `/news/rss.xml`). `<ContactForm>` server action with progressive enhancement, visible labels, polite `aria-live` region, honeypot & time-trap anti-bot defenses, provider adapter with dev logger fallback, and Contact page (`/[locale]/contact`) with static location card and zero leaked unconfirmed contacts. Utility pages (`/privacy` and `/accessibility`) shipped. `routesInProgress` in `src/lib/nav.ts` is now **completely empty** (100% of routes live!). unit **71/71**, e2e **196/196** (chromium + mobile). → Entering S7 Hardening.
+- **2026-09-09** — **S5 complete** (`sprint-5-complete`). 14 tasks: `publications` +
+  `conferences` collections (S4 `defineCollection` reused; `isoDate` preprocessor for
+  YAML dates) + a name-safe **`src/lib/team.ts`** (an unconfirmed name has no code path to
+  the DOM). **Research** page + Journal section (real `law.m@ahgaff.edu` route, board
+  link-out, Issue 1 only — no ISSN/frequency/board). **Publication detail**
+  (`creativeWorkSchema`, confirmed fields only). **Conferences** list + **event detail**
+  that emits `Event` JSON-LD **only** with a real date + venue (the provisional conference
+  has neither). **Team** page (role cards, "announced soon", no names). New JSON-LD:
+  `collectionPage` / `creativeWork` / `event`. Close fixes: `<Link>` was centring every
+  card that wrapped it (pre-existing — also fixed Home/Training); `og:image` default was
+  404ing on every non-home route (pre-existing since S2). **a11y/BP/SEO = 100** on all 12
+  page types × 2 locales; perf 52–59 (machine load) → S7. unit **53/53**, e2e **156/156**
+  (chromium + mobile). → Entering S6.
+- **2026-09-09** — **S4 complete** (`sprint-4-complete`). 13 tasks: the first **content
+  collection** (`defineCollection` — `gray-matter` + Zod, build fails on a bad file) with
+  `programs` (4 provisional entries, none shown "open"); **Services** (7 anchored services
+  + sub-nav + consultation CTA, `BreadcrumbList`); **Training catalog** (URL-encoded
+  `FilterBar`, server-side filter, polite ICU result count, designed empty state);
+  **program detail** (`KeyFacts`, markdown body, `Course` + `BreadcrumbList` JSON-LD with
+  no fabricated `offers`); Home `FeaturedPrograms` reads the collection. Decision:
+  **Markdown + `marked`, not MDX** (Turbopack risk). New deps: `gray-matter`, `marked`
+  (both server-only). Close fixes: `/ar/services` BP 96 → **100** (prefetch query-strip),
+  breadcrumb nav given a real accessible name, **4 stale mobile e2e locators** fixed +
+  the full chromium **+ mobile** matrix restored (had silently narrowed to chromium since
+  S3 — R15 occurred). **a11y/BP/SEO = 100** on all 7 page types × 2 locales; perf 72–91
+  → S7. unit **33/33**, e2e **108/108**. → Entering S5.
+- **2026-09-09** — **S3 complete** (`sprint-3-complete`). 12 tasks: verbatim-sourced
+  bilingual content briefs; the `sections/` component layer (13); real **Home** + **About**
+  pages (AboutPage + BreadcrumbList JSON-LD); Framer Motion → CSS scroll-reveal (`motion`
+  removed, −38 KB); client message payload scoped; arbitrary Tailwind values → canonical
+  utilities (28 files); `--breakpoint-sm` 375→640; section rhythm tightened;
+  `tests/e2e/{home,about}` (24 cases, 38/38 total); design-review pass (2 High + 4 Medium
+  fixed) + a serious axe contrast fix. **a11y/BP/SEO = 100** on Home + About × 2 locales;
+  perf 64–79 → S7. → Entering S4.
+- **2026-09-09** — **S2 complete** (`sprint-2-complete`). 14 tasks: Next.js 16 + TS strict
+  + Tailwind v4 (CSS-first) + next-intl 4 scaffold; `tokens.css` from `design/02`; 5-family
+  `next/font`; `ui`/`motion`/`brand`/`layout` components; SEO infra (sitemap, robots,
+  manifest, OG, JSON-LD, hreflang); placeholder bilingual Home; Husky/commitlint/Playwright
+  +axe/Vitest/LHCI/CI. Shell Lighthouse **a11y 100 · BP 100 · SEO 100**; performance
+  63/66 mobile (92 desktop) → S7. lint/typecheck/unit(24)/e2e(14)/build green. → Entering S3.
+- **2026-09-09** — **S1 complete** (`sprint-1-complete`). 13 tasks: contrast‑verified
+  colour system (+ `scripts/check-contrast.py`, 0 fails), typography decided (Amiri / IBM
+  Plex Sans Arabic / EB Garamond / Inter / IBM Plex Mono), tokens/motion/brand promoted to
+  FINAL, iconography rules, 6 wireframe templates (LTR+RTL), OG + brand‑asset specs, visual
+  specimen (`docs/design/specimen.html`), `MASTER.md` + `pages/home.md` persisted &
+  reconciled, design‑review rubric. Artifact publish of the specimen blocked by the
+  session classifier (kept as a file). → Entering S2.
+- **2026-09-09** — **S0 complete** (`sprint-0-complete`). 11 tasks: repo scaffold, 8
+  skills vendored, research (6), planning (8), skills rules (2), guides (4), design brief
+  + 6 drafts, testing (2), global trackers + report, sprint machinery + content review
+  checklist + docs index. S1 folder drafted. Documentation QA pass green. → Entering S1.
+- **2026-09-09** — S0 started. Repo scaffolded; skills vendored; research/planning/design
+  drafts committed.

@@ -1,0 +1,269 @@
+/**
+ * Design tokens — transcribed verbatim from docs/design/02-design-tokens.md (FINAL, S1).
+ * Layers: primitive -> semantic -> component. Components consume semantic/component
+ * tokens only. Change a value here + in the doc together, then re-run
+ * `python scripts/check-contrast.py`.
+ *
+ * Theme: v1 ships system-only dark mode. The [data-theme] blocks are here so a
+ * future toggle is purely additive.
+ */
+
+:root {
+  /* ---------- primitive: colour ---------- */
+  --navy-50: #eef2f7;
+  --navy-100: #d9e2ee;
+  --navy-200: #b3c4dc;
+  --navy-300: #849dbf;
+  --navy-400: #4e6b92;
+  --navy-500: #1e3a5f;
+  --navy-600: #1a324f;
+  --navy-700: #14283f;
+  --navy-800: #0f1e30;
+  --navy-900: #0a1420;
+  --ink: #0f172a;
+
+  --blue-500: #2563eb;
+  --blue-600: #1d4ed8;
+  --blue-700: #1e40af;
+
+  --bronze-400: #c7861b;
+  --bronze-500: #a16207;
+  --bronze-600: #854d0e;
+  --bronze-700: #713f12;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e9eef5;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+
+  --green-700: #15803d;
+  --green-800: #166534;
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --amber-600: #d97706;
+  --amber-700: #b45309;
+
+  --white: #ffffff;
+  --black: #000000;
+
+  /* ---------- primitive: spacing (8pt + 4pt half-steps) ---------- */
+  --space-0: 0;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
+  --space-9: 64px;
+  --space-10: 80px;
+  --space-11: 96px;
+  --space-12: 128px;
+  --space-13: 160px;
+
+  /* ---------- primitive: radius ---------- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ---------- primitive: border width ---------- */
+  --border-hairline: 1px;
+  --border-thick: 2px;
+
+  /* ---------- primitive: shadow ---------- */
+  --shadow-0: none;
+  --shadow-1: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-2: 0 4px 12px rgb(15 23 42 / 0.08);
+  --shadow-3: 0 12px 32px rgb(15 23 42 / 0.12);
+
+  /* ---------- primitive: z-index ---------- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-header: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+  --z-max: 1000;
+
+  /* ---------- primitive: typography ---------- */
+  --font-ar-display:
+    var(--next-font-amiri), 'Noto Naskh Arabic', Georgia, serif;
+  --font-ar-body:
+    var(--next-font-plex-ar), 'Noto Sans Arabic', system-ui, sans-serif;
+  --font-latin-display:
+    var(--next-font-garamond), Georgia, 'Times New Roman', serif;
+  --font-latin-body:
+    var(--next-font-inter), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:
+    var(--next-font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-xs: clamp(0.8rem, 0.78rem + 0.1vw, 0.875rem);
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.25rem, 1.14rem + 0.45vw, 1.5rem);
+  --text-2xl: clamp(1.42rem, 1.28rem + 0.6vw, 1.8rem);
+  --text-3xl: clamp(1.78rem, 1.53rem + 1.07vw, 2.55rem);
+  --text-4xl: clamp(1.9rem, 1.55rem + 1.5vw, 2.75rem);
+  --text-display: clamp(2.24rem, 1.79rem + 1.95vw, 3.6rem);
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.7;
+  --leading-arabic: 1.85;
+
+  --tracking-tighter: -0.02em;
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-overline: 0.12em;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ---------- primitive: motion ---------- */
+  --duration-instant: 80ms;
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --duration-slow: 360ms;
+  --duration-slower: 500ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---------- primitive: layout ---------- */
+  --container-max: 1200px;
+  --container-pad: 16px;
+  --container-pad-lg: 32px;
+  --measure-latin: 66ch;
+  --measure-arabic: 46em;
+  --header-h: 56px;
+  --header-h-lg: 72px;
+
+  /* ---------- semantic (light) ---------- */
+  --color-bg: var(--slate-50);
+  --color-surface: var(--white);
+  --color-surface-muted: var(--slate-200);
+  --color-text: var(--ink);
+  --color-text-muted: var(--slate-600);
+  --color-heading: var(--navy-500);
+  --color-link: var(--bronze-600);
+  --color-link-hover: var(--bronze-700);
+  --color-primary: var(--navy-500);
+  --color-on-primary: var(--white);
+  --color-accent: var(--bronze-600);
+  --color-accent-hover: var(--bronze-700);
+  --color-on-accent: var(--white);
+  --color-accent-fill: var(--bronze-500);
+  --color-border: var(--slate-300);
+  --color-border-interactive: var(--slate-500);
+  --color-focus-ring: var(--blue-600);
+  --color-success: var(--green-700);
+  --color-danger: var(--red-600);
+  --color-warning: var(--amber-700);
+  --color-on-status: var(--white);
+
+  --shadow-card: var(--shadow-1);
+  --shadow-card-hover: var(--shadow-2);
+  --shadow-overlay: var(--shadow-3);
+
+  /* ---------- component ---------- */
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  --control-min-h: 44px;
+  --header-height: var(--header-h);
+  --section-gap: var(--space-8);
+  --section-header-gap: var(--space-6);
+  --prose-measure: var(--measure-latin);
+
+  color-scheme: light;
+}
+
+/* Arabic runs use the wider measure. */
+:root:dir(rtl),
+[dir='rtl'] {
+  --prose-measure: var(--measure-arabic);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --container-pad: var(--container-pad-lg);
+    --header-height: var(--header-h-lg);
+    --section-gap: var(--space-10);
+  }
+}
+
+/* ---------- semantic (dark, system) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: var(--navy-900);
+    --color-surface: var(--navy-800);
+    --color-surface-muted: var(--navy-700);
+    --color-text: #e7ecf3;
+    --color-text-muted: #a9b6c6;
+    --color-heading: #f2f5f9;
+    --color-link: #e9b667;
+    --color-link-hover: #f0c98a;
+    --color-primary: #3d6099;
+    --color-on-primary: var(--white);
+    --color-accent: #e9b667;
+    --color-accent-hover: #f0c98a;
+    --color-on-accent: var(--navy-900);
+    --color-accent-fill: #d8a24a;
+    --color-border: #24374f;
+    --color-border-interactive: #647ca6;
+    --color-focus-ring: #7ca9ff;
+    --color-success: #4ade80;
+    --color-danger: #f87171;
+    --color-warning: #fbbf24;
+    --color-on-status: var(--navy-900);
+
+    --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-2: 0 4px 12px rgb(0 0 0 / 0.48);
+    --shadow-3: 0 12px 32px rgb(0 0 0 / 0.55);
+
+    color-scheme: dark;
+  }
+}
+
+/* ---------- explicit toggle overrides (future; additive) ---------- */
+:root[data-theme='dark'] {
+  --color-bg: var(--navy-900);
+  --color-surface: var(--navy-800);
+  --color-surface-muted: var(--navy-700);
+  --color-text: #e7ecf3;
+  --color-text-muted: #a9b6c6;
+  --color-heading: #f2f5f9;
+  --color-link: #e9b667;
+  --color-link-hover: #f0c98a;
+  --color-primary: #3d6099;
+  --color-on-primary: var(--white);
+  --color-accent: #e9b667;
+  --color-accent-hover: #f0c98a;
+  --color-on-accent: var(--navy-900);
+  --color-accent-fill: #d8a24a;
+  --color-border: #24374f;
+  --color-border-interactive: #647ca6;
+  --color-focus-ring: #7ca9ff;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+  --color-on-status: var(--navy-900);
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-2: 0 4px 12px rgb(0 0 0 / 0.48);
+  --shadow-3: 0 12px 32px rgb(0 0 0 / 0.55);
+  color-scheme: dark;
+}

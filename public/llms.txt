@@ -1,0 +1,24 @@
+# Hadramout Research Center
+
+> Bilingual (Arabic-first / English) website for the Hadramout Research Center (HRC),
+> a scholarly center of Al-Ahgaff University in Mukalla, Hadramout, Yemen. Established
+> 2013. Work: research and studies, consultancy, arbitration, translation, training,
+> and the Al-Ahgaff Journal for Social Sciences.
+
+Primary language: Arabic (/ar). Secondary: English (/en).
+
+## Key pages
+- /ar , /en — Home
+- /ar/about — About the Center (establishment, vision, mission, governance)
+- /ar/services — Research, consultancy, arbitration, translation, training, publishing
+- /ar/training — Training programs and diplomas
+- /ar/research — Research agenda and the Al-Ahgaff Journal for Social Sciences
+- /ar/conferences — Conferences and events
+- /ar/team — Leadership and Board of Trustees
+- /ar/news — Announcements
+- /ar/contact — Contact and enquiry form
+
+## Notes
+- Built and maintained by Novixa (novixa-cyan.vercel.app).
+- Some institutional details are pending confirmation by HRC; the site avoids
+  publishing unverified facts.

@@ -1,0 +1,86 @@
+{
+  "sprint": 5,
+  "generated": "2026-09-09",
+  "tool": "lighthouse 12.6.1 CLI (Playwright chromium), mobile, simulated throttling",
+  "serving": "local next start, build+serve share NEXT_PUBLIC_SITE_URL",
+  "gate": "a11y / best-practices / SEO >= 95; performance recorded only (S7)",
+  "runs": [
+    {
+      "route": "/ar/research",
+      "scores": {
+        "performance": 52,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "4.9 s",
+        "cls": "0.031",
+        "tbt": "2,110 ms"
+      }
+    },
+    {
+      "route": "/en/research",
+      "scores": {
+        "performance": 55,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "5.5 s",
+        "cls": "0",
+        "tbt": "1,220 ms"
+      }
+    },
+    {
+      "route": "/ar/conferences",
+      "scores": {
+        "performance": 54,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "5.1 s",
+        "cls": "0",
+        "tbt": "1,790 ms"
+      }
+    },
+    {
+      "route": "/ar/team",
+      "scores": {
+        "performance": 59,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "4.8 s",
+        "cls": "0",
+        "tbt": "1,140 ms"
+      }
+    },
+    {
+      "route": "/ar/research/al-ahgaff-journal-issue-1",
+      "scores": {
+        "performance": 57,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "5.0 s",
+        "cls": "0",
+        "tbt": "1,270 ms"
+      }
+    }
+  ],
+  "note": "Performance 52-59 across all S5 routes. Machine was under heavy load during this run: /en/about and /en/services (S3/S4 pages) re-measured the same session also scored perf 59 (LCP ~5s, TBT ~800ms) vs their sprint baselines of 64-91. So the S5 numbers track the existing baseline under load, not a regression - the pages are RSC + CSS-reveal + the same font stack as S4. Real perf work is S7 (font subsetting ~342KB).",
+  "summary": {
+    "accessibility": "100 on all 5 routes",
+    "bestPractices": "100 on all 5 routes",
+    "seo": "100 on all 5 routes",
+    "performance": "52-59 under machine load; deferred to S7"
+  }
+}

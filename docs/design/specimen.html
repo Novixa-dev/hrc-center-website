@@ -1,0 +1,700 @@
+<title>HRC Visual Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    /* neutrals — cool, slight navy bias (chosen to sit under the brand navy) */
+    --bg: #F6F8FA;
+    --surface: #FFFFFF;
+    --surface-muted: #EAEFF4;
+    --border: #CBD5E1;
+    --border-strong: #64748B;
+
+    --text: #0F172A;
+    --text-muted: #475569;
+    --heading: #1E3A5F;
+
+    /* brand */
+    --navy: #1E3A5F;
+    --navy-deep: #14283F;
+    --bronze: #854D0E;      /* text / link / CTA — 6.9:1 on white */
+    --bronze-fill: #A16207; /* large / graphic only */
+    --link: #854D0E;
+    --focus: #1D4ED8;
+
+    --ok: #15803D;
+    --warn: #B45309;
+    --stop: #DC2626;
+
+    --on-navy: #FFFFFF;
+    --on-bronze: #FFFFFF;
+
+    /* type */
+    --ar-display: "Amiri", "Noto Naskh Arabic", Georgia, serif;
+    --ar-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --la-display: "EB Garamond", Georgia, "Times New Roman", serif;
+    --la-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --step--1: clamp(0.83rem, 0.80rem + 0.14vw, 0.90rem);
+    --step-0: 1rem;
+    --step-1: clamp(1.13rem, 1.06rem + 0.30vw, 1.31rem);
+    --step-2: clamp(1.42rem, 1.28rem + 0.60vw, 1.80rem);
+    --step-3: clamp(1.78rem, 1.53rem + 1.07vw, 2.55rem);
+    --step-4: clamp(2.24rem, 1.79rem + 1.95vw, 3.60rem);
+
+    --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+    --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+
+    --r-sm: 4px; --r-md: 8px; --r-lg: 14px; --r-xl: 22px;
+
+    --shadow-1: 0 1px 2px rgb(15 23 42 / .06);
+    --shadow-2: 0 6px 20px rgb(15 23 42 / .10);
+    --shadow-3: 0 18px 44px rgb(15 23 42 / .14);
+
+    --measure: 66ch;
+    --page-max: 1160px;
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur: 240ms;
+
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0A1420;
+      --surface: #0F1E30;
+      --surface-muted: #14283F;
+      --border: #24374F;
+      --border-strong: #647CA6;
+      --text: #E7ECF3;
+      --text-muted: #A9B6C6;
+      --heading: #F2F5F9;
+      --navy: #3D6099;
+      --navy-deep: #24374F;
+      --bronze: #E9B667;
+      --bronze-fill: #D8A24A;
+      --link: #E9B667;
+      --focus: #7CA9FF;
+      --ok: #4ADE80;
+      --warn: #FBBF24;
+      --stop: #F87171;
+      --on-navy: #FFFFFF;
+      --on-bronze: #0A1420;
+      --shadow-1: 0 1px 2px rgb(0 0 0 / .4);
+      --shadow-2: 0 6px 20px rgb(0 0 0 / .5);
+      --shadow-3: 0 18px 44px rgb(0 0 0 / .55);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0A1420;
+    --surface: #0F1E30;
+    --surface-muted: #14283F;
+    --border: #24374F;
+    --border-strong: #647CA6;
+    --text: #E7ECF3;
+    --text-muted: #A9B6C6;
+    --heading: #F2F5F9;
+    --navy: #3D6099;
+    --navy-deep: #24374F;
+    --bronze: #E9B667;
+    --bronze-fill: #D8A24A;
+    --link: #E9B667;
+    --focus: #7CA9FF;
+    --ok: #4ADE80;
+    --warn: #FBBF24;
+    --stop: #F87171;
+    --on-navy: #FFFFFF;
+    --on-bronze: #0A1420;
+    --shadow-1: 0 1px 2px rgb(0 0 0 / .4);
+    --shadow-2: 0 6px 20px rgb(0 0 0 / .5);
+    --shadow-3: 0 18px 44px rgb(0 0 0 / .55);
+    color-scheme: dark;
+  }
+
+  /* ============ BASE ============ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--la-body);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: var(--page-max); margin-inline: auto; padding-inline: clamp(20px, 5vw, 56px); }
+
+  h1, h2, h3 { color: var(--heading); text-wrap: balance; line-height: 1.15; margin: 0; }
+  p { margin: 0; }
+  a { color: var(--link); text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+  hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .ar { font-family: var(--ar-body); direction: rtl; line-height: 1.85; }
+  .eyebrow {
+    font-family: var(--mono); font-size: var(--step--1); font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--bronze);
+    margin: 0 0 var(--sp-3);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--navy) 10%, transparent), transparent 60%),
+      var(--surface);
+  }
+  .masthead .wrap { padding-block: clamp(48px, 9vw, 104px); }
+  .lockup { display: flex; align-items: center; gap: var(--sp-4); margin-bottom: var(--sp-6); }
+  .mark { flex: none; width: 52px; height: 52px; }
+  .mark svg { display: block; width: 100%; height: 100%; }
+  .lockup-txt { display: flex; flex-direction: column; gap: 2px; }
+  .lockup-ar { font-family: var(--ar-display); font-size: 1.5rem; font-weight: 700; color: var(--heading); line-height: 1; }
+  .lockup-en { font-family: var(--la-display); font-size: 0.86rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); }
+
+  .masthead h1 {
+    font-family: var(--la-display);
+    font-weight: 600;
+    font-size: var(--step-4);
+    max-width: 20ch;
+    margin-bottom: var(--sp-4);
+  }
+  .masthead .lede { max-width: 52ch; color: var(--text-muted); font-size: var(--step-1); }
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin-top: var(--sp-6);
+    font-family: var(--mono); font-size: var(--step--1); color: var(--text-muted);
+  }
+  .meta-row span { display: inline-flex; align-items: center; gap: 6px; }
+  .meta-row b { color: var(--text); font-weight: 500; }
+
+  /* ============ SECTION SHELL ============ */
+  section { border-bottom: 1px solid var(--border); }
+  section > .wrap { padding-block: clamp(48px, 8vw, 88px); }
+  .sec-head { max-width: var(--measure); margin-bottom: var(--sp-7); }
+  .sec-head h2 { font-family: var(--la-display); font-weight: 600; font-size: var(--step-3); margin-bottom: var(--sp-3); }
+  .sec-head p { color: var(--text-muted); }
+
+  /* ============ IDENTITY ============ */
+  .stmt {
+    display: grid; gap: var(--sp-6);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) { .stmt { grid-template-columns: 1fr 1fr; gap: var(--sp-8); } }
+  .stmt-block { border-inline-start: 2px solid var(--bronze-fill); padding-inline-start: var(--sp-5); }
+  .stmt-block .label {
+    font-family: var(--mono); font-size: var(--step--1); letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--sp-3);
+  }
+  .stmt-ar { font-family: var(--ar-display); font-size: var(--step-2); line-height: 1.7; direction: rtl; color: var(--heading); }
+  .stmt-en { font-family: var(--la-display); font-size: var(--step-1); line-height: 1.5; color: var(--text); }
+
+  .triad { display: grid; gap: var(--sp-4); margin-top: var(--sp-8); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .triad div { background: var(--surface-muted); border-radius: var(--r-lg); padding: var(--sp-5); }
+  .triad .k { font-family: var(--ar-display); font-size: 1.6rem; color: var(--heading); direction: rtl; }
+  .triad .v { font-family: var(--la-display); font-style: italic; color: var(--text-muted); margin-top: 2px; }
+  .triad .d { margin-top: var(--sp-3); font-size: var(--step--1); color: var(--text-muted); }
+
+  /* ============ COLOUR ============ */
+  .themes { display: grid; gap: var(--sp-6); grid-template-columns: 1fr; }
+  @media (min-width: 820px) { .themes { grid-template-columns: 1fr 1fr; gap: var(--sp-5); } }
+  .panel { border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+  .panel-h {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: var(--sp-3) var(--sp-4); font-family: var(--mono); font-size: var(--step--1);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .panel.lite { background: #FFFFFF; color: #0F172A; }
+  .panel.lite .panel-h { background: #F6F8FA; border-bottom: 1px solid #E2E8F0; color: #475569; }
+  .panel.drk { background: #0F1E30; color: #E7ECF3; }
+  .panel.drk .panel-h { background: #0A1420; border-bottom: 1px solid #24374F; color: #A9B6C6; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 1px; background: var(--border); }
+  .sw { padding: var(--sp-4); display: flex; flex-direction: column; gap: 3px; min-height: 92px; }
+  .panel.lite .sw { background: #FFFFFF; }
+  .panel.drk .sw { background: #0F1E30; }
+  .sw .chip { width: 26px; height: 26px; border-radius: 6px; margin-bottom: var(--sp-2); box-shadow: inset 0 0 0 1px rgb(128 128 128 / .25); }
+  .sw .nm { font-family: var(--mono); font-size: 0.72rem; font-weight: 500; }
+  .sw .hx { font-family: var(--mono); font-size: 0.72rem; opacity: .6; }
+  .sw .cr { font-family: var(--mono); font-size: 0.68rem; opacity: .8; margin-top: auto; }
+
+  .rule-note {
+    margin-top: var(--sp-5); padding: var(--sp-4) var(--sp-5);
+    background: var(--surface-muted); border-radius: var(--r-md);
+    border-inline-start: 3px solid var(--bronze-fill);
+    font-size: var(--step--1); color: var(--text-muted);
+  }
+  .rule-note b { color: var(--text); font-weight: 600; }
+
+  /* ============ TYPE ============ */
+  .type-grid { display: grid; gap: var(--sp-7); }
+  @media (min-width: 960px) { .type-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-8); } }
+  .type-col h3 {
+    font-family: var(--mono); font-size: var(--step--1); font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: var(--sp-4); padding-bottom: var(--sp-2); border-bottom: 1px solid var(--border);
+  }
+  .spec-hero-ar { font-family: var(--ar-display); font-weight: 700; font-size: var(--step-4); line-height: 1.25; direction: rtl; color: var(--heading); }
+  .spec-hero-en { font-family: var(--la-display); font-weight: 600; font-size: var(--step-4); line-height: 1.1; color: var(--heading); }
+  .spec-h2-ar { font-family: var(--ar-display); font-weight: 700; font-size: var(--step-2); direction: rtl; color: var(--heading); margin-top: var(--sp-4); }
+  .spec-h2-en { font-family: var(--la-display); font-weight: 600; font-size: var(--step-2); color: var(--heading); margin-top: var(--sp-4); }
+  .spec-body-ar { font-family: var(--ar-body); font-size: var(--step-0); line-height: 1.85; direction: rtl; max-width: 46em; margin-top: var(--sp-3); color: var(--text); }
+  .spec-body-en { font-family: var(--la-body); font-size: var(--step-0); line-height: 1.6; max-width: var(--measure); margin-top: var(--sp-3); color: var(--text); }
+  .spec-cap { font-family: var(--mono); font-size: var(--step--1); color: var(--text-muted); margin-top: var(--sp-3); }
+
+  .scale { margin-top: var(--sp-7); display: flex; flex-direction: column; gap: var(--sp-3); }
+  .scale-row { display: flex; align-items: baseline; gap: var(--sp-4); border-bottom: 1px dashed var(--border); padding-bottom: var(--sp-3); }
+  .scale-row .tk { font-family: var(--mono); font-size: 0.74rem; color: var(--text-muted); flex: none; width: 74px; }
+  .scale-row .sm { font-family: var(--la-display); color: var(--heading); line-height: 1; }
+  .families { margin-top: var(--sp-6); display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); font-size: var(--step--1); }
+  .families div { background: var(--surface-muted); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
+  .families .role { font-family: var(--mono); color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .families .fam { color: var(--text); font-weight: 500; margin-top: 2px; }
+
+  /* ============ TOKEN VISUALS ============ */
+  .tok-grid { display: grid; gap: var(--sp-6); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .tok-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-5); box-shadow: var(--shadow-1); }
+  .tok-card h3 { font-family: var(--la-display); font-size: var(--step-1); margin-bottom: var(--sp-4); }
+  .bars { display: flex; flex-direction: column; gap: var(--sp-2); }
+  .bar-row { display: flex; align-items: center; gap: var(--sp-3); font-family: var(--mono); font-size: 0.74rem; color: var(--text-muted); }
+  .bar { height: 14px; background: var(--bronze-fill); border-radius: 2px; }
+  .radii { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
+  .radii div { width: 60px; height: 60px; background: var(--navy); border: 1px solid var(--border-strong); }
+  .radii span { display:block; font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted); margin-top: 4px; text-align:center; }
+  .elevs { display: flex; gap: var(--sp-5); flex-wrap: wrap; }
+  .elevs div { width: 84px; height: 56px; background: var(--surface); border-radius: var(--r-md); }
+  .e1 { box-shadow: var(--shadow-1); } .e2 { box-shadow: var(--shadow-2); } .e3 { box-shadow: var(--shadow-3); }
+  .elevs span { display:block; font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted); margin-top: 6px; }
+
+  /* ============ COMPONENTS ============ */
+  .comp-stage { display: grid; gap: var(--sp-5); grid-template-columns: 1fr; }
+  @media (min-width: 820px) { .comp-stage { grid-template-columns: 1fr 1fr; } }
+  .stage {
+    border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-6);
+    display: flex; flex-direction: column; gap: var(--sp-5);
+  }
+  .stage.lite { background: #FFFFFF; color: #0F172A; --_b:#854D0E; --_bf:#A16207; --_navy:#1E3A5F; --_bd:#CBD5E1; --_bds:#64748B; --_mut:#475569; --_head:#1E3A5F; --_muted-bg:#EAEFF4; --_on:#FFFFFF; --_focus:#1D4ED8; }
+  .stage.drk { background: #0F1E30; color: #E7ECF3; --_b:#E9B667; --_bf:#D8A24A; --_navy:#3D6099; --_bd:#24374F; --_bds:#647CA6; --_mut:#A9B6C6; --_head:#F2F5F9; --_muted-bg:#14283F; --_on:#0A1420; --_focus:#7CA9FF; }
+  .stage .tag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--_mut); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+  .btn {
+    font-family: var(--la-body); font-weight: 600; font-size: 0.95rem;
+    padding: 12px 22px; border-radius: var(--r-md); border: 1px solid transparent;
+    cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 160ms var(--ease-out), background-color var(--dur) var(--ease-out);
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--_b); color: var(--_on); }
+  .btn-secondary { background: var(--_navy); color: #fff; }
+  .btn-ghost { background: transparent; color: var(--_head); border-color: var(--_bds); }
+  .btn svg { width: 16px; height: 16px; }
+
+  .demo-card {
+    background: var(--_muted-bg); border: 1px solid var(--_bd); border-radius: var(--r-lg);
+    padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-2);
+  }
+  .demo-card .kick { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--_b); }
+  .demo-card h4 { margin: 0; font-family: var(--la-display); font-size: var(--step-1); color: var(--_head); }
+  .demo-card .ar-t { font-family: var(--ar-display); font-size: 1.3rem; color: var(--_head); direction: rtl; }
+  .demo-card p { font-size: var(--step--1); color: var(--_mut); }
+  .badges { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+  .badge { font-family: var(--la-body); font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; }
+  .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .badge.open { color: #15803D; background: color-mix(in srgb, #15803D 14%, transparent); }
+  .badge.soon { color: var(--_b); background: color-mix(in srgb, var(--_bf) 18%, transparent); }
+  .badge.arch { color: var(--_mut); background: color-mix(in srgb, var(--_mut) 15%, transparent); }
+  .stage.drk .badge.open { color: #4ADE80; background: color-mix(in srgb, #4ADE80 16%, transparent); }
+
+  .field label { display: block; font-family: var(--la-body); font-weight: 500; font-size: 0.9rem; color: var(--_head); margin-bottom: 6px; }
+  .field .hint { font-size: 0.78rem; color: var(--_mut); margin-bottom: 6px; }
+  .field input {
+    width: 100%; font-family: var(--la-body); font-size: 1rem; padding: 11px 14px;
+    background: var(--_muted-bg); color: inherit; min-height: 44px;
+    border: 1px solid var(--_bds); border-radius: var(--r-md);
+  }
+  .field input::placeholder { color: color-mix(in srgb, currentColor 45%, transparent); }
+  .field input:focus-visible { outline: 2px solid var(--_focus, var(--focus)); outline-offset: 2px; }
+
+  /* ============ MOTION ============ */
+  .reveal { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out); }
+    .reveal.in { opacity: 1; transform: none; }
+  }
+  .motion-note { margin-top: var(--sp-5); font-size: var(--step--1); color: var(--text-muted); max-width: var(--measure); }
+  .mtokens { margin-top: var(--sp-5); display: grid; gap: var(--sp-2); grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); font-family: var(--mono); font-size: 0.76rem; }
+  .mtokens div { background: var(--surface-muted); border-radius: var(--r-sm); padding: var(--sp-3); color: var(--text-muted); }
+  .mtokens b { color: var(--text); font-weight: 500; }
+
+  /* ============ FOOTER ============ */
+  footer .wrap { padding-block: var(--sp-8); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-4); align-items: center; }
+  footer { color: var(--text-muted); font-size: var(--step--1); }
+  footer .credit { font-family: var(--la-display); }
+  footer a { font-weight: 500; }
+
+  .status-flag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--warn);
+    border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent);
+    padding: 4px 10px; border-radius: 999px;
+  }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="lockup">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none">
+          <rect x="2" y="2" width="56" height="56" rx="10" fill="#1E3A5F"/>
+          <path d="M30 12l5.6 8.9 10.4 2.4-7 8 1 10.6L30 48l-9.9-4.1 1-10.6-7-8 10.4-2.4L30 12z"
+                fill="none" stroke="#A16207" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="30" cy="30.5" r="4.5" fill="#A16207"/>
+        </svg>
+      </span>
+      <span class="lockup-txt">
+        <span class="lockup-ar">مركز بحوث حضرموت</span>
+        <span class="lockup-en">Hadramout Research Center</span>
+      </span>
+    </div>
+
+    <p class="eyebrow">Visual identity &middot; Sprint&nbsp;1 draft</p>
+    <h1>A knowledge beacon for Hadramout.</h1>
+    <p class="lede">The design language for the Center's first independent website —
+      colour, type in both scripts, tokens, components and motion. Reviewed and signed
+      off before a single page is built.</p>
+
+    <div class="meta-row">
+      <span>Client&nbsp; <b>HRC &middot; Al&#8209;Ahgaff University</b></span>
+      <span>Studio&nbsp; <b>Novixa</b></span>
+      <span>Locale&nbsp; <b>ar&#8209;first / en</b></span>
+      <span>Est.&nbsp; <b class="mono">2013</b></span>
+      <span>Mukalla&nbsp; <b class="mono">14.54°N 49.13°E</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- IDENTITY -->
+  <section id="identity">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Positioning</p>
+        <h2>What the identity has to carry</h2>
+        <p>A scholarly institute in Mukalla, under Hadramout's first university, working
+          in research, consultancy and training. Credible and rooted — not corporate,
+          not a startup. The Center's own stated purpose is to illuminate Hadramout's
+          past, present and future.</p>
+      </div>
+
+      <div class="stmt">
+        <div class="stmt-block">
+          <p class="label">الرؤية &nbsp;/&nbsp; Vision</p>
+          <p class="stmt-ar">التميّز والريادة في البحوث والدراسات والاستشارات والتدريب بما
+            يحقّق التنمية المستدامة.</p>
+        </div>
+        <div class="stmt-block">
+          <p class="label">Positioning line &nbsp;/&nbsp; EN</p>
+          <p class="stmt-en">Al&#8209;Ahgaff University's arm for research, consultancy and
+            training — a credible, local institution that illuminates Hadramout's past,
+            present and future.</p>
+        </div>
+      </div>
+
+      <div class="triad">
+        <div>
+          <p class="k">الماضي</p><p class="v">The past</p>
+          <p class="d">Manuscript scholarship, social history, the archive of the Wadi.</p>
+        </div>
+        <div>
+          <p class="k">الحاضر</p><p class="v">The present</p>
+          <p class="d">Consultancy, arbitration, translation, capacity building.</p>
+        </div>
+        <div>
+          <p class="k">المستقبل</p><p class="v">The future</p>
+          <p class="d">Training a generation; the Al&#8209;Ahgaff Journal for Social Sciences.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOUR -->
+  <section id="colour">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Colour</p>
+        <h2>Institutional navy, an umber accent, cool paper</h2>
+        <p>Navy does the work; a deep umber&#8209;bronze marks the single most important
+          action in any view. Neutrals carry a faint navy bias so they read as chosen.
+          Every pairing below is measured against WCAG&nbsp;2.2 — ratios shown.</p>
+      </div>
+
+      <div class="themes">
+        <div class="panel lite">
+          <div class="panel-h"><span>Light</span><span>default</span></div>
+          <div class="swatches">
+            <div class="sw"><span class="chip" style="background:#F6F8FA"></span><span class="nm">bg</span><span class="hx">#F6F8FA</span></div>
+            <div class="sw"><span class="chip" style="background:#FFFFFF"></span><span class="nm">surface</span><span class="hx">#FFFFFF</span></div>
+            <div class="sw"><span class="chip" style="background:#EAEFF4"></span><span class="nm">surface&#8209;muted</span><span class="hx">#EAEFF4</span></div>
+            <div class="sw"><span class="chip" style="background:#0F172A"></span><span class="nm">text</span><span class="hx">#0F172A</span><span class="cr">17.9 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#475569"></span><span class="nm">text&#8209;muted</span><span class="hx">#475569</span><span class="cr">7.6 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#1E3A5F"></span><span class="nm">navy / heading</span><span class="hx">#1E3A5F</span><span class="cr">11.5 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#854D0E"></span><span class="nm">bronze — text/CTA</span><span class="hx">#854D0E</span><span class="cr">6.9 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#A16207"></span><span class="nm">bronze&#8209;fill</span><span class="hx">#A16207</span><span class="cr">large only</span></div>
+            <div class="sw"><span class="chip" style="background:#64748B"></span><span class="nm">border&#8209;interactive</span><span class="hx">#64748B</span><span class="cr">4.8 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#1D4ED8"></span><span class="nm">focus</span><span class="hx">#1D4ED8</span><span class="cr">6.7 : 1</span></div>
+          </div>
+        </div>
+
+        <div class="panel drk">
+          <div class="panel-h"><span>Dark</span><span>prefers&#8209;color&#8209;scheme</span></div>
+          <div class="swatches">
+            <div class="sw"><span class="chip" style="background:#0A1420"></span><span class="nm">bg</span><span class="hx">#0A1420</span></div>
+            <div class="sw"><span class="chip" style="background:#0F1E30"></span><span class="nm">surface</span><span class="hx">#0F1E30</span></div>
+            <div class="sw"><span class="chip" style="background:#14283F"></span><span class="nm">surface&#8209;muted</span><span class="hx">#14283F</span></div>
+            <div class="sw"><span class="chip" style="background:#E7ECF3"></span><span class="nm">text</span><span class="hx">#E7ECF3</span><span class="cr">15.6 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#A9B6C6"></span><span class="nm">text&#8209;muted</span><span class="hx">#A9B6C6</span><span class="cr">9.0 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#F2F5F9"></span><span class="nm">heading</span><span class="hx">#F2F5F9</span><span class="cr">16.9 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#E9B667"></span><span class="nm">bronze — text/link</span><span class="hx">#E9B667</span><span class="cr">AAA</span></div>
+            <div class="sw"><span class="chip" style="background:#D8A24A"></span><span class="nm">accent&#8209;fill</span><span class="hx">#D8A24A</span><span class="cr">CTA bg</span></div>
+            <div class="sw"><span class="chip" style="background:#647CA6"></span><span class="nm">border&#8209;interactive</span><span class="hx">#647CA6</span><span class="cr">4.0 : 1</span></div>
+            <div class="sw"><span class="chip" style="background:#7CA9FF"></span><span class="nm">focus</span><span class="hx">#7CA9FF</span><span class="cr">7.9 : 1</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="rule-note"><b>The bronze rule.</b> <span class="mono">#A16207</span> reads at
+        4.9:1 on white — fine for fills and 24&nbsp;px+ graphics, marginal for text. So the
+        text, link and CTA colour is the deeper <span class="mono">#854D0E</span> (6.9:1),
+        and hairline dividers (<span class="mono">#CBD5E1</span>) stay decorative while
+        anything you interact with gets the stronger <span class="mono">#64748B</span> edge.</p>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section id="type">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Typography</p>
+        <h2>Two calligraphic pairs, one system</h2>
+        <p>Arabic leads. <strong>Amiri</strong> — a revival of the Būlāq/Amiria Press Naskh —
+          carries the display voice with the gravitas a Hadrami institution earns;
+          <strong>IBM&nbsp;Plex&nbsp;Sans&nbsp;Arabic</strong> keeps running text modern and
+          legible. On the Latin side <strong>EB&nbsp;Garamond</strong> shares Amiri's
+          old&#8209;style, pen&#8209;drawn axis; <strong>Inter</strong> handles UI. Numerals and
+          coordinates use <strong>IBM&nbsp;Plex&nbsp;Mono</strong>, tying back to the Arabic body face.</p>
+      </div>
+
+      <div class="type-grid">
+        <div class="type-col">
+          <h3>العربية — Amiri / IBM Plex Sans Arabic</h3>
+          <p class="spec-hero-ar">مركزُ بحوثِ حضرموت</p>
+          <p class="spec-h2-ar">البحث العلمي، والاستشارات، والتدريب</p>
+          <p class="spec-body-ar">تأسّس مركز بحوث حضرموت عام 2013 مركزاً علمياً تابعاً لجامعة
+            الأحقاف، له استقلالٌ ماليٌّ وإداري، يُعنى بالبحث والدراسات والاستشارات والتحكيم
+            والترجمة والتدريب وخدمة المجتمع في حضرموت، ويُصدر مجلة الأحقاف للعلوم الاجتماعية.</p>
+          <p class="spec-cap">display 700 &middot; line‑height 1.85 &middot; no letter‑spacing on Arabic</p>
+        </div>
+        <div class="type-col">
+          <h3>Latin — EB Garamond / Inter</h3>
+          <p class="spec-hero-en">Hadramout Research Center</p>
+          <p class="spec-h2-en">Research, consultancy &amp; training</p>
+          <p class="spec-body-en">Established in 2013 as a scholarly center of Al&#8209;Ahgaff
+            University, with financial and administrative independence, the Center works in
+            research and studies, consultancy, arbitration, translation and training across
+            Hadramout, and publishes the Al&#8209;Ahgaff Journal for Social Sciences.</p>
+          <p class="spec-cap">display 600 &middot; body Inter 400 &middot; measure ~66ch</p>
+        </div>
+      </div>
+
+      <div class="scale">
+        <div class="scale-row"><span class="tk">step‑4</span><span class="sm" style="font-size:var(--step-4)">Aa — الأحقاف</span></div>
+        <div class="scale-row"><span class="tk">step‑3</span><span class="sm" style="font-size:var(--step-3)">Aa — الأحقاف</span></div>
+        <div class="scale-row"><span class="tk">step‑2</span><span class="sm" style="font-size:var(--step-2)">Aa — الأحقاف</span></div>
+        <div class="scale-row"><span class="tk">step‑1</span><span class="sm" style="font-size:var(--step-1)">Aa — الأحقاف</span></div>
+        <div class="scale-row"><span class="tk">step‑0</span><span class="sm" style="font-size:var(--step-0)">Aa — body 16px floor</span></div>
+        <div class="scale-row"><span class="tk">step‑‑1</span><span class="sm" style="font-size:var(--step--1)">Aa — captions &amp; labels</span></div>
+      </div>
+
+      <div class="families">
+        <div><p class="role">AR display</p><p class="fam">Amiri — 400 / 700</p></div>
+        <div><p class="role">AR body</p><p class="fam">IBM Plex Sans Arabic — 400 / 500 / 600</p></div>
+        <div><p class="role">LA display</p><p class="fam">EB Garamond — 500 / 600 / 700</p></div>
+        <div><p class="role">LA body / UI</p><p class="fam">Inter — 400 / 500 / 600</p></div>
+        <div><p class="role">Data / mono</p><p class="fam">IBM Plex Mono — 400 / 500</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOKENS -->
+  <section id="tokens">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Tokens</p>
+        <h2>Spacing, radius, elevation</h2>
+        <p>An 8&#8209;pt spine with 4&#8209;pt half&#8209;steps. Radius and shadow are spent by
+          role — a hairline card is not a modal — so hierarchy stays legible.</p>
+      </div>
+      <div class="tok-grid">
+        <div class="tok-card">
+          <h3>Spacing &mdash; 8pt</h3>
+          <div class="bars">
+            <div class="bar-row"><span style="width:52px">sp‑2</span><span class="bar" style="width:8px"></span>8</div>
+            <div class="bar-row"><span style="width:52px">sp‑4</span><span class="bar" style="width:16px"></span>16</div>
+            <div class="bar-row"><span style="width:52px">sp‑5</span><span class="bar" style="width:24px"></span>24</div>
+            <div class="bar-row"><span style="width:52px">sp‑6</span><span class="bar" style="width:32px"></span>32</div>
+            <div class="bar-row"><span style="width:52px">sp‑7</span><span class="bar" style="width:48px"></span>48</div>
+            <div class="bar-row"><span style="width:52px">sp‑8</span><span class="bar" style="width:64px"></span>64</div>
+          </div>
+        </div>
+        <div class="tok-card">
+          <h3>Radius</h3>
+          <div class="radii">
+            <div><div style="border-radius:4px;width:60px;height:60px;background:var(--navy)"></div><span>sm 4</span></div>
+            <div><div style="border-radius:8px;width:60px;height:60px;background:var(--navy)"></div><span>md 8</span></div>
+            <div><div style="border-radius:14px;width:60px;height:60px;background:var(--navy)"></div><span>lg 14</span></div>
+            <div><div style="border-radius:22px;width:60px;height:60px;background:var(--navy)"></div><span>xl 22</span></div>
+          </div>
+        </div>
+        <div class="tok-card">
+          <h3>Elevation</h3>
+          <div class="elevs">
+            <div><div class="e1" style="width:84px;height:56px;background:var(--surface);border-radius:8px"></div><span>shadow‑1 · cards</span></div>
+            <div><div class="e2" style="width:84px;height:56px;background:var(--surface);border-radius:8px"></div><span>shadow‑2 · hover</span></div>
+            <div><div class="e3" style="width:84px;height:56px;background:var(--surface);border-radius:8px"></div><span>shadow‑3 · overlay</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section id="components">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Components</p>
+        <h2>The primitives, in both themes</h2>
+        <p>One primary action per view, in bronze. Cards are calm — hairline and a
+          whisper of shadow. Inputs get the stronger edge and a 44&nbsp;px target.</p>
+      </div>
+
+      <div class="comp-stage">
+        <div class="stage lite">
+          <span class="tag">Light</span>
+          <div class="btn-row">
+            <button class="btn btn-primary">اطلب استشارة
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="btn btn-secondary">Browse programs</button>
+            <button class="btn btn-ghost">تحميل الدليل</button>
+          </div>
+          <div class="demo-card">
+            <span class="kick">دبلوم &middot; Diploma</span>
+            <p class="ar-t">الدبلوم المتوسط في اللغة الإنجليزية</p>
+            <h4>Intermediate English Diploma</h4>
+            <p>Two terms · in‑person, Mukalla · certificate on completion.</p>
+            <div class="badges">
+              <span class="badge open">Enrolling</span>
+              <span class="badge soon">Next intake</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="e1">البريد الإلكتروني</label>
+            <p class="hint">We reply within two working days.</p>
+            <input id="e1" type="email" inputmode="email" dir="ltr" placeholder="name@example.com">
+          </div>
+        </div>
+
+        <div class="stage drk">
+          <span class="tag">Dark</span>
+          <div class="btn-row">
+            <button class="btn btn-primary">اطلب استشارة
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="btn btn-secondary">Browse programs</button>
+            <button class="btn btn-ghost">تحميل الدليل</button>
+          </div>
+          <div class="demo-card">
+            <span class="kick">مجلة &middot; Journal</span>
+            <p class="ar-t">مجلة الأحقاف للعلوم الاجتماعية</p>
+            <h4>Al‑Ahgaff Journal for Social Sciences</h4>
+            <p>Peer‑reviewed · social sciences · call for papers open.</p>
+            <div class="badges">
+              <span class="badge soon">Issue 03</span>
+              <span class="badge arch">Archive</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="e2">البريد الإلكتروني</label>
+            <p class="hint">We reply within two working days.</p>
+            <input id="e2" type="email" inputmode="email" dir="ltr" placeholder="name@example.com">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section id="motion">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Motion</p>
+        <h2>Quiet, and it means something</h2>
+        <p>Motion orients and confirms — it never delays reading. Sections rise a short
+          distance into place on first view; interactive elements give instant feedback.
+          Everything below is disabled the moment the reader asks for reduced motion.</p>
+      </div>
+
+      <div class="reveal" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-6);box-shadow:var(--shadow-1);max-width:var(--measure)">
+        <p class="mono" style="font-size:0.74rem;color:var(--text-muted);letter-spacing:0.08em">SCROLL‑REVEAL &middot; DEMO</p>
+        <p style="margin-top:8px;color:var(--text)">This block entered with
+          <span class="mono">opacity 0 → 1</span>, <span class="mono">y 20 → 0</span>,
+          over <span class="mono">500ms</span> on <span class="mono">ease‑out</span>.
+          A list would stagger its children by 60ms, capped at eight.</p>
+      </div>
+
+      <div class="mtokens">
+        <div><b>instant</b> 80ms — hover tint</div>
+        <div><b>fast</b> 160ms — press / small state</div>
+        <div><b>base</b> 240ms — enter / exit, disclosure</div>
+        <div><b>slow</b> 360–500ms — hero &amp; section reveal</div>
+        <div><b>ease‑out</b> cubic‑bezier(.16, 1, .3, 1)</div>
+        <div><b>reduced‑motion</b> → final state, no movement</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="credit">Hadramout Research Center — visual identity, prepared by
+      <a href="https://novixa-cyan.vercel.app/ar">Novixa</a>.</span>
+    <span class="status-flag">Draft — not final until sign‑off</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>

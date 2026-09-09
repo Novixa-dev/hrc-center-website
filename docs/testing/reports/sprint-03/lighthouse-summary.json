@@ -1,0 +1,67 @@
+{
+  "generated": "2026-09-09",
+  "build": "c34da77",
+  "note": "standalone lighthouse, mobile simulate, localhost prod build, matched SITE_URL",
+  "runs": [
+    {
+      "route": "/ar",
+      "scores": {
+        "performance": 70,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "3.9 s",
+        "cls": "0.001",
+        "tbt": "350 ms",
+        "fcp": "3.9 s"
+      }
+    },
+    {
+      "route": "/en",
+      "scores": {
+        "performance": 73,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "3.6 s",
+        "cls": "0",
+        "tbt": "380 ms",
+        "fcp": "3.6 s"
+      }
+    },
+    {
+      "route": "/ar/about",
+      "scores": {
+        "performance": 79,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "3.3 s",
+        "cls": "0.031",
+        "tbt": "290 ms",
+        "fcp": "3.3 s"
+      }
+    },
+    {
+      "route": "/en/about",
+      "scores": {
+        "performance": 64,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": "4.0 s",
+        "cls": "0",
+        "tbt": "510 ms",
+        "fcp": "4.0 s"
+      }
+    }
+  ]
+}

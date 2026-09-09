@@ -1,0 +1,10 @@
+.next
+node_modules
+pnpm-lock.yaml
+*.md
+docs/design/specimen.html
+.claude
+coverage
+playwright-report
+test-results
+lighthouse-reports
