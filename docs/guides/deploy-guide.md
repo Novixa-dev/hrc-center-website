@@ -15,7 +15,51 @@ It is architected for maximum performance and reliability:
 
 ---
 
-## 2. Option A: Vercel Deployment (Recommended)
+## 1a. Current production: `hrc.novixa.dev` on the Novixa VPS
+
+This is the live setup. Options A and B below are kept as alternatives.
+
+**Pipeline** — [`.github/workflows/deploy.yml`](../../.github/workflows/deploy.yml), on every
+push to `main` (or *Run workflow* in the Actions tab):
+
+1. `verify` — `pnpm lint`, `pnpm typecheck`, `pnpm test:unit`. A failure stops the deploy.
+2. `deploy` — builds the [`Dockerfile`](../../Dockerfile) image (Next.js `output: 'standalone'`,
+   `NEXT_PUBLIC_*` baked in), copies it to the server over SSH, runs
+   `docker compose up -d` in `/opt/hrc-center`, waits for the container health check,
+   then installs [`deploy/nginx/hrc-center.mailcow.conf`](../../deploy/nginx/hrc-center.mailcow.conf)
+   into mailcow's nginx **only if it changed** (`nginx -t` first; the previous file is
+   restored if the test fails; reload is graceful).
+
+**Shared server.** The VPS also runs mailcow and other Novixa sites. Public traffic for
+every site enters through mailcow's nginx (80/443, Cloudflare in front, Cloudflare Origin
+certificate for `*.novixa.dev`). The deploy only touches things named `hrc-center*`:
+
+| What | Where |
+|---|---|
+| Compose project + runtime `.env` | `/opt/hrc-center/` (`.env` is rewritten from GitHub secrets on every deploy) |
+| Container | `hrc-center-app` → `127.0.0.1:3088` (loopback only) |
+| Docker network | `hrc-center-edge` (attached to `mailcowdockerized-nginx-mailcow-1`, also persisted in mailcow's `docker-compose.override.yml`) |
+| nginx site block | `/opt/mailcow-dockerized/data/conf/nginx/hrc-center.conf` (+ `hrc-center/origin.{pem,key}`) |
+| Images | `hrc-center-website:sha-<7>` — the 3 newest are kept |
+
+**GitHub secrets:** `SSH_HOST`, `SSH_USER`, `SSH_PASSWORD` (or `SSH_KEY`, preferred). Optional:
+`RESEND_API_KEY`, `GEMINI_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`,
+`NEXT_PUBLIC_WHATSAPP`, `NEXT_PUBLIC_ANALYTICS`; variable `GEMINI_MODEL`. Changing a
+`NEXT_PUBLIC_*` value needs a new deploy (it is compiled into the bundle).
+
+**Rollback** to an earlier image (on the server):
+
+```bash
+cd /opt/hrc-center
+docker image ls hrc-center-website          # pick a previous sha-xxxxxxx tag
+sed -i 's/^APP_TAG=.*/APP_TAG=sha-xxxxxxx/' .env && docker compose up -d
+```
+
+**Logs / status:** `docker logs -f hrc-center-app` · `docker inspect -f '{{.State.Health.Status}}' hrc-center-app`.
+
+---
+
+## 2. Option A: Vercel Deployment
 
 Vercel provides native edge support, automatic SSL, CDN caching, and continuous deployment from Git.
 
