@@ -1,21 +1,19 @@
-# Deploy hrc.novixa.dev — GitHub → VPS (Node + PM2 + Nginx)
+# Deploy hrc.novixa.dev to the shared Novixa VPS.
 #
-# Flow: verify (lint + typecheck + unit tests) → SSH into the server →
-#       fetch the exact commit into releases/<sha> → pnpm install + build →
-#       switch the `current` symlink → pm2 reload → health check.
-# Old releases are kept (last 5) so a rollback is just re-pointing `current`.
+# Flow: verify (lint + typecheck + unit tests) → build the Docker image on the
+#       runner → copy it to the server over SSH → `docker compose up` in
+#       /opt/hrc-center → install the site block in mailcow's nginx (only if it
+#       changed; `nginx -t` first, previous file restored on failure).
 #
-# Required repository secrets (Settings → Secrets and variables → Actions):
-#   SSH_HOST       161.97.75.64
-#   SSH_USER       root (or a deploy user with sudo)
-#   SSH_PASSWORD   server password   — or use SSH_KEY instead (recommended)
-#   SSH_KEY        private key (optional; used when set)
-# Optional app secrets (written to the server's .env.production):
-#   RESEND_API_KEY, GEMINI_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL,
-#   NEXT_PUBLIC_WHATSAPP, NEXT_PUBLIC_ANALYTICS
-# Optional repository variables:
-#   LETSENCRYPT_EMAIL  email for the TLS certificate
-#   GEMINI_MODEL       defaults to gemini-2.5-flash
+# The VPS also hosts mailcow and other Novixa sites. This workflow only touches
+# things named hrc-center*: /opt/hrc-center, the hrc-center-app container, the
+# hrc-center-edge network and mailcow's conf.d/hrc-center{.conf,/}. nginx is
+# reloaded gracefully, never restarted.
+#
+# Repository secrets: SSH_HOST, SSH_USER, SSH_PASSWORD (or SSH_KEY).
+# Optional app secrets: RESEND_API_KEY, GEMINI_API_KEY, CONTACT_TO_EMAIL,
+#   CONTACT_FROM_EMAIL, NEXT_PUBLIC_WHATSAPP, NEXT_PUBLIC_ANALYTICS.
+# Optional repository variable: GEMINI_MODEL (defaults to gemini-2.5-flash).
 
 name: Deploy
 
@@ -31,15 +29,10 @@ concurrency:
 permissions:
   contents: read
 
-env:
-  DOMAIN: hrc.novixa.dev
-  APP_NAME: hrc-center-website
-  APP_PORT: '3010'
-
 jobs:
   verify:
     name: Lint · Typecheck · Unit tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -62,19 +55,56 @@ jobs:
   deploy:
     name: Deploy to hrc.novixa.dev
     needs: verify
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     environment:
       name: production
       url: https://hrc.novixa.dev
+    env:
+      IMAGE: hrc-center-website
     steps:
-      - name: Build & release on server
+      - uses: actions/checkout@v4
+
+      - name: Compute image tag
+        run: echo "APP_TAG=sha-${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: ${{ env.IMAGE }}:${{ env.APP_TAG }}
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=https://hrc.novixa.dev
+            NEXT_PUBLIC_WHATSAPP=${{ secrets.NEXT_PUBLIC_WHATSAPP }}
+            NEXT_PUBLIC_ANALYTICS=${{ secrets.NEXT_PUBLIC_ANALYTICS }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Bundle release
+        run: |
+          mkdir -p release
+          docker save "${IMAGE}:${APP_TAG}" | gzip -1 > release/image.tar.gz
+          cp deploy/docker-compose.yml deploy/nginx/hrc-center.mailcow.conf release/
+          ls -lh release
+
+      - name: Upload release to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
+          source: release/*
+          target: /opt/hrc-center/incoming
+          strip_components: 1
+          overwrite: true
+
+      - name: Release on server
         uses: appleboy/ssh-action@v1.2.2
         env:
-          REPO_URL: https://github.com/${{ github.repository }}.git
-          GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMIT_SHA: ${{ github.sha }}
-          LE_EMAIL: ${{ vars.LETSENCRYPT_EMAIL }}
           ENV_RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ENV_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ENV_GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
@@ -87,126 +117,83 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           key: ${{ secrets.SSH_KEY }}
-          port: 22
-          command_timeout: 25m
-          envs: DOMAIN,APP_NAME,APP_PORT,REPO_URL,GIT_TOKEN,COMMIT_SHA,LE_EMAIL,ENV_RESEND_API_KEY,ENV_GEMINI_API_KEY,ENV_GEMINI_MODEL,ENV_CONTACT_TO_EMAIL,ENV_CONTACT_FROM_EMAIL,ENV_NEXT_PUBLIC_WHATSAPP,ENV_NEXT_PUBLIC_ANALYTICS
+          command_timeout: 15m
+          envs: IMAGE,APP_TAG,ENV_RESEND_API_KEY,ENV_GEMINI_API_KEY,ENV_GEMINI_MODEL,ENV_CONTACT_TO_EMAIL,ENV_CONTACT_FROM_EMAIL,ENV_NEXT_PUBLIC_WHATSAPP,ENV_NEXT_PUBLIC_ANALYTICS
           script: |
             set -euo pipefail
-            export DEBIAN_FRONTEND=noninteractive HUSKY=0
-            SUDO=""; [ "$(id -u)" -ne 0 ] && SUDO="sudo"
+            APP_DIR=/opt/hrc-center
+            IN="${APP_DIR}/incoming"
+            MC_CONF=/opt/mailcow-dockerized/data/conf/nginx
+            NGX=mailcowdockerized-nginx-mailcow-1
+            NET=hrc-center-edge
+            cd "${APP_DIR}"
+            mkdir -p backups
 
-            APP_DIR="/var/www/${APP_NAME}"
-            RELEASE_DIR="${APP_DIR}/releases/${COMMIT_SHA}"
-            SHARED_DIR="${APP_DIR}/shared"
+            echo "▶ 1/5 Load image ${IMAGE}:${APP_TAG}"
+            gunzip -c "${IN}/image.tar.gz" | docker load
 
-            echo "▶ 1/7 Bootstrap runtime (first deploy only)"
-            if ! command -v node >/dev/null || [ "$(node -p 'process.versions.node.split(".")[0]')" -lt 22 ]; then
-              curl -fsSL https://deb.nodesource.com/setup_22.x | $SUDO -E bash -
-              $SUDO apt-get install -y nodejs
-            fi
-            command -v git  >/dev/null || $SUDO apt-get install -y git
-            command -v pnpm >/dev/null || $SUDO npm install -g pnpm@11.0.8
-            command -v pm2  >/dev/null || $SUDO npm install -g pm2
-
-            echo "▶ 2/7 Fetch ${COMMIT_SHA}"
-            $SUDO mkdir -p "${APP_DIR}/releases" "${SHARED_DIR}"
-            $SUDO chown -R "$(id -un)" "${APP_DIR}"
-            rm -rf "${RELEASE_DIR}"
-            git init -q "${RELEASE_DIR}"
-            cd "${RELEASE_DIR}"
-            AUTH="$(printf 'x-access-token:%s' "${GIT_TOKEN}" | base64 -w0)"
-            git -c http.extraHeader="Authorization: Basic ${AUTH}" \
-              fetch --depth 1 -q "${REPO_URL}" "${COMMIT_SHA}"
-            git checkout -q FETCH_HEAD
-
-            echo "▶ 3/7 Write .env.production"
+            echo "▶ 2/5 Write compose file and .env"
+            cp "${IN}/docker-compose.yml" docker-compose.yml
+            umask 077
             {
-              echo "NEXT_PUBLIC_SITE_URL='https://${DOMAIN}'"
-              echo "RESEND_API_KEY='${ENV_RESEND_API_KEY:-}'"
-              echo "CONTACT_TO_EMAIL='${ENV_CONTACT_TO_EMAIL:-}'"
-              echo "CONTACT_FROM_EMAIL='${ENV_CONTACT_FROM_EMAIL:-}'"
-              echo "GEMINI_API_KEY='${ENV_GEMINI_API_KEY:-}'"
-              echo "GEMINI_MODEL='${ENV_GEMINI_MODEL:-}'"
-              echo "NEXT_PUBLIC_WHATSAPP='${ENV_NEXT_PUBLIC_WHATSAPP:-}'"
-              echo "NEXT_PUBLIC_ANALYTICS='${ENV_NEXT_PUBLIC_ANALYTICS:-}'"
-            } > "${SHARED_DIR}/.env.production"
-            chmod 600 "${SHARED_DIR}/.env.production"
-            ln -sfn "${SHARED_DIR}/.env.production" "${RELEASE_DIR}/.env.production"
+              echo "APP_TAG=${APP_TAG}"
+              echo "RESEND_API_KEY=${ENV_RESEND_API_KEY:-}"
+              echo "CONTACT_TO_EMAIL=${ENV_CONTACT_TO_EMAIL:-}"
+              echo "CONTACT_FROM_EMAIL=${ENV_CONTACT_FROM_EMAIL:-}"
+              echo "GEMINI_API_KEY=${ENV_GEMINI_API_KEY:-}"
+              echo "GEMINI_MODEL=${ENV_GEMINI_MODEL:-}"
+              echo "NEXT_PUBLIC_WHATSAPP=${ENV_NEXT_PUBLIC_WHATSAPP:-}"
+              echo "NEXT_PUBLIC_ANALYTICS=${ENV_NEXT_PUBLIC_ANALYTICS:-}"
+            } > .env
+            umask 022
 
-            echo "▶ 4/7 Install & build"
-            pnpm install --frozen-lockfile
-            NODE_ENV=production pnpm build
-
-            echo "▶ 5/7 Switch release & (re)start PM2"
-            ln -sfn "${RELEASE_DIR}" "${APP_DIR}/current"
-            cat > "${APP_DIR}/ecosystem.config.cjs" <<EOF
-            module.exports = {
-              apps: [{
-                name: '${APP_NAME}',
-                cwd: '${APP_DIR}/current',
-                script: 'node_modules/next/dist/bin/next',
-                args: 'start -p ${APP_PORT} -H 127.0.0.1',
-                env: { NODE_ENV: 'production' },
-                max_memory_restart: '1G',
-              }],
-            };
-            EOF
-            pm2 startOrReload "${APP_DIR}/ecosystem.config.cjs" --update-env
-            pm2 save
-            if [ ! -f /etc/systemd/system/pm2-$(id -un).service ]; then
-              $SUDO env PATH="$PATH" pm2 startup systemd -u "$(id -un)" --hp "$HOME" >/dev/null
+            echo "▶ 3/5 Network (created once, attached to mailcow nginx without restart)"
+            docker network inspect "${NET}" >/dev/null 2>&1 || docker network create "${NET}"
+            if ! docker inspect "${NGX}" -f '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}' | grep -qw "${NET}"; then
+              docker network connect "${NET}" "${NGX}"
             fi
 
-            echo "▶ 6/7 Nginx + TLS (first deploy only)"
-            NGINX_SITE="/etc/nginx/sites-available/${DOMAIN}"
-            if ! command -v nginx >/dev/null; then
-              if $SUDO ss -ltnH '( sport = :80 )' | grep -q .; then
-                echo "⚠ Port 80 is used by another web server — skipping Nginx. Proxy ${DOMAIN} → 127.0.0.1:${APP_PORT} manually."
-              else
-                $SUDO apt-get install -y nginx
+            echo "▶ 4/5 Start container"
+            docker compose up -d --remove-orphans
+            for i in $(seq 1 30); do
+              STATE="$(docker inspect -f '{{.State.Health.Status}}' hrc-center-app)"
+              [ "${STATE}" = "healthy" ] && { echo "✓ hrc-center-app healthy"; break; }
+              if [ "$i" -eq 30 ]; then
+                echo "✗ hrc-center-app is ${STATE}"; docker logs --tail 80 hrc-center-app; exit 1
               fi
-            fi
-            if command -v nginx >/dev/null && [ ! -f "${NGINX_SITE}" ]; then
-              $SUDO tee "${NGINX_SITE}" >/dev/null <<EOF
-            server {
-                listen 80;
-                listen [::]:80;
-                server_name ${DOMAIN};
-
-                client_max_body_size 10m;
-
-                location /_next/static/ {
-                    proxy_pass http://127.0.0.1:${APP_PORT};
-                    add_header Cache-Control "public, max-age=31536000, immutable";
-                }
-
-                location / {
-                    proxy_pass http://127.0.0.1:${APP_PORT};
-                    proxy_http_version 1.1;
-                    proxy_set_header Host \$host;
-                    proxy_set_header X-Real-IP \$remote_addr;
-                    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-                    proxy_set_header X-Forwarded-Proto \$scheme;
-                    proxy_set_header Upgrade \$http_upgrade;
-                    proxy_set_header Connection "upgrade";
-                }
-            }
-            EOF
-              $SUDO ln -sfn "${NGINX_SITE}" "/etc/nginx/sites-enabled/${DOMAIN}"
-              $SUDO nginx -t && $SUDO systemctl reload nginx
-
-              command -v certbot >/dev/null || $SUDO apt-get install -y certbot python3-certbot-nginx
-              if [ -n "${LE_EMAIL:-}" ]; then EMAIL_ARG="-m ${LE_EMAIL:-}"; else EMAIL_ARG="--register-unsafely-without-email"; fi
-              $SUDO certbot --nginx -d "${DOMAIN}" --non-interactive --agree-tos ${EMAIL_ARG} --redirect \
-                || echo "⚠ certbot failed (Cloudflare proxy / DNS?). Site still served on :80 — rerun certbot manually."
-            fi
-
-            echo "▶ 7/7 Health check & cleanup"
-            for i in $(seq 1 20); do
-              if curl -fsS -o /dev/null "http://127.0.0.1:${APP_PORT}/ar"; then echo "✓ App is up"; break; fi
-              [ "$i" -eq 20 ] && { echo "✗ App did not respond"; pm2 logs "${APP_NAME}" --lines 50 --nostream; exit 1; }
-              sleep 3
+              sleep 4
             done
-            cd "${APP_DIR}/releases"
-            ls -1t | tail -n +6 | xargs -r rm -rf
-            echo "✓ Deployed ${COMMIT_SHA} to https://${DOMAIN}"
+
+            echo "▶ 5/5 mailcow nginx site block"
+            if ! cmp -s "${IN}/hrc-center.mailcow.conf" "${MC_CONF}/hrc-center.conf"; then
+              if [ ! -f "${MC_CONF}/hrc-center/origin.pem" ]; then
+                mkdir -p "${MC_CONF}/hrc-center"
+                cp -p "${MC_CONF}/aqar-landing/origin.pem" "${MC_CONF}/aqar-landing/origin.key" "${MC_CONF}/hrc-center/"
+              fi
+              PREV=""
+              if [ -f "${MC_CONF}/hrc-center.conf" ]; then
+                PREV="backups/hrc-center.conf.$(date +%Y%m%d%H%M%S)"
+                cp -p "${MC_CONF}/hrc-center.conf" "${PREV}"
+              fi
+              cp "${IN}/hrc-center.mailcow.conf" "${MC_CONF}/hrc-center.conf"
+              if docker exec "${NGX}" nginx -t; then
+                docker exec "${NGX}" nginx -s reload
+                echo "✓ nginx reloaded"
+              else
+                echo "✗ nginx -t failed — restoring previous site block"
+                if [ -n "${PREV}" ]; then cp -p "${PREV}" "${MC_CONF}/hrc-center.conf"; else rm -f "${MC_CONF}/hrc-center.conf"; fi
+                docker exec "${NGX}" nginx -t
+                exit 1
+              fi
+            else
+              echo "Site block unchanged"
+            fi
+
+            sleep 2
+            curl -fsS -o /dev/null -k --resolve hrc.novixa.dev:443:127.0.0.1 https://hrc.novixa.dev/ar
+            echo "✓ https://hrc.novixa.dev/ar answers through nginx"
+
+            # Keep the 3 newest images of this app only; other images are never touched.
+            docker image ls "${IMAGE}" --format '{{.Tag}}' | tail -n +4 | xargs -r -I{} docker rmi "${IMAGE}:{}" || true
+            rm -rf "${IN}"
+            echo "✓ Deployed ${APP_TAG}"
