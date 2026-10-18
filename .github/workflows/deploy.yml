@@ -1,0 +1,212 @@
+# Deploy hrc.novixa.dev — GitHub → VPS (Node + PM2 + Nginx)
+#
+# Flow: verify (lint + typecheck + unit tests) → SSH into the server →
+#       fetch the exact commit into releases/<sha> → pnpm install + build →
+#       switch the `current` symlink → pm2 reload → health check.
+# Old releases are kept (last 5) so a rollback is just re-pointing `current`.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   SSH_HOST       161.97.75.64
+#   SSH_USER       root (or a deploy user with sudo)
+#   SSH_PASSWORD   server password   — or use SSH_KEY instead (recommended)
+#   SSH_KEY        private key (optional; used when set)
+# Optional app secrets (written to the server's .env.production):
+#   RESEND_API_KEY, GEMINI_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL,
+#   NEXT_PUBLIC_WHATSAPP, NEXT_PUBLIC_ANALYTICS
+# Optional repository variables:
+#   LETSENCRYPT_EMAIL  email for the TLS certificate
+#   GEMINI_MODEL       defaults to gemini-2.5-flash
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  DOMAIN: hrc.novixa.dev
+  APP_NAME: hrc-center-website
+  APP_PORT: '3010'
+
+jobs:
+  verify:
+    name: Lint · Typecheck · Unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: '0'
+
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test:unit
+
+  deploy:
+    name: Deploy to hrc.novixa.dev
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: production
+      url: https://hrc.novixa.dev
+    steps:
+      - name: Build & release on server
+        uses: appleboy/ssh-action@v1.2.2
+        env:
+          REPO_URL: https://github.com/${{ github.repository }}.git
+          GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ github.sha }}
+          LE_EMAIL: ${{ vars.LETSENCRYPT_EMAIL }}
+          ENV_RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ENV_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ENV_GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+          ENV_CONTACT_TO_EMAIL: ${{ secrets.CONTACT_TO_EMAIL || 'info@hrc-ahgaff.org' }}
+          ENV_CONTACT_FROM_EMAIL: ${{ secrets.CONTACT_FROM_EMAIL || 'onboarding@resend.dev' }}
+          ENV_NEXT_PUBLIC_WHATSAPP: ${{ secrets.NEXT_PUBLIC_WHATSAPP }}
+          ENV_NEXT_PUBLIC_ANALYTICS: ${{ secrets.NEXT_PUBLIC_ANALYTICS }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          command_timeout: 25m
+          envs: DOMAIN,APP_NAME,APP_PORT,REPO_URL,GIT_TOKEN,COMMIT_SHA,LE_EMAIL,ENV_RESEND_API_KEY,ENV_GEMINI_API_KEY,ENV_GEMINI_MODEL,ENV_CONTACT_TO_EMAIL,ENV_CONTACT_FROM_EMAIL,ENV_NEXT_PUBLIC_WHATSAPP,ENV_NEXT_PUBLIC_ANALYTICS
+          script: |
+            set -euo pipefail
+            export DEBIAN_FRONTEND=noninteractive HUSKY=0
+            SUDO=""; [ "$(id -u)" -ne 0 ] && SUDO="sudo"
+
+            APP_DIR="/var/www/${APP_NAME}"
+            RELEASE_DIR="${APP_DIR}/releases/${COMMIT_SHA}"
+            SHARED_DIR="${APP_DIR}/shared"
+
+            echo "▶ 1/7 Bootstrap runtime (first deploy only)"
+            if ! command -v node >/dev/null || [ "$(node -p 'process.versions.node.split(".")[0]')" -lt 22 ]; then
+              curl -fsSL https://deb.nodesource.com/setup_22.x | $SUDO -E bash -
+              $SUDO apt-get install -y nodejs
+            fi
+            command -v git  >/dev/null || $SUDO apt-get install -y git
+            command -v pnpm >/dev/null || $SUDO npm install -g pnpm@11.0.8
+            command -v pm2  >/dev/null || $SUDO npm install -g pm2
+
+            echo "▶ 2/7 Fetch ${COMMIT_SHA}"
+            $SUDO mkdir -p "${APP_DIR}/releases" "${SHARED_DIR}"
+            $SUDO chown -R "$(id -un)" "${APP_DIR}"
+            rm -rf "${RELEASE_DIR}"
+            git init -q "${RELEASE_DIR}"
+            cd "${RELEASE_DIR}"
+            AUTH="$(printf 'x-access-token:%s' "${GIT_TOKEN}" | base64 -w0)"
+            git -c http.extraHeader="Authorization: Basic ${AUTH}" \
+              fetch --depth 1 -q "${REPO_URL}" "${COMMIT_SHA}"
+            git checkout -q FETCH_HEAD
+
+            echo "▶ 3/7 Write .env.production"
+            {
+              echo "NEXT_PUBLIC_SITE_URL='https://${DOMAIN}'"
+              echo "RESEND_API_KEY='${ENV_RESEND_API_KEY:-}'"
+              echo "CONTACT_TO_EMAIL='${ENV_CONTACT_TO_EMAIL:-}'"
+              echo "CONTACT_FROM_EMAIL='${ENV_CONTACT_FROM_EMAIL:-}'"
+              echo "GEMINI_API_KEY='${ENV_GEMINI_API_KEY:-}'"
+              echo "GEMINI_MODEL='${ENV_GEMINI_MODEL:-}'"
+              echo "NEXT_PUBLIC_WHATSAPP='${ENV_NEXT_PUBLIC_WHATSAPP:-}'"
+              echo "NEXT_PUBLIC_ANALYTICS='${ENV_NEXT_PUBLIC_ANALYTICS:-}'"
+            } > "${SHARED_DIR}/.env.production"
+            chmod 600 "${SHARED_DIR}/.env.production"
+            ln -sfn "${SHARED_DIR}/.env.production" "${RELEASE_DIR}/.env.production"
+
+            echo "▶ 4/7 Install & build"
+            pnpm install --frozen-lockfile
+            NODE_ENV=production pnpm build
+
+            echo "▶ 5/7 Switch release & (re)start PM2"
+            ln -sfn "${RELEASE_DIR}" "${APP_DIR}/current"
+            cat > "${APP_DIR}/ecosystem.config.cjs" <<EOF
+            module.exports = {
+              apps: [{
+                name: '${APP_NAME}',
+                cwd: '${APP_DIR}/current',
+                script: 'node_modules/next/dist/bin/next',
+                args: 'start -p ${APP_PORT} -H 127.0.0.1',
+                env: { NODE_ENV: 'production' },
+                max_memory_restart: '1G',
+              }],
+            };
+            EOF
+            pm2 startOrReload "${APP_DIR}/ecosystem.config.cjs" --update-env
+            pm2 save
+            if [ ! -f /etc/systemd/system/pm2-$(id -un).service ]; then
+              $SUDO env PATH="$PATH" pm2 startup systemd -u "$(id -un)" --hp "$HOME" >/dev/null
+            fi
+
+            echo "▶ 6/7 Nginx + TLS (first deploy only)"
+            NGINX_SITE="/etc/nginx/sites-available/${DOMAIN}"
+            if ! command -v nginx >/dev/null; then
+              if $SUDO ss -ltnH '( sport = :80 )' | grep -q .; then
+                echo "⚠ Port 80 is used by another web server — skipping Nginx. Proxy ${DOMAIN} → 127.0.0.1:${APP_PORT} manually."
+              else
+                $SUDO apt-get install -y nginx
+              fi
+            fi
+            if command -v nginx >/dev/null && [ ! -f "${NGINX_SITE}" ]; then
+              $SUDO tee "${NGINX_SITE}" >/dev/null <<EOF
+            server {
+                listen 80;
+                listen [::]:80;
+                server_name ${DOMAIN};
+
+                client_max_body_size 10m;
+
+                location /_next/static/ {
+                    proxy_pass http://127.0.0.1:${APP_PORT};
+                    add_header Cache-Control "public, max-age=31536000, immutable";
+                }
+
+                location / {
+                    proxy_pass http://127.0.0.1:${APP_PORT};
+                    proxy_http_version 1.1;
+                    proxy_set_header Host \$host;
+                    proxy_set_header X-Real-IP \$remote_addr;
+                    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto \$scheme;
+                    proxy_set_header Upgrade \$http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                }
+            }
+            EOF
+              $SUDO ln -sfn "${NGINX_SITE}" "/etc/nginx/sites-enabled/${DOMAIN}"
+              $SUDO nginx -t && $SUDO systemctl reload nginx
+
+              command -v certbot >/dev/null || $SUDO apt-get install -y certbot python3-certbot-nginx
+              if [ -n "${LE_EMAIL:-}" ]; then EMAIL_ARG="-m ${LE_EMAIL:-}"; else EMAIL_ARG="--register-unsafely-without-email"; fi
+              $SUDO certbot --nginx -d "${DOMAIN}" --non-interactive --agree-tos ${EMAIL_ARG} --redirect \
+                || echo "⚠ certbot failed (Cloudflare proxy / DNS?). Site still served on :80 — rerun certbot manually."
+            fi
+
+            echo "▶ 7/7 Health check & cleanup"
+            for i in $(seq 1 20); do
+              if curl -fsS -o /dev/null "http://127.0.0.1:${APP_PORT}/ar"; then echo "✓ App is up"; break; fi
+              [ "$i" -eq 20 ] && { echo "✗ App did not respond"; pm2 logs "${APP_NAME}" --lines 50 --nostream; exit 1; }
+              sleep 3
+            done
+            cd "${APP_DIR}/releases"
+            ls -1t | tail -n +6 | xargs -r rm -rf
+            echo "✓ Deployed ${COMMIT_SHA} to https://${DOMAIN}"
