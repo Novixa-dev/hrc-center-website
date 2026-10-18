@@ -1,0 +1,45 @@
+# Production stack for hrc.novixa.dev on the shared Novixa VPS.
+# Lives at /opt/hrc-center/docker-compose.yml (synced by .github/workflows/deploy.yml).
+# Public traffic arrives through mailcow's nginx over the hrc-center-edge network
+# (deploy/nginx/hrc-center.mailcow.conf); the loopback port is for on-host checks only.
+name: hrc-center
+
+services:
+  app:
+    image: hrc-center-website:${APP_TAG:-latest}
+    container_name: hrc-center-app
+    restart: unless-stopped
+    init: true
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: '3000'
+      HOSTNAME: 0.0.0.0
+    ports:
+      - '127.0.0.1:3088:3000'
+    networks:
+      - edge
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:3000/ar').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '5'
+
+networks:
+  edge:
+    external: true
+    name: hrc-center-edge

@@ -4,6 +4,8 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Self-contained server bundle for the Docker image (see Dockerfile).
+  output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
