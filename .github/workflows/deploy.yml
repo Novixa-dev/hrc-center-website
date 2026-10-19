@@ -81,7 +81,14 @@ jobs:
           HUSKY: '0'
 
       - name: Build Next.js (standalone)
-        run: pnpm build
+        run: |
+          set -o pipefail
+          if ! pnpm build 2>&1 | tee build.log; then
+            # Surface the failure as annotations (readable without log access).
+            grep -iE 'error|failed|cannot|unable|module not found|type ?error' build.log \
+              | grep -v '^\s*at ' | head -15 | sed 's/^/::error title=next build::/'
+            exit 1
+          fi
         env:
           NEXT_TELEMETRY_DISABLED: '1'
           NEXT_PUBLIC_SITE_URL: https://hrc.novixa.dev
