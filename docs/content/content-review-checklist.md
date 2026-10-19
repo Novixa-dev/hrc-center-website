@@ -22,8 +22,8 @@
 | A5 | Canonical email | Showing a neutral "contact via form"; footer email hidden pending decision | Provide the email HRC wants public (`hrc12938@gmail.com`? a university address? a new one?) | ⬜ |
 | A6 | WhatsApp number for the quick‑contact button | +967 734 339 597 (published on course pages) as a WhatsApp link on the Contact page | Confirm it is the right public WhatsApp | 🔗 |
 | A7 | Working hours | **Removed 2026-10-19** — the Contact page had shown unsourced hours ("Sun–Thu 8–2") since S6; replaced by the sourced registration card | Provide opening hours (days + times, Ramadan variation?) | ⬜ |
-| A8 | Facebook page canonical URL/handle | Using the share link from the brief | Provide the clean page URL | ⬜ |
-| A9 | Social handles to feature (Instagram, Facebook, + any others) | Instagram + Facebook only | Confirm; add LinkedIn/YouTube if any | ⬜ |
+| A8 | Facebook page canonical URL/handle | Share link resolves to the page "Hadhramaut Research Centre - HRC" (2026-10-19) | Provide the clean page URL/handle | ⬜ partial |
+| A9 | Social handles to feature (Instagram, Facebook, + any others) | Instagram + Facebook only — no other accounts found by search (2026-10-19) | Confirm; add LinkedIn/YouTube if any | ⬜ |
 
 ## B. Leadership & governance (Team page)
 

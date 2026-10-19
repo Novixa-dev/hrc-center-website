@@ -272,3 +272,21 @@ such item exists on any of the 5 feed pages (the arbitration work is documented 
   issues, `ahgaff.edu/mag-centers/magz-soh.aspx` (404). The Issue 3 download link in the official news is a
   malformed shortener URL — not used.
 - The HRC logo exists (seen on the book cover) — a vector is still needed (checklist I1).
+
+### Media coverage & social accounts (S14, 2026-10-19)
+
+| Date | Outlet | Item | URL |
+|---|---|---|---|
+| 2026-10-10 | Tarebah Today (تاربة اليوم) | Office opening + first arbitration-diploma cohort (25 / 120 h) — matches the official news | https://www.tarebhtoday.online/2026/10/10/326756/ |
+| 2026-10-10 | Tarebah Today | Deputy Governor for Development **Riyadh Al-Juhouri** opens the office, honours supporting bodies | https://www.tarebhtoday.online/2026/10/10/326722/ |
+| 2026-04-11 | Sada Al-Sahel (صدى الساحل) | Governor of Hadramout briefed by Prof. Ahmed Kharad + Dr. Hashem Muqaibel on preparations to open the office (described there as "the first accredited international arbitration office in Yemen" — **not** repeated on our site as a claim) | https://www.sada-alsahel.net/news/179161 |
+| 2025-12-27 | League of Islamic Universities | Secretary General at the opening of the 2nd international conference | https://iul1969.org/node/732 |
+
+- BoT chair full name: **الأستاذ/ محمد مبارك بن دهري** — Hadhramout University General Secretariat, 2019-04-07
+  (https://hu.edu.ye/hugt/blog/2019/04/07/329/), where he is also introduced as head of the Yemeni community in
+  Africa (consistent with the brief's "Kenya" note). Role as chair: official news 2026-10-10.
+- Hadramout Foundation for Strategic & Human Studies (https://hfshs.org/) reports its executive director sat on the
+  2nd conference's preparatory committee.
+- Social: Facebook page title "Hadhramaut Research Centre - HRC" / مركز بحوث حضرموت; Instagram @hrc.centre
+  ("مركز بحوث حضرموت"). Both are login-walled to automated readers — no posts/counts collected. No YouTube, X,
+  Telegram or LinkedIn account found (search 2026-10-19).

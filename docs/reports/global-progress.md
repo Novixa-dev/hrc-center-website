@@ -26,6 +26,7 @@
 | S11 | Training catalog + font loading | ✅ Complete | 3 / 3 | ✅ | — | — |
 | S12 | Contact accuracy | ✅ Complete | 3 / 3 | ✅ | — | — |
 | S13 | Home refresh | ✅ Complete | 2 / 2 | ✅ | — | — |
+| S14 | Design review, OG, typography, media | ✅ Complete | 5 / 5 | ✅ | — | — |
 
 Legend: ⏳ not started · 🏗️ in progress · ✅ complete · ⚠️ blocked · 🔁 reopened
 
@@ -95,6 +96,11 @@ _As of S6 close (`sprint-6-complete`), all 13 route types live, local prod build
 
 ## Change log (append‑only, newest first)
 
+- **2026-10-19** — **S14 design review, per-page OG, typography, media.** Design-review skill pass (375/768/1440,
+  AR+EN): assistant trigger no longer covers content; empty conferences state; duplicated affiliation text; 9
+  utility classes pointing at non-existent tokens; assistant strings moved to catalogs and its misleading
+  "powered by Gemini" line corrected. Every page now has its own Open Graph card (84, Chromium-rendered so Arabic
+  shapes correctly). Latin fonts self-hosted and preloaded on `/en` only. "In the media" section on News. e2e 220/220.
 - **2026-10-19** — **S13 home refresh.** Latest-news band (three newest sourced items) added to Home — the
   loader existed since S6 but was never rendered; journal card now states peer-reviewed · semi-annual,
   E-ISSN and issue count. CI audit now median-of-3 with a warm-up run (cold-start noise on `/ar`).
