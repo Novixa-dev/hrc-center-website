@@ -18,10 +18,10 @@
 | A1 | Official center name in EN — "Hadramout" vs "Hadhramaut" spelling | Using **"Hadramout Research Center"** consistently | Confirm preferred English spelling | ⬜ |
 | A2 | Establishment date — month | "Established 2013" (year only shown) | Confirm month (brief says December 2013) | ⬜ |
 | A3 | Physical address wording | "Third floor, Al‑Ahgaff University Presidency Building, Fuah – Al‑Masaken, Mukalla, Hadramout" | Confirm exact wording + floor + building name in AR & EN | ⬜ |
-| A4 | Canonical phone number | Showing university line `+967 5 360303` | Provide a direct HRC number if one exists | ⬜ |
+| A4 | Canonical phone number | Registration lines the Center publishes on its course pages: 05 362606 · 734 339 597 · 781 850 569 (Contact page + `ContactPoint`), with Source link | Confirm which line is the main office line | 🔗 |
 | A5 | Canonical email | Showing a neutral "contact via form"; footer email hidden pending decision | Provide the email HRC wants public (`hrc12938@gmail.com`? a university address? a new one?) | ⬜ |
-| A6 | WhatsApp number for the quick‑contact button | Button hidden until provided | Provide a WhatsApp business number (or say "none") | ⬜ |
-| A7 | Working hours | Section hidden until provided | Provide opening hours (days + times, Ramadan variation?) | ⬜ |
+| A6 | WhatsApp number for the quick‑contact button | +967 734 339 597 (published on course pages) as a WhatsApp link on the Contact page | Confirm it is the right public WhatsApp | 🔗 |
+| A7 | Working hours | **Removed 2026-10-19** — the Contact page had shown unsourced hours ("Sun–Thu 8–2") since S6; replaced by the sourced registration card | Provide opening hours (days + times, Ramadan variation?) | ⬜ |
 | A8 | Facebook page canonical URL/handle | Using the share link from the brief | Provide the clean page URL | ⬜ |
 | A9 | Social handles to feature (Instagram, Facebook, + any others) | Instagram + Facebook only | Confirm; add LinkedIn/YouTube if any | ⬜ |
 

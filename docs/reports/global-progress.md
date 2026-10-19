@@ -24,6 +24,7 @@
 | S9 | Handover & Marketing | ✅ Complete | 7 / 7 | ✅ | ✅ | `v1.0.0` |
 | S10 | Verified content refresh (post-launch) | ✅ Complete | 9 / 9 | ✅ | — | — |
 | S11 | Training catalog + font loading | ✅ Complete | 3 / 3 | ✅ | — | — |
+| S12 | Contact accuracy | ✅ Complete | 3 / 3 | ✅ | — | — |
 
 Legend: ⏳ not started · 🏗️ in progress · ✅ complete · ⚠️ blocked · 🔁 reopened
 
@@ -93,6 +94,9 @@ _As of S6 close (`sprint-6-complete`), all 13 route types live, local prod build
 
 ## Change log (append‑only, newest first)
 
+- **2026-10-19** — **S12 contact accuracy.** Found and removed unsourced office hours on the Contact page
+  (present since S6). Replaced with the registration phones, WhatsApp and men's/women's section locations the
+  Center publishes on its course pages, with a Source link, plus `ContactPoint` JSON-LD. Prettier pass.
 - **2026-10-19** — **S11 training catalog + font loading.** 11 sourced programs (arbitration diploma, AI &
   judicial justice, AI productivity, motion graphics, MikroTik, mobile design, photography, secretarial
   diploma, Onyx Pro, Soroban trainers, English diploma) with published durations/schedules/fees and Source
