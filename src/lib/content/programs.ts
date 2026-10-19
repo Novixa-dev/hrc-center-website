@@ -12,13 +12,14 @@ const STATUS_RANK: Record<ProgramStatus, number> = {
   archived: 2,
 };
 
-/** All programs, ordered by status (open first) then `order`. */
+/** All programs: by status (open first), then most recently announced, then `order`. */
 export function getPrograms(locale: Locale) {
   return programs
     .getAll(locale)
     .sort(
       (a, b) =>
         STATUS_RANK[a.frontmatter.status] - STATUS_RANK[b.frontmatter.status] ||
+        (b.frontmatter.date ?? '').localeCompare(a.frontmatter.date ?? '') ||
         a.frontmatter.order - b.frontmatter.order,
     );
 }

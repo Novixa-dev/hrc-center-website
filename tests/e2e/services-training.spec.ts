@@ -59,7 +59,7 @@ for (const loc of ['ar', 'en'] as const) {
   });
 
   test.describe(`training · ${loc}`, () => {
-    test('catalog: h1, filter bar, 4 program cards', async ({ page }) => {
+    test('catalog: h1, filter bar, program cards', async ({ page }) => {
       await page.goto(`/${loc}/training`);
       await expect(page.locator('h1')).toContainText(l.trainingH1);
       await expect(

@@ -275,7 +275,9 @@
     "fields": {
       "languages": "Languages",
       "design": "Design",
-      "digital-skills": "Digital skills"
+      "digital-skills": "Digital skills",
+      "law": "Law & arbitration",
+      "business": "Accounting & business"
     },
     "status": {
       "open": "Enrolling",
@@ -307,7 +309,10 @@
       "register": "Register interest",
       "ask": "Ask about this program",
       "related": "More programs",
-      "provisionalNote": "The details shown are provisional and under review with the Center."
+      "provisionalNote": "The details shown are provisional and under review with the Center.",
+      "announced": "Last announced",
+      "feesNote": "Fees as published in the course announcement; they may change for future cohorts.",
+      "schedule": "Schedule"
     },
     "format": {
       "in-person": "In person",

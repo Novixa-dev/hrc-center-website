@@ -1,8 +1,9 @@
-import { getTranslations } from 'next-intl/server';
+import { getFormatter, getTranslations } from 'next-intl/server';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Prose } from '@/components/ui/prose';
+import { SourceLink } from '@/components/ui/source-link';
 import type { CollectionItem } from '@/lib/content/collection';
 import type { ProgramFrontmatter } from '@/lib/content/schema';
 
@@ -18,11 +19,22 @@ export async function ProgramDetail({
   program: CollectionItem<ProgramFrontmatter>;
 }) {
   const t = await getTranslations('training');
+  const format = await getFormatter();
   const f = program.frontmatter;
 
   const facts: { label: string; value: string }[] = [];
+  if (f.date)
+    facts.push({
+      label: t('detail.announced'),
+      value: format.dateTime(new Date(f.date), {
+        year: 'numeric',
+        month: 'long',
+      }),
+    });
   if (f.duration)
     facts.push({ label: t('detail.duration'), value: f.duration });
+  if (f.schedule)
+    facts.push({ label: t('detail.schedule'), value: f.schedule });
   if (f.format)
     facts.push({ label: t('detail.format'), value: t(`format.${f.format}`) });
   if (f.language)
@@ -85,6 +97,14 @@ export async function ProgramDetail({
             <p className="mt-(--space-4) text-xs text-text-muted">
               {t('detail.provisionalNote')}
             </p>
+          ) : null}
+          {f.cost ? (
+            <p className="mt-(--space-4) text-xs text-text-muted">
+              {t('detail.feesNote')}
+            </p>
+          ) : null}
+          {f.source ? (
+            <SourceLink source={f.source} className="mt-(--space-4)" />
           ) : null}
         </div>
       </aside>

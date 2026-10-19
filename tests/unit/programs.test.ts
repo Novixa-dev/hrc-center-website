@@ -8,6 +8,15 @@ import {
 import { programFrontmatter } from '@/lib/content/schema';
 
 describe('programs collection', () => {
+  it('every confirmed (non-provisional) program cites its source', () => {
+    for (const locale of ['ar', 'en'] as const) {
+      for (const p of programs.getAll(locale)) {
+        if (p.frontmatter.provisional) continue;
+        expect(p.frontmatter.source?.url, p.slug).toMatch(/^https:\/\//);
+      }
+    }
+  });
+
   it('loads every AR and EN file with valid frontmatter', () => {
     for (const locale of ['ar', 'en'] as const) {
       const all = programs.getAll(locale);
