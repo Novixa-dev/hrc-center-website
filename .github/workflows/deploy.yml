@@ -240,23 +240,36 @@ jobs:
     name: Lighthouse (live site)
     needs: deploy
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     continue-on-error: true
     steps:
-      - name: Audit live pages (mobile)
+      - name: Audit live pages (mobile, median of 3)
         run: |
           npm install -g lighthouse@12.8.2 >/dev/null 2>&1
+          LH() { lighthouse "https://hrc.novixa.dev$1" --quiet --form-factor=mobile \
+            --chrome-flags="--headless=new --no-sandbox" --output=json --output-path="$2"; }
+          # Warm-up: the first audit on a fresh runner pays Chrome/CPU cold-start costs.
+          LH /ar /tmp/warmup.json || true
           for p in /ar /en /ar/research /en/contact; do
-            lighthouse "https://hrc.novixa.dev${p}" --quiet --form-factor=mobile \
-              --chrome-flags="--headless=new --no-sandbox" \
-              --output=json --output-path=lh.json || { echo "::warning::Lighthouse failed on ${p}"; continue; }
-            python3 - "${p}" <<'PY'
+            n=$(echo "$p" | tr '/' '_')
+            for r in 1 2 3; do LH "$p" "lh${n}_$r.json" || echo "::warning::Lighthouse failed on ${p} (run $r)"; done
+            python3 - "$p" lh${n}_*.json <<'PY'
           import json, sys
-          r = json.load(open('lh.json'))
+          runs = []
+          for f in sys.argv[2:]:
+              try:
+                  runs.append(json.load(open(f)))
+              except Exception:
+                  pass
+          if not runs:
+              sys.exit()
+          runs.sort(key=lambda r: r['categories']['performance']['score'] or 0)
+          r = runs[len(runs) // 2]  # median by performance
           c = r['categories']; a = r['audits']
           s = ' · '.join(f"{k} {round((v['score'] or 0) * 100)}" for k, v in c.items())
           m = ' · '.join(f"{k} {a[k].get('displayValue', '')}" for k in ('largest-contentful-paint', 'cumulative-layout-shift', 'total-blocking-time'))
-          print(f"::notice title=Lighthouse {sys.argv[1]}::{s} | {m}")
+          perf = [round((x['categories']['performance']['score'] or 0) * 100) for x in runs]
+          print(f"::notice title=Lighthouse {sys.argv[1]}::{s} | {m} | perf runs {perf}")
           bad = [k for k, v in a.items() if v.get('score') is not None and v['score'] < 0.9
                  and v.get('scoreDisplayMode') in ('binary', 'numeric', 'metricSavings')]
           if bad:
