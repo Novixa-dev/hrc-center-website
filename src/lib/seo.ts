@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 import type { Metadata } from 'next';
 
 import { defaultLocale, locales, type Locale } from '@/i18n/routing';
@@ -10,16 +13,23 @@ type BuildMetadataOptions = {
   title: string;
   description: string;
   /**
-   * Absolute or root-relative OG image URL. Defaults to the locale-level brand
-   * OG image (`/[locale]/opengraph-image`). Per-route OG images are an S7 task
-   * (docs/design/08 §4); until then every route shares the brand card rather
-   * than pointing at an image route that doesn't exist.
+   * Absolute or root-relative OG image URL. Defaults to the page's own card
+   * from `scripts/generate-og.mjs` (public/og/<locale><path>.jpg) when it was
+   * generated for this build, otherwise the locale-level brand card.
    */
   image?: string;
   type?: 'website' | 'article';
   /** Set true on utility pages that should not be indexed. */
   noindex?: boolean;
 };
+
+/** Per-page card rendered at build time (see scripts/generate-og.mjs), if present. */
+function pageOgImage(locale: Locale, cleanPath: string): string | null {
+  const rel = `og/${locale}${cleanPath || '/index'}.jpg`;
+  return existsSync(join(process.cwd(), 'public', rel))
+    ? `${site.url}/${rel}`
+    : null;
+}
 
 const OG_LOCALE: Record<Locale, string> = {
   ar: 'ar_YE',
@@ -45,7 +55,8 @@ export function buildMetadata({
   }
   languages['x-default'] = `${site.url}/${defaultLocale}${cleanPath}`;
 
-  const ogImage = image ?? `${site.url}/${locale}/opengraph-image`;
+  const perPage = image ? null : pageOgImage(locale, cleanPath);
+  const ogImage = image ?? perPage ?? `${site.url}/${locale}/opengraph-image`;
 
   return {
     title,
@@ -64,7 +75,15 @@ export function buildMetadata({
       alternateLocale: locales
         .filter((l) => l !== locale)
         .map((l) => OG_LOCALE[l]),
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+          ...(perPage ? { type: 'image/jpeg' } : {}),
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',

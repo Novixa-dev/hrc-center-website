@@ -57,3 +57,6 @@ pnpm-debug.log*
 # Lighthouse
 /lighthouse-reports/
 /.lighthouseci/
+
+# Generated per-page Open Graph cards (scripts/generate-og.mjs; built in CI)
+/public/og/

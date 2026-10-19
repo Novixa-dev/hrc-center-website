@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
 import { site } from '@/lib/site';
@@ -29,11 +32,14 @@ describe('buildMetadata', () => {
     expect(img?.width).toBe(1200);
   });
 
-  it('defaults the OG image to the locale-level route, not a per-path one', () => {
-    // /[locale]/opengraph-image is the only image route that exists (S7 adds
-    // per-route ones) — a nested default like /ar/about/opengraph-image 404s.
+  it('uses the per-page card when generated, else the locale brand card', () => {
+    // public/og/<locale><path>.jpg comes from scripts/generate-og.mjs (run in CI
+    // before the build); without it the brand route is the only valid image.
     const img = (md.openGraph?.images as { url: string }[])[0];
-    expect(img?.url).toMatch(/\/ar\/opengraph-image$/);
+    const generated = existsSync(join(process.cwd(), 'public/og/ar/about.jpg'));
+    expect(img?.url).toMatch(
+      generated ? /\/og\/ar\/about\.jpg$/ : /\/ar\/opengraph-image$/,
+    );
   });
 
   it('honours noindex', () => {

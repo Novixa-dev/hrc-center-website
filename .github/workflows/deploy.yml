@@ -80,6 +80,13 @@ jobs:
         env:
           HUSKY: '0'
 
+      # Per-page OG cards are rendered by Chromium (satori cannot shape Arabic) and
+      # must exist before the build so the metadata can point at them.
+      - name: Generate per-page Open Graph images
+        run: |
+          pnpm exec playwright install --with-deps chromium
+          pnpm og
+
       - name: Build Next.js (standalone)
         run: |
           set -o pipefail
@@ -111,7 +118,7 @@ jobs:
           PORT=3999 HOSTNAME=127.0.0.1 node server.js > /tmp/server.log 2>&1 &
           PID=$!
           for i in $(seq 1 30); do curl -fsS -o /dev/null http://127.0.0.1:3999/ar && break; sleep 1; done
-          for p in /ar /en /ar/news /en/training /ar/contact /sitemap.xml /robots.txt /manifest.webmanifest /apple-touch-icon.png /icon-192.png /icon-512.png /icon-512-maskable.png /icon.svg /favicon.ico; do
+          for p in /ar /en /ar/news /en/training /ar/contact /sitemap.xml /robots.txt /manifest.webmanifest /apple-touch-icon.png /icon-192.png /icon-512.png /icon-512-maskable.png /icon.svg /favicon.ico /og/ar/index.jpg /og/en/news.jpg; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:3999$p")
             echo "$p → $code"
             [ "$code" = "200" ] || { cat /tmp/server.log; exit 1; }
