@@ -32,9 +32,9 @@ export const plexArabic = IBM_Plex_Sans_Arabic({
 
 export const garamond = EB_Garamond({
   subsets: ['latin'],
-  weight: ['500', '600'],
+  weight: ['600'],
   variable: '--next-font-garamond',
-  display: 'swap',
+  display: 'optional',
   preload: false,
 });
 
@@ -42,7 +42,7 @@ export const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '600'],
   variable: '--next-font-inter',
-  display: 'swap',
+  display: 'optional',
   preload: false,
 });
 
