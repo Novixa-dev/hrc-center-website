@@ -121,7 +121,13 @@ jobs:
           for p in /ar /en /ar/news /en/training /ar/contact /sitemap.xml /robots.txt /manifest.webmanifest /apple-touch-icon.png /icon-192.png /icon-512.png /icon-512-maskable.png /icon.svg /favicon.ico /og/ar/index.jpg /og/en/news.jpg; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:3999$p")
             echo "$p → $code"
-            [ "$code" = "200" ] || { cat /tmp/server.log; exit 1; }
+            if [ "$code" != "200" ]; then
+              # Annotations are readable without log access.
+              echo "::error title=smoke test::$p returned $code"
+              tail -15 /tmp/server.log | sed 's/^/::error title=server log::/'
+              ls -la "public/og/ar" 2>&1 | head -5 | sed 's/^/::error title=bundle og dir::/'
+              exit 1
+            fi
           done
           kill "$PID"
 
