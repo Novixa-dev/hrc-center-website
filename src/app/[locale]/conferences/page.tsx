@@ -108,15 +108,21 @@ export default async function ConferencesPage({ params }: PageProps) {
               <h2 id="upcoming-h" className="text-2xl">
                 {t('upcomingHeading')}
               </h2>
-              <RevealList
-                className={`mt-(--space-5) grid gap-(--space-5) ${
-                  current.length === 1 ? 'max-w-xl' : 'sm:grid-cols-2'
-                }`}
-              >
-                {current.map((item) => (
-                  <ConferenceCard key={item.slug} item={item} />
-                ))}
-              </RevealList>
+              {current.length > 0 ? (
+                <RevealList
+                  className={`mt-(--space-5) grid gap-(--space-5) ${
+                    current.length === 1 ? 'max-w-xl' : 'sm:grid-cols-2'
+                  }`}
+                >
+                  {current.map((item) => (
+                    <ConferenceCard key={item.slug} item={item} />
+                  ))}
+                </RevealList>
+              ) : (
+                <p className="mt-(--space-4) max-w-(--prose-measure) rounded-md border border-dashed border-border p-(--space-5) text-text-muted">
+                  {t('upcomingEmpty')}
+                </p>
+              )}
             </section>
 
             <section aria-labelledby="past-h" className="mt-(--space-9)">

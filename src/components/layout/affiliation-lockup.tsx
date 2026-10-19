@@ -13,7 +13,8 @@ export async function AffiliationLockup({
   locale: Locale;
   className?: string;
 }) {
-  const t = await getTranslations('footer');
+  const t = await getTranslations({ locale, namespace: 'footer' });
+  const tSource = await getTranslations({ locale, namespace: 'common.source' });
   return (
     <a
       href={site.parent.url}
@@ -25,12 +26,8 @@ export async function AffiliationLockup({
       )}
     >
       <Motif size={18} className="flex-none text-accent-fill" />
-      <span>
-        {t('affiliation')}
-        <span className="ms-1 text-text-muted">
-          · {site.parent.name[locale]}
-        </span>
-      </span>
+      <span>{t('affiliation')}</span>
+      <span className="sr-only"> {tSource('newTab')}</span>
     </a>
   );
 }

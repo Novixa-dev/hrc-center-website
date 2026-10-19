@@ -89,7 +89,7 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
             {/* Information Column */}
             <div className="flex flex-col gap-6 lg:col-span-5">
               {/* Location Card */}
-              <div className="bg-surface-elevated flex flex-col gap-4 rounded-xl border border-border p-6 shadow-sm">
+              <div className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-sm">
                 <div className="flex items-center gap-3 text-primary">
                   <MapPin className="h-5 w-5 shrink-0" aria-hidden="true" />
                   <h2 className="text-lg font-bold text-heading">
@@ -105,7 +105,7 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
               </div>
 
               {/* Registration & enquiries — published lines, with source */}
-              <div className="bg-surface-elevated flex flex-col gap-3 rounded-xl border border-border p-6 shadow-sm">
+              <div className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-6 shadow-sm">
                 <div className="flex items-center gap-3 text-primary">
                   <Phone className="h-5 w-5 shrink-0" aria-hidden="true" />
                   <h2 className="text-lg font-bold text-heading">
@@ -131,7 +131,7 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
                   href={`https://wa.me/${site.registration.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:bg-surface-hover inline-flex w-fit items-center gap-2 rounded-md border border-border-interactive bg-surface px-3.5 py-2 text-sm font-medium text-text transition-colors hover:border-primary focus-visible:shadow-(--focus-ring) focus-visible:outline-none"
+                  className="inline-flex w-fit items-center gap-2 rounded-md border border-border-interactive bg-surface px-3.5 py-2 text-sm font-medium text-text transition-colors hover:border-primary hover:bg-surface-muted focus-visible:shadow-(--focus-ring) focus-visible:outline-none"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden="true" />
                   <span>{t('info.whatsapp')}</span>
@@ -153,7 +153,7 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
               </div>
 
               {/* Social Channels Card */}
-              <div className="bg-surface-elevated flex flex-col gap-4 rounded-xl border border-border p-6 shadow-sm">
+              <div className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-sm">
                 <div className="flex items-center gap-3 text-primary">
                   <Share2 className="h-5 w-5 shrink-0" aria-hidden="true" />
                   <h2 className="text-lg font-bold text-heading">
@@ -168,7 +168,7 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
                     href={site.social.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:bg-surface-hover inline-flex items-center gap-2 rounded-md border border-border-interactive bg-surface px-3.5 py-2 text-sm font-medium text-text transition-colors hover:border-primary focus-visible:shadow-(--focus-ring) focus-visible:outline-none"
+                    className="inline-flex items-center gap-2 rounded-md border border-border-interactive bg-surface px-3.5 py-2 text-sm font-medium text-text transition-colors hover:border-primary hover:bg-surface-muted focus-visible:shadow-(--focus-ring) focus-visible:outline-none"
                   >
                     <span>{tFooter('instagram')}</span>
                   </a>
@@ -176,7 +176,7 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
                     href={site.social.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:bg-surface-hover inline-flex items-center gap-2 rounded-md border border-border-interactive bg-surface px-3.5 py-2 text-sm font-medium text-text transition-colors hover:border-primary focus-visible:shadow-(--focus-ring) focus-visible:outline-none"
+                    className="inline-flex items-center gap-2 rounded-md border border-border-interactive bg-surface px-3.5 py-2 text-sm font-medium text-text transition-colors hover:border-primary hover:bg-surface-muted focus-visible:shadow-(--focus-ring) focus-visible:outline-none"
                   >
                     <span>{tFooter('facebook')}</span>
                   </a>

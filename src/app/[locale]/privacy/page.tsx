@@ -76,7 +76,7 @@ export default async function PrivacyPage({ params }: PageProps) {
             <Prose>
               {isAr ? (
                 <>
-                  <p className="bg-surface-elevated rounded-md border border-border p-4 text-sm text-text-muted">
+                  <p className="rounded-md border border-border bg-surface p-4 text-sm text-text-muted">
                     {t('note')}
                   </p>
 
@@ -123,7 +123,7 @@ export default async function PrivacyPage({ params }: PageProps) {
                 </>
               ) : (
                 <>
-                  <p className="bg-surface-elevated rounded-md border border-border p-4 text-sm text-text-muted">
+                  <p className="rounded-md border border-border bg-surface p-4 text-sm text-text-muted">
                     {t('note')}
                   </p>
 

@@ -1,16 +1,15 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Sparkles, Send, X, Bot, User, RefreshCw } from 'lucide-react';
 import type { ChatMessage } from '@/lib/ai/gemini';
 
 export function ResearchAssistant() {
   const locale = useLocale() as 'ar' | 'en';
+  const t = useTranslations('assistant');
   const isAr = locale !== 'en';
-  const welcomeMessage = isAr
-    ? 'مرحباً بك! أنا المساعد الأكاديمي الذكي لمركز بحوث حضرموت (مدعوم بواسطة Google AI Studio). كيف يمكنني مساعدتك اليوم في أبحاثك أو استفساراتك عن مجلة المركز وبرامج التدريب والمؤتمرات؟'
-    : 'Welcome! I am the Hadramout Research Center AI Assistant (powered by Google AI Studio). How can I assist you with publications, Al-Ahgaff Journal, training programs, or conferences today?';
+  const welcomeMessage = t('welcome');
 
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
@@ -22,19 +21,7 @@ export function ResearchAssistant() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const initialSuggestions = isAr
-    ? [
-        'ما هي أعداد مجلة جامعة الأحقاف؟',
-        'ما هي البرامج التدريبية المتاحة؟',
-        'كيف أشارك في المؤتمر العلمي؟',
-        'عن مركز بحوث حضرموت',
-      ]
-    : [
-        'Al-Ahgaff Journal issues',
-        'Available training programs',
-        'Scientific conference guidelines',
-        'About Hadramout Research Center',
-      ];
+  const initialSuggestions = t.raw('suggestions') as string[];
 
   const [suggestions, setSuggestions] = useState<string[]>(initialSuggestions);
 
@@ -97,9 +84,7 @@ export function ResearchAssistant() {
           ...prev,
           {
             role: 'assistant',
-            content: isAr
-              ? 'عذراً، تعذر الاتصال بالخدمة مؤقتاً. يرجى المحاولة مرة أخرى أو مراسلتنا مباشرة عبر صفحة اتصل بنا.'
-              : 'Sorry, temporary connection error. Please try again or reach out directly through our Contact page.',
+            content: t('errorService'),
           },
         ]);
       }
@@ -108,9 +93,7 @@ export function ResearchAssistant() {
         ...prev,
         {
           role: 'assistant',
-          content: isAr
-            ? 'حدث خطأ في الشبكة أثناء معالجة الطلب.'
-            : 'A network error occurred while processing your request.',
+          content: t('errorNetwork'),
         },
       ]);
     } finally {
@@ -122,9 +105,7 @@ export function ResearchAssistant() {
     setMessages([
       {
         role: 'assistant',
-        content: isAr
-          ? 'تم بدء محادثة جديدة. تفضل بطرح استفسارك الأكاديمي أو البحثي.'
-          : 'New session started. Feel free to ask any academic or research inquiry.',
+        content: t('resetMessage'),
       },
     ]);
     setSuggestions(initialSuggestions);
@@ -133,31 +114,20 @@ export function ResearchAssistant() {
 
   return (
     <>
-      {/* Floating Trigger Button */}
-      <aside
-        aria-label={isAr ? 'المساعد الأكاديمي الذكي' : 'AI Research Assistant'}
-      >
+      {/* Floating trigger — a compact round button at the inline end, so it never
+          covers content; the label is exposed to assistive tech and as a tooltip. */}
+      <aside aria-label={t('label')}>
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className={`fixed bottom-6 z-40 flex items-center gap-2.5 rounded-full px-4 py-3 font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/30 ${
-            isAr
-              ? 'to-primary-hover left-6 bg-gradient-to-r from-primary'
-              : 'to-primary-hover right-6 bg-gradient-to-r from-primary'
-          }`}
+          title={t('label')}
+          className="fixed end-4 bottom-4 z-40 flex size-14 items-center justify-center rounded-full bg-primary text-on-primary shadow-3 transition-transform duration-(--duration-base) hover:scale-105 focus-visible:shadow-(--focus-ring) focus-visible:outline-none motion-reduce:transition-none motion-reduce:hover:scale-100 sm:end-6 sm:bottom-6"
           aria-haspopup="dialog"
           aria-expanded={isOpen}
           id="ai-assistant-trigger"
         >
-          <span className="flex h-7 w-7 animate-pulse items-center justify-center rounded-full bg-white/20 text-white">
-            <Sparkles className="h-4 w-4" />
-          </span>
-          <span className="text-sm font-medium">
-            {isAr ? 'المساعد الأكاديمي الذكي' : 'AI Research Assistant'}
-          </span>
-          <span className="bg-secondary/80 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider text-white uppercase">
-            AI
-          </span>
+          <Sparkles className="size-6" aria-hidden="true" />
+          <span className="sr-only">{t('label')}</span>
         </button>
       </aside>
 
@@ -174,7 +144,7 @@ export function ResearchAssistant() {
             dir={isAr ? 'rtl' : 'ltr'}
           >
             {/* Header */}
-            <div className="to-primary-hover flex items-center justify-between border-b border-border bg-gradient-to-r from-primary px-5 py-4 text-white">
+            <div className="flex items-center justify-between border-b border-border bg-primary px-5 py-4 text-on-primary">
               <div className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white">
                   <Bot className="h-5 w-5" />
@@ -184,15 +154,11 @@ export function ResearchAssistant() {
                     id="assistant-title"
                     className="text-sm font-bold sm:text-base"
                   >
-                    {isAr
-                      ? 'مساعد أبحاث مركز حضرموت'
-                      : 'HRC Research Assistant'}
+                    {t('title')}
                   </h3>
                   <p className="flex items-center gap-1 text-[11px] text-white/80">
                     <Sparkles className="h-3 w-3" />
-                    {isAr
-                      ? 'مدعوم بنموذج Google AI Studio (Gemini)'
-                      : 'Powered by Google AI Studio (Gemini)'}
+                    {t('subtitle')}
                   </p>
                 </div>
               </div>
@@ -201,8 +167,8 @@ export function ResearchAssistant() {
                   type="button"
                   onClick={handleReset}
                   className="rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                  title={isAr ? 'بدء محادثة جديدة' : 'Reset session'}
-                  aria-label={isAr ? 'بدء محادثة جديدة' : 'Reset session'}
+                  title={t('reset')}
+                  aria-label={t('reset')}
                 >
                   <RefreshCw className="h-4 w-4" />
                 </button>
@@ -210,8 +176,8 @@ export function ResearchAssistant() {
                   type="button"
                   onClick={() => setIsOpen(false)}
                   className="rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                  title={isAr ? 'إغلاق' : 'Close'}
-                  aria-label={isAr ? 'إغلاق' : 'Close'}
+                  title={t('close')}
+                  aria-label={t('close')}
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -224,18 +190,14 @@ export function ResearchAssistant() {
                 <div
                   key={idx}
                   className={`flex gap-3 ${
-                    msg.role === 'user'
-                      ? isAr
-                        ? 'flex-row-reverse'
-                        : 'flex-row-reverse'
-                      : 'flex-row'
+                    msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
                   }`}
                 >
                   <div
                     className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold select-none ${
                       msg.role === 'user'
                         ? 'bg-primary text-white'
-                        : 'bg-muted text-foreground'
+                        : 'bg-surface-muted text-text'
                     }`}
                   >
                     {msg.role === 'user' ? (
@@ -248,7 +210,7 @@ export function ResearchAssistant() {
                     className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                       msg.role === 'user'
                         ? 'rounded-br-none bg-primary text-white'
-                        : 'bg-muted/70 text-foreground rounded-bl-none border border-border/50 shadow-xs'
+                        : 'rounded-bl-none border border-border/50 bg-surface-muted/70 text-text shadow-xs'
                     }`}
                   >
                     <div className="whitespace-pre-wrap">{msg.content}</div>
@@ -257,13 +219,9 @@ export function ResearchAssistant() {
               ))}
 
               {isLoading && (
-                <div className="text-muted-foreground flex items-center gap-3 p-2 text-xs">
+                <div className="flex items-center gap-3 p-2 text-xs text-text-muted">
                   <Bot className="h-4 w-4 animate-spin text-primary" />
-                  <span>
-                    {isAr
-                      ? 'جارٍ التحليل وصياغة الرد العلمي...'
-                      : 'Analyzing and generating response...'}
-                  </span>
+                  <span>{t('thinking')}</span>
                 </div>
               )}
               <div ref={messagesEndRef} />
@@ -271,15 +229,11 @@ export function ResearchAssistant() {
 
             {/* Source indicator tag */}
             {source && (
-              <div className="bg-muted/40 text-muted-foreground flex items-center justify-between border-t border-border/40 px-4 py-1.5 text-[11px]">
+              <div className="flex items-center justify-between border-t border-border/40 bg-surface-muted/40 px-4 py-1.5 text-[11px] text-text-muted">
                 <span>
                   {source === 'google-ai-studio'
-                    ? isAr
-                      ? 'تم التوليد المباشر عبر Google AI Studio (Gemini)'
-                      : 'Live generation via Google AI Studio (Gemini)'
-                    : isAr
-                      ? 'قاعدة المعرفة الأكاديمية لمركز بحوث حضرموت'
-                      : 'HRC Academic Knowledge Engine'}
+                    ? t('sourceLive')
+                    : t('sourceLocal')}
                 </span>
                 <span className="flex items-center gap-1 text-primary">
                   <Sparkles className="h-3 w-3" />
@@ -296,7 +250,7 @@ export function ResearchAssistant() {
                     key={i}
                     type="button"
                     onClick={() => handleSend(sug)}
-                    className="bg-muted/60 text-foreground rounded-full border border-border px-3 py-1 text-start text-xs transition-colors hover:border-primary hover:bg-primary/5 hover:text-primary"
+                    className="rounded-full border border-border bg-surface-muted/60 px-3 py-1 text-start text-xs text-text transition-colors hover:border-primary hover:bg-primary/5 hover:text-primary"
                   >
                     {sug}
                   </button>
@@ -318,27 +272,21 @@ export function ResearchAssistant() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder={
-                    isAr
-                      ? 'اطرح استفسارك الأكاديمي أو البحثي...'
-                      : 'Ask your academic or research inquiry...'
-                  }
-                  className="bg-background text-foreground placeholder:text-muted-foreground flex-1 rounded-xl border border-border px-4 py-2.5 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  placeholder={t('placeholder')}
+                  className="flex-1 rounded-xl border border-border bg-bg px-4 py-2.5 text-sm text-text transition-all placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
                   disabled={isLoading}
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="hover:bg-primary-hover flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition-all disabled:cursor-not-allowed disabled:opacity-50"
-                  aria-label={isAr ? 'إرسال' : 'Send'}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-label={t('send')}
                 >
-                  <Send className={`h-4 w-4 ${isAr ? 'rotate-180' : ''}`} />
+                  <Send className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
                 </button>
               </div>
-              <div className="text-muted-foreground mt-2 text-center text-[10px]">
-                {isAr
-                  ? 'مساعد أكاديمي ذكي مدعوم بتقنيات الذكاء الاصطناعي من جامعة الأحقاف ونوفكسا'
-                  : 'Scholarly research assistant powered by Al-Ahgaff University & Novixa'}
+              <div className="mt-2 text-center text-[10px] text-text-muted">
+                {t('disclaimer')}
               </div>
             </form>
           </div>

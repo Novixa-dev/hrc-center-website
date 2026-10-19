@@ -557,7 +557,8 @@
       "provisionalNote": "This event is still being planned; the details will be confirmed by the Center.",
       "back": "All conferences",
       "ask": "Ask about this event"
-    }
+    },
+    "upcomingEmpty": "No conferences are announced right now. Upcoming conferences will be listed here and in the Center's news."
   },
   "news": {
     "meta": {
@@ -591,7 +592,13 @@
       "share": "Share",
       "provisionalNote": "The details of this update are provisional and under review with the Center."
     },
-    "rssTitle": "Hadramout Research Center — News"
+    "rssTitle": "Hadramout Research Center — News",
+    "media": {
+      "heading": "In the media",
+      "lede": "Independent coverage of the Center's work by news outlets and academic bodies. Headlines are shown in their original Arabic.",
+      "read": "Read on",
+      "newTab": "(opens in a new tab)"
+    }
   },
   "team": {
     "meta": {
@@ -715,5 +722,28 @@
     "commitmentBody": "We adhere to Web Content Accessibility Guidelines (WCAG 2.2 AA), ensuring high contrast, complete keyboard operability, screen-reader compatibility, and respecting reduced-motion preferences.",
     "feedbackTitle": "Feedback & Support",
     "feedbackBody": "If you experience any accessibility barrier while browsing our site, please let us know via the contact form so we can resolve it promptly."
+  },
+  "assistant": {
+    "label": "Research assistant",
+    "welcome": "Welcome! I'm the Hadramout Research Center's research assistant. Ask me about the Center's journal and its issues, training programs, conferences and services.",
+    "suggestions": [
+      "Which issues of the Al-Ahgaff Journal are out?",
+      "What training programs does the Center offer?",
+      "What is the International Arbitration Office?",
+      "About the Hadramout Research Center"
+    ],
+    "errorService": "Sorry, the service is temporarily unavailable. Please try again or reach us through the Contact page.",
+    "errorNetwork": "A network error occurred while processing your request.",
+    "resetMessage": "New conversation started. Go ahead and ask your question.",
+    "title": "HRC research assistant",
+    "subtitle": "Answers from the Center's published information",
+    "reset": "Start a new conversation",
+    "close": "Close",
+    "thinking": "Preparing an answer…",
+    "sourceLive": "AI-generated answer (Gemini)",
+    "sourceLocal": "Answer from the Center's knowledge base",
+    "placeholder": "Ask about the Center, the journal or training…",
+    "send": "Send",
+    "disclaimer": "Answers may contain mistakes — check the Center's official pages."
   }
 }

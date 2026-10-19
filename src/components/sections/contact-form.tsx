@@ -50,7 +50,7 @@ export function ContactForm({ defaultSubject, locale }: ContactFormProps) {
   if (state.ok) {
     return (
       <div
-        className="bg-surface-elevated flex flex-col items-center gap-4 rounded-xl border border-border p-8 text-center shadow-sm"
+        className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface p-8 text-center shadow-sm"
         role="status"
         aria-live="polite"
       >
@@ -86,7 +86,7 @@ export function ContactForm({ defaultSubject, locale }: ContactFormProps) {
       key={resetKey}
       action={formAction}
       noValidate
-      className="bg-surface-elevated flex flex-col gap-6 rounded-xl border border-border p-6 shadow-sm sm:p-8"
+      className="flex flex-col gap-6 rounded-xl border border-border bg-surface p-6 shadow-sm sm:p-8"
     >
       {/* Honeypot field for anti-bot trap */}
       <div
