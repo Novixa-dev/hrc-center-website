@@ -4,9 +4,11 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { CtaBand } from '@/components/sections/cta-band';
 import { Lineage } from '@/components/sections/lineage';
+import { Milestones } from '@/components/sections/milestones';
 import { OnThisPage } from '@/components/sections/on-this-page';
 import { OrgUnits } from '@/components/sections/org-units';
 import { PageHeader } from '@/components/sections/page-header';
+import { Partners } from '@/components/sections/partners';
 import { ProseSection } from '@/components/sections/prose-section';
 import { VisionMission } from '@/components/sections/vision-mission';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -45,8 +47,10 @@ export default async function AboutPage({ params }: PageProps) {
   const sections = [
     { id: 'establishment', label: t('sections.establishment') },
     { id: 'vision-mission', label: t('sections.visionMission') },
+    { id: 'milestones', label: t('sections.milestones') },
     { id: 'university', label: t('sections.university') },
     { id: 'departments', label: t('sections.departments') },
+    { id: 'partners', label: t('sections.partners') },
     { id: 'governance', label: t('sections.governance') },
   ];
 
@@ -102,9 +106,13 @@ export default async function AboutPage({ params }: PageProps) {
 
             <VisionMission id="vision-mission" />
 
+            <Milestones id="milestones" />
+
             <Lineage id="university" locale={l} />
 
             <OrgUnits id="departments" />
+
+            <Partners id="partners" />
 
             <ProseSection id="governance" heading={t('sections.governance')}>
               {t('governance.body')}
