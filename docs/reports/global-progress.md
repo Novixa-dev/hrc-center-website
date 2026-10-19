@@ -3,7 +3,7 @@
 > **Read this first every session.** Updated after every task and at each sprint boundary.
 > The detailed running log per sprint is in `docs/sprints/sprint-<n>/progress.md`.
 
-**Last updated:** 2026-09-09
+**Last updated:** 2026-10-19
 **Current sprint:** Project Complete (All Sprints S0–S9 Done)
 **Current task:** Final Release Tagging (`v1.0.0`)
 **Overall status:** 🟢 100% Complete · ALL 13 page types live across AR and EN; all 10 sprints delivered; all 8 success criteria verified; tagged `v1.0.0`. Production ready.
@@ -68,7 +68,7 @@ Legend: ⏳ not started · 🏗️ in progress · ✅ complete · ⚠️ blocked
 | Journal details (ISSN, issues, board) | facts | HRC | S0 | confirmed fields only; Issue 1 shown, board is a link-out (F2–F7) |
 | Conference dates / venue / theme / history | facts | HRC | S5 | 1 `planned` entry, no `Event` markup, "to be announced" (G1–G4) |
 | Contact form provider account | setup | Novixa | S0 | dev logs / configurable endpoint |
-| Canonical domain | decision | Novixa/HRC | S0 | `NEXT_PUBLIC_SITE_URL` placeholder |
+| Canonical domain | ✅ resolved 2026-10-19 | Novixa | S0 | live at `https://hrc.novixa.dev` (`NEXT_PUBLIC_SITE_URL` set by the deploy workflow) |
 
 Full list: [`docs/content/content-review-checklist.md`](../content/content-review-checklist.md).
 
@@ -90,6 +90,18 @@ _As of S6 close (`sprint-6-complete`), all 13 route types live, local prod build
 | Heaviest route fonts | budget | ~342 KB (→ S7) | /ar |
 
 ## Change log (append‑only, newest first)
+
+- **2026-10-19** — **Live at https://hrc.novixa.dev** on the shared Novixa VPS. GitHub
+  Actions `deploy.yml`: verify (lint/typecheck/unit) → `pnpm build` (`output: 'standalone'`)
+  + smoke test on the runner → minimal `node:22` image → SSH → `docker compose up` in
+  `/opt/hrc-center` → site block installed in mailcow's nginx after the container is
+  healthy (`nginx -t`, restore on failure, graceful reload). Network `hrc-center-edge`
+  persisted in mailcow's override (backup kept). Verified: 13 page types AR/EN 200,
+  canonical + sitemap on the live origin, security headers, immutable `_next/static`,
+  assistant API 200; all other sites on the VPS unchanged. Issues met on the way:
+  org Actions billing lock (cleared by making the repo public), first workflow assumed a
+  bare host (replaced), `pnpm install` hangs inside `docker build` (build moved to the
+  runner). Guide: `docs/guides/deploy-guide.md` §1a.
 
 - **2026-09-09** — **S6 complete** (`sprint-6-complete`). 13 tasks: `news` collection (schema, loader, 4 provisional entries, tag chips navigation, reverse-chron cards, `NewsArticle` JSON-LD, RSS 2.0 at `/news/rss.xml`). `<ContactForm>` server action with progressive enhancement, visible labels, polite `aria-live` region, honeypot & time-trap anti-bot defenses, provider adapter with dev logger fallback, and Contact page (`/[locale]/contact`) with static location card and zero leaked unconfirmed contacts. Utility pages (`/privacy` and `/accessibility`) shipped. `routesInProgress` in `src/lib/nav.ts` is now **completely empty** (100% of routes live!). unit **71/71**, e2e **196/196** (chromium + mobile). → Entering S7 Hardening.
 - **2026-09-09** — **S5 complete** (`sprint-5-complete`). 14 tasks: `publications` +
