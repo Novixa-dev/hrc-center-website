@@ -107,9 +107,13 @@ jobs:
       - name: Assemble standalone bundle
         run: |
           S=.next/standalone
-          cp -r .next/static "$S/.next/static"
-          cp -r public "$S/public"
-          mkdir -p "$S/src" && cp -r src/content "$S/src/content"
+          # Merge (dir/.) rather than copy-into: output tracing may already have
+          # placed some public/ files in the bundle, and `cp -r public $S/public`
+          # would then nest them under $S/public/public.
+          mkdir -p "$S/.next/static" "$S/public" "$S/src/content"
+          cp -r .next/static/. "$S/.next/static/"
+          cp -r public/. "$S/public/"
+          cp -r src/content/. "$S/src/content/"
           du -sh "$S"
 
       - name: Smoke-test the bundle
