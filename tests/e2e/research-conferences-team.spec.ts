@@ -23,7 +23,8 @@ const L = {
     boardRole: 'Editor-in-Chief',
     confH1: 'Conferences, seminars and scholarly workshops',
     confStatus: 'Past',
-    confTitle: 'Second International Scientific Conference: Hadramis in East Africa',
+    confTitle:
+      'Second International Scientific Conference: Hadramis in East Africa',
     confOnline: 'Online (Zoom)',
     teamH1: 'The people behind the Center',
     teamPending: 'Appointment announced soon',
@@ -57,7 +58,8 @@ for (const loc of ['ar', 'en'] as const) {
       await expect(page.getByText('E-ISSN 3106-9053')).toBeVisible();
       await expect(page.getByText(l.boardRole, { exact: true })).toBeVisible();
       const issn = page.getByRole('link', {
-        name: loc === 'ar' ? 'السجل الدولي للرقم المعياري' : 'ISSN register entry',
+        name:
+          loc === 'ar' ? 'السجل الدولي للرقم المعياري' : 'ISSN register entry',
       });
       await expect(issn).toHaveAttribute('href', /issn\.org/);
       await expect(issn).toHaveAttribute('target', '_blank');

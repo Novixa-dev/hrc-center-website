@@ -152,7 +152,7 @@ export default async function PublicationPage({ params }: PageProps) {
                     >
                       <span
                         aria-hidden="true"
-                        className="w-6 shrink-0 font-(--font-mono) text-sm text-text-muted"
+                        className="w-6 shrink-0 text-sm font-(--font-mono) text-text-muted"
                       >
                         {String(i + 1).padStart(2, '0')}
                       </span>

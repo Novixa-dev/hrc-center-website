@@ -33,7 +33,9 @@ export async function Partners({ id }: { id: string }) {
             <p className="text-xs font-(--font-mono) tracking-(--tracking-overline) text-text-muted uppercase">
               {p.date}
             </p>
-            <p className="mt-(--space-2) font-semibold text-heading">{p.name}</p>
+            <p className="mt-(--space-2) font-semibold text-heading">
+              {p.name}
+            </p>
             <p className="mt-1 text-sm text-text-muted">{p.kind}</p>
             <Link
               href={p.href}

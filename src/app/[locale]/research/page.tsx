@@ -25,7 +25,8 @@ type PageProps = { params: Promise<{ locale: string }> };
 const PATH = '/research';
 // Official sources for the Journal block (docs/research/02 §Refresh 2026-10).
 const ISSN_URL = 'https://publishers.issn.org/resource/ISSN/3106-9053';
-const GUIDELINES_PDF = 'https://ahgaff.edu/static/media/uploads/2025/01/49e9c751c43e494ebd3dcb138cb0a7f2.pdf';
+const GUIDELINES_PDF =
+  'https://ahgaff.edu/static/media/uploads/2025/01/49e9c751c43e494ebd3dcb138cb0a7f2.pdf';
 
 export async function generateMetadata({
   params,
@@ -261,7 +262,9 @@ export default async function ResearchPage({ params }: PageProps) {
               {issues.length > 0 ? (
                 <RevealList
                   className={`mt-(--space-4) grid gap-(--space-4) ${
-                    issues.length === 1 ? 'max-w-xl' : 'sm:grid-cols-2 lg:grid-cols-3'
+                    issues.length === 1
+                      ? 'max-w-xl'
+                      : 'sm:grid-cols-2 lg:grid-cols-3'
                   }`}
                 >
                   {issues.map((item) => (
