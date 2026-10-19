@@ -57,6 +57,22 @@ docker image ls hrc-center-website          # pick a previous sha-xxxxxxx tag
 sed -i 's/^APP_TAG=.*/APP_TAG=sha-xxxxxxx/' .env && docker compose up -d
 ```
 
+**Post-deploy audit.** A third job (`audit`, non-blocking) runs Lighthouse mobile against
+`/ar`, `/en`, `/ar/research`, `/en/contact` on the live URL and posts the scores as run
+annotations (readable from the run page or the check-runs API without log access).
+
+**Caching.** HTML is not cached at the edge (Cloudflare `DYNAMIC`); `/_next/static/*` is
+immutable for a year; root icons/brand files 7 days. The site block forces
+`Cache-Control: no-store` on every 404 — Next sends `s-maxage=31536000` on file-like 404s,
+which Cloudflare would otherwise keep for a year. If a stale asset is ever stuck at the
+edge, purge that URL in Cloudflare (Caching → Purge) or version its URL.
+
+**Performance follow-up (needs a design decision).** On `/ar` the LCP element is the hero
+`<h1>` set in Amiri 700 (~100 KB Arabic subset, preloaded). Options: drop its preload
+(brief fallback-font flash on the headline) or subset/replace the display face. Also, the
+shared root layout preloads the Arabic faces on `/en` pages; loading fonts per locale
+would remove ~200 KB there.
+
 **Logs / status:** `docker logs -f hrc-center-app` · `docker inspect -f '{{.State.Health.Status}}' hrc-center-app`.
 
 ---

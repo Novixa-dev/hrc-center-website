@@ -91,6 +91,18 @@ _As of S6 close (`sprint-6-complete`), all 13 route types live, local prod build
 
 ## Change log (append‑only, newest first)
 
+- **2026-10-19** — **Post-launch hardening** (live audit). Fixed: touch/manifest icons were
+  404 (`apple-touch-icon.png`, `icon-192/512/512-maskable.png` never existed; the
+  file-based `/apple-icon` route was swallowed by the locale proxy) → static PNGs drawn
+  from `icon.svg`. Cloudflare had pinned a 404 for a year because Next sends
+  `s-maxage=31536000` on file-like 404s → site block now forces `no-store` on every 404
+  and caches root icons 7 d. Unused Amiri 400 removed (−108 KB of preloads on `/ar`).
+  CI: post-deploy Lighthouse job (scores as annotations), build errors surfaced as
+  annotations, smoke test covers icons + manifest, actions on Node 24. Server: fail2ban
+  (sshd jail) enabled — ~2.6 k failed root logins / 7 h observed. Live Lighthouse mobile
+  (GitHub runner → Cloudflare → VPS): a11y / BP / SEO **100** on all audited pages; perf
+  `/en` 90 · `/ar/research` 84 · `/en/contact` 81 · `/ar` 74–80 (LCP = Amiri-700 hero
+  `<h1>`, see recommendation in `docs/guides/deploy-guide.md` §1a).
 - **2026-10-19** — **Live at https://hrc.novixa.dev** on the shared Novixa VPS. GitHub
   Actions `deploy.yml`: verify (lint/typecheck/unit) → `pnpm build` (`output: 'standalone'`)
   + smoke test on the runner → minimal `node:22` image → SSH → `docker compose up` in
