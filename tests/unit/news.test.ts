@@ -16,6 +16,15 @@ describe('news collection', () => {
     }
   });
 
+  it('every item cites the source it was verified against', () => {
+    for (const locale of ['ar', 'en'] as const) {
+      for (const n of news.getAll(locale)) {
+        expect(n.frontmatter.source?.url, n.slug).toMatch(/^https:\/\//);
+        expect(n.frontmatter.source?.name, n.slug).toBeTruthy();
+      }
+    }
+  });
+
   it('AR and EN expose the same slugs', () => {
     expect(news.getSlugs('ar').sort()).toEqual(news.getSlugs('en').sort());
   });
