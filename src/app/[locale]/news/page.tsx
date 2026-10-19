@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
 import { hasLocale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import {
+  getFormatter,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 
 import { CtaBand } from '@/components/sections/cta-band';
 import { NewsCard } from '@/components/sections/news-card';
@@ -10,6 +14,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Container } from '@/components/ui/container';
 import { Link } from '@/components/ui/link';
 import { cn } from '@/lib/cn';
+import { press } from '@/lib/press';
 import { getNews, getNewsByTag, getNewsTags } from '@/lib/content/news';
 import { locales, routing, type Locale } from '@/i18n/routing';
 import {
@@ -54,6 +59,7 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
   setRequestLocale(locale);
   const l = locale as Locale;
   const t = await getTranslations('news');
+  const format = await getFormatter();
   const tb = await getTranslations('breadcrumb');
 
   const allTags = getNewsTags(l);
@@ -161,6 +167,49 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
           {t('historyNote')}
         </p>
       </Container>
+
+      <section
+        aria-labelledby="media-h"
+        className="border-t border-border py-(--space-8) lg:py-(--space-9)"
+      >
+        <Container>
+          <h2 id="media-h" className="text-3xl">
+            {t('media.heading')}
+          </h2>
+          <p className="mt-(--space-3) max-w-(--prose-measure) text-lg text-text-muted">
+            {t('media.lede')}
+          </p>
+          <ul className="mt-(--space-6) divide-y divide-border border-y border-border">
+            {press.map((item) => (
+              <li key={item.url} className="py-(--space-5)">
+                <p className="text-xs font-(--font-mono) text-text-muted">
+                  <time dateTime={item.date}>
+                    {format.dateTime(new Date(item.date), {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  {' · '}
+                  {item.outlet[l]}
+                </p>
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  lang="ar"
+                  dir="rtl"
+                  className="mt-(--space-2) inline-block font-semibold text-heading underline-offset-4 hover:text-link hover:underline"
+                >
+                  {item.title}
+                  <span className="sr-only"> {t('media.newTab')}</span>
+                </a>
+                <p className="mt-1 text-sm text-text-muted">{item.gist[l]}</p>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
 
       <CtaBand />
     </>

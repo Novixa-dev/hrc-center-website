@@ -57,7 +57,10 @@ const RECORDS: readonly TeamMemberRecord[] = [
     id: 'bot-chair',
     group: 'board-of-trustees',
     roleKey: 'botChair',
-    name: { ar: 'الأستاذ محمد بن دهري', en: 'Mohammed bin Dohry' },
+    name: {
+      ar: 'الأستاذ محمد مبارك بن دهري',
+      en: 'Mohammed Mubarak bin Dohry',
+    },
     confirmed: true,
     source: ARBITRATION_OFFICE_NEWS,
     order: 0,
