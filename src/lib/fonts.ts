@@ -9,12 +9,14 @@ import {
 /**
  * Self-hosted at build time (no runtime request). Subset to Arabic + Latin.
  * CSS variable names match docs/design/02-design-tokens.md §1.7 / src/styles/tokens.css.
- * Only Amiri 700 + IBM Plex Sans Arabic 400 are preloaded (the /ar above-the-fold pair).
+ * Only Amiri + IBM Plex Sans Arabic are preloaded (the /ar above-the-fold pair).
  */
 
+// Amiri only sets Arabic headings, always at --weight-bold; a 400 face was preloaded
+// (~120 KB) on every /ar page without ever being used.
 export const amiri = Amiri({
   subsets: ['arabic', 'latin'],
-  weight: ['400', '700'],
+  weight: ['700'],
   variable: '--next-font-amiri',
   display: 'swap',
   preload: true,
