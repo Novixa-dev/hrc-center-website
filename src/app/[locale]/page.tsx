@@ -7,6 +7,7 @@ import { CtaBand } from '@/components/sections/cta-band';
 import { FeaturedPrograms } from '@/components/sections/featured-programs';
 import { Hero } from '@/components/sections/hero';
 import { JournalFeature } from '@/components/sections/journal-feature';
+import { LatestNews } from '@/components/sections/latest-news';
 import { PillarsGrid } from '@/components/sections/pillars-grid';
 import { locales, routing, type Locale } from '@/i18n/routing';
 import { buildMetadata } from '@/lib/seo';
@@ -39,6 +40,7 @@ export default async function HomePage({ params }: PageProps) {
       <PillarsGrid />
       <FeaturedPrograms />
       <JournalFeature />
+      <LatestNews />
       <AudiencePaths />
       <CtaBand />
     </>

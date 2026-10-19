@@ -84,15 +84,17 @@
       "all": "All programs"
     },
     "journal": {
-      "eyebrow": "Peer-reviewed journal",
+      "eyebrow": "Peer-reviewed · twice a year",
       "title": "Al-Ahgaff Journal of Social Sciences",
-      "body": "A peer-reviewed scholarly journal published by the Center in the social sciences.",
+      "body": "Original research in the social sciences and humanities since September 2024, reviewed by scholars in Yemen and abroad. Three issues so far.",
       "browse": "Browse issues",
-      "guidelines": "Author guidelines"
+      "guidelines": "Author guidelines",
+      "issn": "E-ISSN 3106-9053"
     },
     "news": {
       "heading": "Latest news",
-      "all": "All news"
+      "all": "All news",
+      "lede": "The Center's latest announcements, each linked to its official source."
     },
     "audiences": {
       "heading": "How can the Center help you?",

@@ -25,9 +25,12 @@ export async function JournalFeature() {
             {t('title')}
           </h2>
           <p className="mt-(--space-3) text-text-muted">{t('body')}</p>
+          <p className="mt-(--space-2) text-sm font-(--font-mono) text-text-muted">
+            <bdi dir="ltr">{t('issn')}</bdi>
+          </p>
           <div className="mt-(--space-5) flex flex-wrap gap-x-6 gap-y-2">
             <Link
-              href="/research"
+              href="/research#journal"
               withArrow
               className="text-sm font-semibold no-underline"
             >

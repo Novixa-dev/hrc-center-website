@@ -9,7 +9,7 @@ export async function AudiencePaths() {
   const t = await getTranslations('home.audiences');
 
   return (
-    <Section tone="muted" labelledBy="audiences-heading">
+    <Section labelledBy="audiences-heading">
       <h2 id="audiences-heading" className="text-3xl">
         {t('heading')}
       </h2>

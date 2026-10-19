@@ -53,6 +53,14 @@ for (const l of locales) {
       await expect(badges.first()).toBeVisible();
     });
 
+    test('latest news band shows the three newest items', async ({ page }) => {
+      const band = page.locator('section[aria-labelledby="news-heading"]');
+      await expect(band.locator('a[href*="/news/"]')).toHaveCount(3);
+      await expect(
+        band.locator('a[href$="/news/arbitration-office-inaugurated"]'),
+      ).toBeVisible();
+    });
+
     test('nav marks Home as current (logo home link)', async ({ page }) => {
       // The "About" nav link should not be current on the home page.
       const about = page
