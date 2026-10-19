@@ -43,8 +43,8 @@ export default async function TeamPage({ params }: PageProps) {
   const t = await getTranslations('team');
   const tb = await getTranslations('breadcrumb');
 
-  const groups = getTeamGroups();
-  const pending = isTeamFullyPending();
+  const groups = getTeamGroups(l);
+  const pending = isTeamFullyPending(l);
 
   return (
     <>
@@ -85,11 +85,9 @@ export default async function TeamPage({ params }: PageProps) {
       </Container>
 
       <Container className="pb-(--space-9)">
-        {pending ? (
-          <p className="max-w-(--prose-measure) rounded-md border border-border bg-surface-muted p-(--space-4) text-sm text-text-muted">
-            {t('pendingNote')}
-          </p>
-        ) : null}
+        <p className="max-w-(--prose-measure) rounded-md border border-border bg-surface-muted p-(--space-4) text-sm text-text-muted">
+          {pending ? t('pendingNote') : t('sourcedNote')}
+        </p>
 
         <div className="mt-(--space-8) flex flex-col gap-(--space-9)">
           {groups.map((group) => (
@@ -111,6 +109,22 @@ export default async function TeamPage({ params }: PageProps) {
                         ? t(`roles.${member.roleKey}`)
                         : t('pending')}
                     </p>
+                    {member.alsoRoleKey ? (
+                      <p className="mt-1 text-sm text-text-muted">
+                        {t(`roles.${member.alsoRoleKey}`)}
+                      </p>
+                    ) : null}
+                    {member.source ? (
+                      <a
+                        href={member.source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-auto pt-(--space-4) text-xs text-text-muted underline-offset-2 hover:text-link"
+                      >
+                        {t('sourceLabel')} {member.source.name}
+                        <span className="sr-only"> {t('newTab')}</span>
+                      </a>
+                    ) : null}
                   </div>
                 ))}
               </RevealList>
