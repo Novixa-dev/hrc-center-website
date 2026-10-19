@@ -11,7 +11,7 @@
 [![Version](https://img.shields.io/badge/Release-v1.0.0-indigo?style=flat-square)](https://github.com/Novixa-dev/hrc-center-website/releases/tag/v1.0.0)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FNovixa-dev%2Fhrc-center-website)
 
-Delivered pro‑bono by [Novixa Digital Solutions](https://novixa-cyan.vercel.app/ar) · Software Engineering & Digital Products.
+Delivered pro‑bono by [Novixa Digital Solutions](https://novixa.dev/ar) · Software Engineering & Digital Products.
 
 </div>
 
