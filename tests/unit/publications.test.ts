@@ -43,6 +43,17 @@ describe('publications collection', () => {
     );
   });
 
+  it('journal issues cite a source; listed contents have titles', () => {
+    for (const locale of ['ar', 'en'] as const) {
+      for (const p of getJournalIssues(locale)) {
+        expect(p.frontmatter.source?.url, p.slug).toMatch(/^https:\/\//);
+        for (const entry of p.frontmatter.contents ?? []) {
+          expect(entry.title).toBeTruthy();
+        }
+      }
+    }
+  });
+
   it('getBySlug returns null for an unknown slug', () => {
     expect(publications.getBySlug('en', 'nope')).toBeNull();
   });

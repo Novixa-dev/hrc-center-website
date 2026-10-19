@@ -1,20 +1,26 @@
 ---
-title: Class and Politics — A Study of Political Transformation
-summary: A book published by the Hadramout Research Center on political transformation, part of the Center's social-sciences output.
+title: "Class and Politics: A Study of Political Transformation in the Town of Haridah in South Arabia"
+summary: "A sociological and anthropological study of political conflict in a small Hadrami town in the 1960s (Arabic edition)."
 kind: book
-date: 2023-12-01
-provisional: true
+authors: ["Prof. Abdullah Saeed Al-Jabrah Al-Nahdi"]
+date: 2023-12-19
+url: https://ahgaff.edu/static/media/uploads/2025/01/77596b4a3c264ee3bc4cbd8283b60bcc.pdf
+source:
+  name: "Al-Ahgaff University — Hadramout Research Center publications"
+  url: https://ahgaff.edu/centers/1/issues/
 order: 10
 ---
 
 ## About the book
 
-A book from the Hadramout Research Center's social-sciences output, addressing class and
-political transformation. It was published in December 2023.
+In the 1960s Hadramout felt the great changes sweeping the Arab world around it: demand for labour in the oil states, the spread of radio and the press, the rise of Arab nationalism, and the 1962 revolution in Yemen.
 
-The full title, author name, and detailed publication data are under review with the
-Center.
+The book analyses political conflict inside **Haridah**, a small, geographically isolated Hadrami town with a traditional hierarchical social order, and shows that its local struggles mirrored the wider conflict in the Arab world — and that its people were well aware of the parallel.
 
-## Obtaining a copy
+It is one of the few sociological and anthropological studies of how nationalist ideas reached ordinary people.
 
-Contact the Center for information about the book and how to obtain it.
+- **Author:** Prof. Abdullah Saeed Al-Jabrah Al-Nahdi
+- **Arabic translation:** Najeeb Saeed Bawazir
+- **Published by:** the Hadramout Research Center with Tarim for Studies & Publishing
+
+The Center launched the book at a cultural seminar in Mukalla in October 2023.

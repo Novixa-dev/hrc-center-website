@@ -17,12 +17,15 @@ import {
   breadcrumbSchema,
   collectionPageSchema,
   jsonLdScript,
+  periodicalSchema,
 } from '@/lib/schema';
 import { buildMetadata } from '@/lib/seo';
 
 type PageProps = { params: Promise<{ locale: string }> };
 const PATH = '/research';
-const BOARD_URL = 'https://ahgaff.edu/magazines/13/editorial-board/';
+// Official sources for the Journal block (docs/research/02 §Refresh 2026-10).
+const ISSN_URL = 'https://publishers.issn.org/resource/ISSN/3106-9053';
+const GUIDELINES_PDF = 'https://ahgaff.edu/static/media/uploads/2025/01/49e9c751c43e494ebd3dcb138cb0a7f2.pdf';
 
 export async function generateMetadata({
   params,
@@ -49,6 +52,9 @@ export default async function ResearchPage({ params }: PageProps) {
 
   const areas = t.raw('focus.areas') as { title: string; body: string }[];
   const issues = getJournalIssues(l);
+  const glance = t.raw('journal.glance') as { label: string; value: string }[];
+  const board = t.raw('journal.board') as { role: string; name: string }[];
+  const guidelines = t.raw('journal.guidelines') as string[];
   const otherPublications = getPublications(l).filter(
     (p) => p.frontmatter.kind !== 'journal-issue',
   );
@@ -66,6 +72,7 @@ export default async function ResearchPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdScript([
+            periodicalSchema(l),
             collectionPageSchema(l, {
               name: t('meta.title'),
               description: t('meta.description'),
@@ -171,7 +178,48 @@ export default async function ResearchPage({ params }: PageProps) {
                 {t('journal.body')}
               </p>
 
-              <div className="mt-(--space-6) grid gap-(--space-5) md:grid-cols-2">
+              <div className="mt-(--space-6) rounded-lg border border-border bg-surface p-(--space-5)">
+                <h3 className="text-lg font-semibold text-heading">
+                  {t('journal.glanceHeading')}
+                </h3>
+                <dl className="mt-(--space-4) grid gap-x-(--space-6) gap-y-(--space-4) sm:grid-cols-2">
+                  {glance.map((row) => (
+                    <div key={row.label}>
+                      <dt className="text-xs text-text-muted">{row.label}</dt>
+                      <dd className="mt-0.5 font-medium text-heading">
+                        {row.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                <Link
+                  href={ISSN_URL}
+                  external
+                  withArrow
+                  className="mt-(--space-4) inline-block text-sm font-semibold no-underline"
+                >
+                  {t('journal.issnCta')}
+                </Link>
+              </div>
+
+              <div className="mt-(--space-5) grid gap-(--space-5) md:grid-cols-2">
+                <div className="rounded-lg border border-border bg-surface p-(--space-5)">
+                  <h3 className="text-lg font-semibold text-heading">
+                    {t('journal.boardHeading')}
+                  </h3>
+                  <p className="mt-(--space-2) text-sm text-text-muted">
+                    {t('journal.boardBody')}
+                  </p>
+                  <dl className="mt-(--space-3) space-y-(--space-3) text-sm">
+                    {board.map((m) => (
+                      <div key={m.role}>
+                        <dt className="text-text-muted">{m.role}</dt>
+                        <dd className="font-medium text-heading">{m.name}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+
                 <div className="rounded-lg border border-border bg-surface p-(--space-5)">
                   <h3 className="text-lg font-semibold text-heading">
                     {t('journal.submitHeading')}
@@ -185,25 +233,24 @@ export default async function ResearchPage({ params }: PageProps) {
                   >
                     {t('journal.submitEmail')}
                   </a>
+                  <h4 className="mt-(--space-4) text-sm font-semibold text-heading">
+                    {t('journal.guidelinesHeading')}
+                  </h4>
+                  <ul className="mt-(--space-2) list-disc space-y-1 ps-(--space-5) text-sm text-text">
+                    {guidelines.map((g) => (
+                      <li key={g}>{g}</li>
+                    ))}
+                  </ul>
                   <p className="mt-(--space-3) text-xs text-text-muted">
-                    {t('journal.submitNote')}
-                  </p>
-                </div>
-
-                <div className="rounded-lg border border-border bg-surface p-(--space-5)">
-                  <h3 className="text-lg font-semibold text-heading">
-                    {t('journal.boardHeading')}
-                  </h3>
-                  <p className="mt-(--space-2) text-sm text-text-muted">
-                    {t('journal.boardBody')}
+                    {t('journal.guidelinesNote')}
                   </p>
                   <Link
-                    href={BOARD_URL}
+                    href={GUIDELINES_PDF}
                     external
                     withArrow
-                    className="mt-(--space-3) inline-block text-sm font-semibold no-underline"
+                    className="mt-(--space-2) inline-block text-sm font-semibold no-underline"
                   >
-                    {t('journal.boardCta')}
+                    {t('journal.guidelinesCta')}
                   </Link>
                 </div>
               </div>
@@ -214,7 +261,7 @@ export default async function ResearchPage({ params }: PageProps) {
               {issues.length > 0 ? (
                 <RevealList
                   className={`mt-(--space-4) grid gap-(--space-4) ${
-                    issues.length === 1 ? 'max-w-xl' : 'sm:grid-cols-2'
+                    issues.length === 1 ? 'max-w-xl' : 'sm:grid-cols-2 lg:grid-cols-3'
                   }`}
                 >
                   {issues.map((item) => (
