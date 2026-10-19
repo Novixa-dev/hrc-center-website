@@ -25,6 +25,7 @@
 | S10 | Verified content refresh (post-launch) | ✅ Complete | 9 / 9 | ✅ | — | — |
 | S11 | Training catalog + font loading | ✅ Complete | 3 / 3 | ✅ | — | — |
 | S12 | Contact accuracy | ✅ Complete | 3 / 3 | ✅ | — | — |
+| S13 | Home refresh | ✅ Complete | 2 / 2 | ✅ | — | — |
 
 Legend: ⏳ not started · 🏗️ in progress · ✅ complete · ⚠️ blocked · 🔁 reopened
 
@@ -94,6 +95,9 @@ _As of S6 close (`sprint-6-complete`), all 13 route types live, local prod build
 
 ## Change log (append‑only, newest first)
 
+- **2026-10-19** — **S13 home refresh.** Latest-news band (three newest sourced items) added to Home — the
+  loader existed since S6 but was never rendered; journal card now states peer-reviewed · semi-annual,
+  E-ISSN and issue count. CI audit now median-of-3 with a warm-up run (cold-start noise on `/ar`).
 - **2026-10-19** — **S12 contact accuracy.** Found and removed unsourced office hours on the Contact page
   (present since S6). Replaced with the registration phones, WhatsApp and men's/women's section locations the
   Center publishes on its course pages, with a Source link, plus `ContactPoint` JSON-LD. Prettier pass.
