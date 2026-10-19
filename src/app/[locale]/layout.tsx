@@ -50,7 +50,13 @@ export async function generateMetadata({
     description: site.description[l],
     applicationName: site.name[l],
     authors: [{ name: site.studio.name, url: site.studio.url[l] }],
-    icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/icon.svg', type: 'image/svg+xml' },
+      ],
+      apple: '/apple-touch-icon.png',
+    },
     manifest: '/manifest.webmanifest',
   };
 }
