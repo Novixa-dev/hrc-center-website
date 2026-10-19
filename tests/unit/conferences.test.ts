@@ -57,10 +57,15 @@ describe('conferences collection', () => {
     ).toBe(true);
   });
 
-  it('the provisional "second scientific conference" carries no Event data', () => {
-    const c = conferences.getBySlug('en', 'second-scientific-conference');
-    expect(c).not.toBeNull();
-    expect(hasEventData(c!.frontmatter)).toBe(false);
+  it('the second conference is a past, online event with Event data', () => {
+    for (const locale of ['ar', 'en'] as const) {
+      const c = conferences.getBySlug(locale, 'second-scientific-conference');
+      expect(c).not.toBeNull();
+      expect(c!.frontmatter.status).toBe('past');
+      expect(c!.frontmatter.online).toBe(true);
+      expect(c!.frontmatter.source?.url).toMatch(/^https:\/\//);
+      expect(hasEventData(c!.frontmatter)).toBe(true);
+    }
   });
 });
 
