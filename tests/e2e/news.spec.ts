@@ -16,7 +16,7 @@ const locales = [
     tag: 'Journal',
     articleSlug: 'journal-issue-1-published',
     articleTitle:
-      'First issue of the Al-Ahgaff Journal for Social Sciences published',
+      'Issue 1 of the Al-Ahgaff Journal of Social Sciences is published',
   },
 ] as const;
 

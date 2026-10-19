@@ -97,11 +97,10 @@ for (const loc of ['ar', 'en'] as const) {
       await expect(page.getByText(l.confStatus).first()).toBeVisible();
     });
 
-    test('past section points to news', async ({ page }) => {
+    test('past section lists the held conference', async ({ page }) => {
+      const past = page.locator('section[aria-labelledby="past-h"]');
       await expect(
-        page.getByRole('link', {
-          name: loc === 'ar' ? 'أخبار المركز' : 'Center news',
-        }),
+        past.getByRole('link', { name: new RegExp(l.confTitle) }),
       ).toBeVisible();
     });
 
