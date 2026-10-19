@@ -1,10 +1,4 @@
-import {
-  Amiri,
-  EB_Garamond,
-  IBM_Plex_Mono,
-  IBM_Plex_Sans_Arabic,
-  Inter,
-} from 'next/font/google';
+import { Amiri, IBM_Plex_Mono, IBM_Plex_Sans_Arabic } from 'next/font/google';
 
 /**
  * Self-hosted at build time (no runtime request). Subset to Arabic + Latin.
@@ -30,21 +24,15 @@ export const plexArabic = IBM_Plex_Sans_Arabic({
   preload: true,
 });
 
-export const garamond = EB_Garamond({
-  subsets: ['latin'],
-  weight: ['600'],
-  variable: '--next-font-garamond',
-  display: 'optional',
-  preload: false,
-});
-
-export const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '600'],
-  variable: '--next-font-inter',
-  display: 'optional',
-  preload: false,
-});
+/*
+ * Latin faces (Inter, EB Garamond) are self-hosted in public/fonts and declared in
+ * globals.css, so the [locale] layout can preload them on /en only — next/font
+ * preloads are shared by both locales (S14: /en CLS fix without taxing /ar).
+ */
+export const LATIN_FONT_PRELOADS = [
+  '/fonts/inter-latin.woff2',
+  '/fonts/eb-garamond-600-latin.woff2',
+] as const;
 
 export const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -58,7 +46,5 @@ export const plexMono = IBM_Plex_Mono({
 export const fontVariables = [
   amiri.variable,
   plexArabic.variable,
-  garamond.variable,
-  inter.variable,
   plexMono.variable,
 ].join(' ');

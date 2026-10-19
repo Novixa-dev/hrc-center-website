@@ -2,6 +2,54 @@
 @import './tokens.css';
 
 /*
+ * Self-hosted Latin faces (SIL OFL — public/fonts/LICENSE.txt). Preloaded on /en
+ * only by the [locale] layout. The *Fallback faces carry the size/ascent metrics
+ * next/font computed for these families, so the swap does not shift layout.
+ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/eb-garamond-600-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+  size-adjust: 107.12%;
+}
+@font-face {
+  font-family: 'EB Garamond Fallback';
+  src: local('Times New Roman');
+  ascent-override: 106.26%;
+  descent-override: 31.44%;
+  line-gap-override: 0%;
+  size-adjust: 94.77%;
+}
+:root {
+  --next-font-inter: 'Inter', 'Inter Fallback';
+  --next-font-garamond: 'EB Garamond', 'EB Garamond Fallback';
+}
+
+/*
  * Map design tokens -> Tailwind utilities. `inline` keeps utilities referencing
  * the live CSS variable (so `bg-surface` stays theme-reactive) instead of baking
  * a value. Token definitions live in tokens.css; this only exposes them.

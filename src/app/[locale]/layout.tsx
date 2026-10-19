@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { preload } from 'react-dom';
 import {
   getMessages,
   getTranslations,
@@ -13,7 +14,7 @@ import { Header } from '@/components/layout/header';
 import { SkipLink } from '@/components/layout/skip-link';
 import { ResearchAssistant } from '@/components/assistant/research-assistant';
 import { localeDirection, locales, routing, type Locale } from '@/i18n/routing';
-import { fontVariables } from '@/lib/fonts';
+import { fontVariables, LATIN_FONT_PRELOADS } from '@/lib/fonts';
 import { organizationSchema, websiteSchema, jsonLdScript } from '@/lib/schema';
 import { site } from '@/lib/site';
 
@@ -78,6 +79,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
     (
       [
         'common',
+        'assistant',
         'nav',
         'languageSwitcher',
         'contact',
@@ -88,6 +90,17 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       .filter((k) => k in messages)
       .map((k) => [k, messages[k]]),
   );
+
+  // Latin faces matter above the fold only on English pages (see lib/fonts.ts).
+  if (l === 'en') {
+    for (const href of LATIN_FONT_PRELOADS) {
+      preload(href, {
+        as: 'font',
+        type: 'font/woff2',
+        crossOrigin: 'anonymous',
+      });
+    }
+  }
 
   return (
     <html lang={l} dir={dir} className={fontVariables} suppressHydrationWarning>
