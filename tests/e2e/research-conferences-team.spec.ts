@@ -7,30 +7,33 @@ const L = {
     researchH1: 'بحثٌ علميٌّ في خدمة حضرموت',
     journalHeading: 'مجلة الأحقاف للعلوم الاجتماعية',
     issueTitle: 'مجلة الأحقاف للعلوم الاجتماعية — العدد الأول',
+    boardRole: 'رئيس التحرير',
     confH1: 'مؤتمراتٌ وندواتٌ وورشُ عملٍ علمية',
-    confStatus: 'قيد الإعداد',
-    confTitle: 'المؤتمر العلمي الثاني',
-    confTba: 'يُعلَن لاحقاً',
+    confStatus: 'سابق',
+    confTitle: 'المؤتمر العلمي الدولي الثاني: الحضارمة في شرق أفريقيا',
+    confOnline: 'عن بُعد — منصة زوم',
     teamH1: 'مَن وراء المركز',
     teamPending: 'يُعلَن التعيين قريباً',
     teamRole: 'المدير التنفيذي',
   },
   en: {
     researchH1: 'Research in the service of Hadramout',
-    journalHeading: 'Al-Ahgaff Journal for Social Sciences',
-    issueTitle: 'Al-Ahgaff Journal for Social Sciences — Issue 1',
+    journalHeading: 'Al-Ahgaff Journal of Social Sciences',
+    issueTitle: 'Al-Ahgaff Journal of Social Sciences — Issue 1',
+    boardRole: 'Editor-in-Chief',
     confH1: 'Conferences, seminars and scholarly workshops',
-    confStatus: 'In preparation',
-    confTitle: 'The Second Scientific Conference',
-    confTba: 'To be announced',
+    confStatus: 'Past',
+    confTitle: 'Second International Scientific Conference: Hadramis in East Africa',
+    confOnline: 'Online (Zoom)',
     teamH1: 'The people behind the Center',
     teamPending: 'Appointment announced soon',
     teamRole: 'Executive Director',
   },
 } as const;
 
-// Client-brief names that must never render (docs/research/02 §Leadership).
-const FORBIDDEN_NAMES = /Maknoon|Bin-?Dohry|Baharoon|مكنون|بن دحري/;
+// Client-brief spellings that no official source uses — they must never render.
+// (Officially published names render with a source link; docs/research/02 §Refresh.)
+const FORBIDDEN_NAMES = /Bin-?Dohry|بن دحري/;
 
 for (const loc of ['ar', 'en'] as const) {
   const l = L[loc];
@@ -48,17 +51,16 @@ for (const loc of ['ar', 'en'] as const) {
       ).toHaveAttribute('href', 'mailto:law.m@ahgaff.edu');
     });
 
-    test('editorial board link is external to the university', async ({
+    test('journal facts: ISSN, editorial board, criteria PDF', async ({
       page,
     }) => {
-      const board = page.getByRole('link', {
-        name:
-          loc === 'ar'
-            ? 'الاطّلاع على هيئة التحرير'
-            : 'View the editorial board',
+      await expect(page.getByText('E-ISSN 3106-9053')).toBeVisible();
+      await expect(page.getByText(l.boardRole, { exact: true })).toBeVisible();
+      const issn = page.getByRole('link', {
+        name: loc === 'ar' ? 'السجل الدولي للرقم المعياري' : 'ISSN register entry',
       });
-      await expect(board).toHaveAttribute('href', /ahgaff\.edu/);
-      await expect(board).toHaveAttribute('target', '_blank');
+      await expect(issn).toHaveAttribute('href', /issn\.org/);
+      await expect(issn).toHaveAttribute('target', '_blank');
     });
 
     test('issue card links to the publication detail', async ({ page }) => {
@@ -87,7 +89,7 @@ for (const loc of ['ar', 'en'] as const) {
   test.describe(`conferences · ${loc}`, () => {
     test.beforeEach(({ page }) => page.goto(`/${loc}/conferences`));
 
-    test('h1 and the in-preparation conference', async ({ page }) => {
+    test('h1 and the held conference', async ({ page }) => {
       await expect(page.locator('h1')).toHaveText(l.confH1);
       await expect(
         page.getByRole('link', { name: new RegExp(l.confTitle) }),
@@ -103,19 +105,22 @@ for (const loc of ['ar', 'en'] as const) {
       ).toBeVisible();
     });
 
-    test('event detail has no Event JSON-LD without a date and place', async ({
+    test('event detail: online Event JSON-LD and a source link', async ({
       page,
     }) => {
       await page.goto(`/${loc}/conferences/second-scientific-conference`);
       await expect(page.locator('h1')).toHaveText(l.confTitle);
-      await expect(page.getByText(l.confTba).first()).toBeVisible();
+      await expect(page.getByText(l.confOnline).first()).toBeVisible();
       const ld = (
         await page
           .locator('script[type="application/ld+json"]')
           .allTextContents()
       ).join(' ');
-      expect(ld).not.toContain('"Event"');
+      expect(ld).toContain('"Event"');
+      expect(ld).toContain('"VirtualLocation"');
+      expect(ld).toContain('OnlineEventAttendanceMode');
       expect(ld).toContain('"BreadcrumbList"');
+      await expect(page.locator('a[href*="iul1969.org"]')).toBeVisible();
       await expectNoA11yViolations(page);
     });
 
@@ -127,13 +132,17 @@ for (const loc of ['ar', 'en'] as const) {
   test.describe(`team · ${loc}`, () => {
     test.beforeEach(({ page }) => page.goto(`/${loc}/team`));
 
-    test('h1, pending note, roles — and no unconfirmed names', async ({
+    test('h1, roles, sourced names — and no unsourced spellings', async ({
       page,
     }) => {
       await expect(page.locator('h1')).toHaveText(l.teamH1);
       await expect(page.getByText(l.teamPending).first()).toBeVisible();
       await expect(page.getByText(l.teamRole).first()).toBeVisible();
       await expect(page.getByText(FORBIDDEN_NAMES)).toHaveCount(0);
+      // Every published name carries a link to its official source.
+      await expect(
+        page.locator('#main a[href^="https://ahgaff.edu/"][target="_blank"]'),
+      ).toHaveCount(4);
     });
 
     test('nav marks Team as current, breadcrumb ends here', async ({
