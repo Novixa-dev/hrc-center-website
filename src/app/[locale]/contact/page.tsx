@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { MapPin, Clock, Share2, Building2 } from 'lucide-react';
+import { Building2, MapPin, MessageCircle, Phone, Share2 } from 'lucide-react';
 
 import { ContactForm } from '@/components/sections/contact-form';
 import { PageHeader } from '@/components/sections/page-header';
@@ -104,16 +104,51 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
                 </p>
               </div>
 
-              {/* Working Hours Card */}
+              {/* Registration & enquiries — published lines, with source */}
               <div className="bg-surface-elevated flex flex-col gap-3 rounded-xl border border-border p-6 shadow-sm">
                 <div className="flex items-center gap-3 text-primary">
-                  <Clock className="h-5 w-5 shrink-0" aria-hidden="true" />
+                  <Phone className="h-5 w-5 shrink-0" aria-hidden="true" />
                   <h2 className="text-lg font-bold text-heading">
-                    {t('info.hoursTitle')}
+                    {t('info.registerTitle')}
                   </h2>
                 </div>
-                <p className="text-sm font-medium text-text">
-                  {t('info.hoursText')}
+                <p className="text-xs leading-relaxed text-text-muted">
+                  {t('info.registerText')}
+                </p>
+                <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium">
+                  {site.registration.phones.map((phone) => (
+                    <li key={phone.tel}>
+                      <a
+                        href={`tel:${phone.tel}`}
+                        className="text-link underline-offset-2 hover:text-link-hover"
+                      >
+                        <bdi dir="ltr">{phone.display}</bdi>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={`https://wa.me/${site.registration.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:bg-surface-hover inline-flex w-fit items-center gap-2 rounded-md border border-border-interactive bg-surface px-3.5 py-2 text-sm font-medium text-text transition-colors hover:border-primary focus-visible:shadow-(--focus-ring) focus-visible:outline-none"
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                  <span>{t('info.whatsapp')}</span>
+                  <bdi dir="ltr">{site.registration.whatsappDisplay}</bdi>
+                  <span className="sr-only"> {t('info.newTab')}</span>
+                </a>
+                <p className="text-xs text-text-muted">
+                  {t('info.sourceLabel')}{' '}
+                  <a
+                    href={site.registration.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline-offset-2 hover:text-link"
+                  >
+                    {t('info.sourceName')}
+                    <span className="sr-only"> {t('info.newTab')}</span>
+                  </a>
                 </p>
               </div>
 

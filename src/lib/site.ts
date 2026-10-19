@@ -57,6 +57,22 @@ export const site = {
     whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? null,
   },
 
+  /**
+   * Registration & enquiry lines as the Center publishes them on its course
+   * pages (docs/research/02 §Refresh; e.g. the MikroTik course page, Jan 2025).
+   */
+  registration: {
+    phones: [
+      { display: '05 362606', tel: '+9675362606' },
+      { display: '734 339 597', tel: '+967734339597' },
+      { display: '781 850 569', tel: '+967781850569' },
+    ],
+    whatsapp: '967734339597',
+    whatsappDisplay: '+967 734 339 597',
+    source:
+      'https://ahgaff.edu/centers/1/courses/%D8%AF%D9%88%D8%B1%D8%A9-%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9-%D8%B4%D8%A8%D9%83%D8%A7%D8%AA-%D9%85%D8%A7%D9%8A%D9%83%D8%B1%D9%88%D8%AA%D9%8A%D9%83/',
+  },
+
   social: {
     instagram: 'https://www.instagram.com/hrc.centre',
     facebook: 'https://www.facebook.com/share/1BfVmMeqf2/',

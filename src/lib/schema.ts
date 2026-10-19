@@ -26,6 +26,13 @@ export function organizationSchema(locale: Locale): JsonLd {
       addressRegion: locale === 'ar' ? 'حضرموت' : 'Hadramout',
       addressCountry: 'YE',
     },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType:
+        locale === 'ar' ? 'التسجيل والاستفسار' : 'registration and enquiries',
+      telephone: site.registration.phones.map((p) => p.tel),
+      availableLanguage: ['ar', 'en'],
+    },
     sameAs: [site.social.instagram, site.social.facebook],
   };
 }

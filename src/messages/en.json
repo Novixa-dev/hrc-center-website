@@ -675,12 +675,16 @@
     "info": {
       "locationTitle": "Location & Visits",
       "locationAddress": "Al-Ahgaff University Presidency Building, 3rd Floor, Fuah – Al-Masaken, Mukalla, Hadramout, Republic of Yemen",
-      "locationNote": "The Center is located within the University Presidency Building in Fuah, welcoming visitors during academic office hours.",
-      "hoursTitle": "Office Hours",
-      "hoursText": "Sunday – Thursday: 8:00 AM – 2:00 PM (Yemen Time)",
+      "locationNote": "Men's section: Al-Ahgaff University Presidency Building (third floor). Women's section: the Girls' College building, next to Al-Amoudi Restaurant — Fuwwah, Al-Masakin.",
       "channelsTitle": "Official Channels",
       "channelsText": "You can also follow the Center and its latest activities through our official social media channels.",
-      "privacyNote": "Information submitted via this form (name, email, message) is used solely to respond to your enquiry and is never shared with third parties or external platforms."
+      "privacyNote": "Information submitted via this form (name, email, message) is used solely to respond to your enquiry and is never shared with third parties or external platforms.",
+      "registerTitle": "Registration & enquiries",
+      "registerText": "Registration and enquiry numbers as the Center publishes them in its course announcements:",
+      "whatsapp": "WhatsApp",
+      "sourceLabel": "Source:",
+      "sourceName": "the Center's course announcements on the Al-Ahgaff University website",
+      "newTab": "(opens in a new tab)"
     }
   },
   "privacy": {
