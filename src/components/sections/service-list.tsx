@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { Reveal } from '@/components/motion/reveal';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/components/ui/link';
 import { services } from '@/lib/content';
 
 export async function ServiceList() {
@@ -33,6 +34,29 @@ export async function ServiceList() {
                 <p className="mt-(--space-3) text-text">
                   {t(`items.${s.id}.body`)}
                 </p>
+                {t.has(`items.${s.id}.highlights`) ? (
+                  <div className="mt-(--space-4) rounded-md border-s-2 border-accent bg-surface-muted p-(--space-4)">
+                    <p className="text-xs font-semibold tracking-(--tracking-overline) text-accent uppercase">
+                      {t('highlightsLabel')}
+                    </p>
+                    <ul className="mt-(--space-2) list-disc space-y-1 ps-(--space-5) text-sm text-text">
+                      {(t.raw(`items.${s.id}.highlights`) as string[]).map(
+                        (h) => (
+                          <li key={h}>{h}</li>
+                        ),
+                      )}
+                    </ul>
+                    {t.has(`items.${s.id}.more`) ? (
+                      <Link
+                        href={t(`items.${s.id}.more.href`)}
+                        withArrow
+                        className="mt-(--space-3) inline-block text-sm font-semibold no-underline"
+                      >
+                        {t(`items.${s.id}.more.label`)}
+                      </Link>
+                    ) : null}
+                  </div>
+                ) : null}
                 <p className="mt-(--space-4) text-sm">
                   <span className="font-semibold text-heading">
                     {t('commissionLabel')}:{' '}
