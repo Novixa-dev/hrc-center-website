@@ -23,6 +23,7 @@
 | S8 | QA, Review & Polish | ✅ Complete | 8 / 8 | ✅ | ✅ | `sprint-8-complete` |
 | S9 | Handover & Marketing | ✅ Complete | 7 / 7 | ✅ | ✅ | `v1.0.0` |
 | S10 | Verified content refresh (post-launch) | ✅ Complete | 9 / 9 | ✅ | — | — |
+| S11 | Training catalog + font loading | ✅ Complete | 3 / 3 | ✅ | — | — |
 
 Legend: ⏳ not started · 🏗️ in progress · ✅ complete · ⚠️ blocked · 🔁 reopened
 
@@ -92,6 +93,11 @@ _As of S6 close (`sprint-6-complete`), all 13 route types live, local prod build
 
 ## Change log (append‑only, newest first)
 
+- **2026-10-19** — **S11 training catalog + font loading.** 11 sourced programs (arbitration diploma, AI &
+  judicial justice, AI productivity, motion graphics, MikroTik, mobile design, photography, secretarial
+  diploma, Onyx Pro, Soroban trainers, English diploma) with published durations/schedules/fees and Source
+  links. Live-audit regression fixed: `/en` CLS 0.112 → 0 (Latin faces `display: optional`, Garamond 600 only);
+  local Lighthouse `/en` 82–87, `/ar` 88–91. unit 123/123 · e2e 206/206.
 - **2026-10-19** — **S10 verified-content refresh** (round 1). Re-researched the Center from its official
   feed, journal PDFs, the ISSN register and the League of Islamic Universities; every new fact carries a
   Source link on the site. News rebuilt (15 sourced items); journal block with E-ISSN 3106-9053, editorial
