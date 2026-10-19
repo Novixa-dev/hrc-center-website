@@ -14,7 +14,7 @@ import { Header } from '@/components/layout/header';
 import { SkipLink } from '@/components/layout/skip-link';
 import { ResearchAssistant } from '@/components/assistant/research-assistant';
 import { localeDirection, locales, routing, type Locale } from '@/i18n/routing';
-import { fontVariables, LATIN_FONT_PRELOADS } from '@/lib/fonts';
+import { FONT_PRELOADS } from '@/lib/fonts';
 import { organizationSchema, websiteSchema, jsonLdScript } from '@/lib/schema';
 import { site } from '@/lib/site';
 
@@ -91,19 +91,13 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       .map((k) => [k, messages[k]]),
   );
 
-  // Latin faces matter above the fold only on English pages (see lib/fonts.ts).
-  if (l === 'en') {
-    for (const href of LATIN_FONT_PRELOADS) {
-      preload(href, {
-        as: 'font',
-        type: 'font/woff2',
-        crossOrigin: 'anonymous',
-      });
-    }
+  // Each locale preloads only the faces it renders above the fold (lib/fonts.ts).
+  for (const href of FONT_PRELOADS[l]) {
+    preload(href, { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
   }
 
   return (
-    <html lang={l} dir={dir} className={fontVariables} suppressHydrationWarning>
+    <html lang={l} dir={dir} suppressHydrationWarning>
       <body className="min-h-dvh bg-bg text-text antialiased">
         <NextIntlClientProvider messages={clientMessages}>
           <SkipLink>{t('skipToContent')}</SkipLink>

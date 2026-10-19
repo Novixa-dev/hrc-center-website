@@ -22,6 +22,21 @@ What already works (left untouched): RTL mirroring, no horizontal overflow at an
 | S14-T03 | ✅ | Latin faces self-hosted (OFL), preloaded on `/en` only, metric-matched fallbacks; `/en` CLS 0 with brand fonts | `perf(perf)` |
 | S14-T04 | ✅ | "In the media" on News (4 independent items) + BoT chair full name | `feat(news)` |
 | S14-T05 | ✅ | Research, checklist, trackers | `docs(sprint)` |
+| S14-T06 | ✅ | All typefaces self-hosted, per-locale preloads (next/font dropped) | `perf(perf)` |
+
+### S14-T06 — why, and the numbers
+
+The first S14 deploy (Latin preloaded on /en on top of next/font's shared Arabic preloads) measured live
+`/en` 71 (LCP 5.8 s) — 8 font files competing. next/font cannot preload per locale, so every face is now
+self-hosted (one file per subset) and each locale preloads only what it renders above the fold:
+`/ar` Amiri 700 + Plex Arabic 400 (arabic subsets); `/en` Inter + EB Garamond 600.
+
+| Local Lighthouse mobile | before (S13) | after |
+|---|---|---|
+| `/en` | 87 · LCP 3.9 s | **89–95 · LCP 2.6–3.2 s** |
+| `/ar` | 89 · LCP 3.8 s | 84–85 · LCP 3.9 s (machine noisier this run: TBT 130–170 vs 60) |
+
+Rendered fonts verified in Chromium: AR = Amiri 700, Plex Arabic 400/600; EN = Inter, EB Garamond 600.
 
 Verification: lint ✅ · typecheck ✅ · unit 123/123 ✅ · build ✅ · e2e chromium + mobile 220/220 ✅ ·
 local Lighthouse mobile `/en` 83 · `/ar` 86–88 · CLS 0 · nginx config tested in nginx 1.27.
