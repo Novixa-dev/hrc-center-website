@@ -1,19 +1,3 @@
-.git
-.github
-.husky
-.claude
-node_modules
-.next
-coverage
-playwright-report
-test-results
-.lighthouseci
-assets-source
-design-system
-docs
-tests
-deploy
-*.md
-.env
-.env.*
-!.env.example
+# The image only needs the assembled standalone build (see Dockerfile).
+*
+!.next/standalone

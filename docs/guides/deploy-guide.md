@@ -23,8 +23,10 @@ This is the live setup. Options A and B below are kept as alternatives.
 push to `main` (or *Run workflow* in the Actions tab):
 
 1. `verify` — `pnpm lint`, `pnpm typecheck`, `pnpm test:unit`. A failure stops the deploy.
-2. `deploy` — builds the [`Dockerfile`](../../Dockerfile) image (Next.js `output: 'standalone'`,
-   `NEXT_PUBLIC_*` baked in), copies it to the server over SSH, runs
+2. `deploy` — runs `pnpm build` on the runner (Next.js `output: 'standalone'`,
+   `NEXT_PUBLIC_*` baked in), smoke-tests the standalone server on key routes, packages
+   it with the [`Dockerfile`](../../Dockerfile) (no install inside Docker — `pnpm install`
+   hangs there), copies the image to the server over SSH, runs
    `docker compose up -d` in `/opt/hrc-center`, waits for the container health check,
    then installs [`deploy/nginx/hrc-center.mailcow.conf`](../../deploy/nginx/hrc-center.mailcow.conf)
    into mailcow's nginx **only if it changed** (`nginx -t` first; the previous file is

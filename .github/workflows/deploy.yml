@@ -1,7 +1,8 @@
 # Deploy hrc.novixa.dev to the shared Novixa VPS.
 #
-# Flow: verify (lint + typecheck + unit tests) → build the Docker image on the
-#       runner → copy it to the server over SSH → `docker compose up` in
+# Flow: verify (lint + typecheck + unit tests) → pnpm build (standalone) and
+#       smoke-test it on the runner → package it in a Docker image → copy it to
+#       the server over SSH → `docker compose up` in
 #       /opt/hrc-center → install the site block in mailcow's nginx (only if it
 #       changed; `nginx -t` first, previous file restored on failure).
 #
@@ -68,20 +69,50 @@ jobs:
       - name: Compute image tag
         run: echo "APP_TAG=sha-${GITHUB_SHA::7}" >> "$GITHUB_ENV"
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: '0'
+
+      - name: Build Next.js (standalone)
+        run: pnpm build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_SITE_URL: https://hrc.novixa.dev
+          NEXT_PUBLIC_WHATSAPP: ${{ secrets.NEXT_PUBLIC_WHATSAPP }}
+          NEXT_PUBLIC_ANALYTICS: ${{ secrets.NEXT_PUBLIC_ANALYTICS }}
+
+      # standalone/ holds the server and traced node_modules only; static assets,
+      # public/ and the markdown collections (read from disk at request time) are added here.
+      - name: Assemble standalone bundle
+        run: |
+          S=.next/standalone
+          cp -r .next/static "$S/.next/static"
+          cp -r public "$S/public"
+          mkdir -p "$S/src" && cp -r src/content "$S/src/content"
+          du -sh "$S"
+
+      - name: Smoke-test the bundle
+        run: |
+          cd .next/standalone
+          PORT=3999 HOSTNAME=127.0.0.1 node server.js > /tmp/server.log 2>&1 &
+          PID=$!
+          for i in $(seq 1 30); do curl -fsS -o /dev/null http://127.0.0.1:3999/ar && break; sleep 1; done
+          for p in /ar /en /ar/news /en/training /ar/contact /sitemap.xml /robots.txt; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:3999$p")
+            echo "$p → $code"
+            [ "$code" = "200" ] || { cat /tmp/server.log; exit 1; }
+          done
+          kill "$PID"
 
       - name: Build image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          load: true
-          tags: ${{ env.IMAGE }}:${{ env.APP_TAG }}
-          build-args: |
-            NEXT_PUBLIC_SITE_URL=https://hrc.novixa.dev
-            NEXT_PUBLIC_WHATSAPP=${{ secrets.NEXT_PUBLIC_WHATSAPP }}
-            NEXT_PUBLIC_ANALYTICS=${{ secrets.NEXT_PUBLIC_ANALYTICS }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        run: docker build -t "${IMAGE}:${APP_TAG}" .
 
       - name: Bundle release
         run: |
