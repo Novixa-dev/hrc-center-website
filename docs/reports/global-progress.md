@@ -22,6 +22,7 @@
 | S7 | SEO / OG / Perf / A11y Hardening | ✅ Complete | 10 / 10 | ✅ | ✅ | `sprint-7-complete` |
 | S8 | QA, Review & Polish | ✅ Complete | 8 / 8 | ✅ | ✅ | `sprint-8-complete` |
 | S9 | Handover & Marketing | ✅ Complete | 7 / 7 | ✅ | ✅ | `v1.0.0` |
+| S10 | Verified content refresh (post-launch) | ✅ Complete | 9 / 9 | ✅ | — | — |
 
 Legend: ⏳ not started · 🏗️ in progress · ✅ complete · ⚠️ blocked · 🔁 reopened
 
@@ -91,6 +92,13 @@ _As of S6 close (`sprint-6-complete`), all 13 route types live, local prod build
 
 ## Change log (append‑only, newest first)
 
+- **2026-10-19** — **S10 verified-content refresh** (round 1). Re-researched the Center from its official
+  feed, journal PDFs, the ISSN register and the League of Islamic Universities; every new fact carries a
+  Source link on the site. News rebuilt (15 sourced items); journal block with E-ISSN 3106-9053, editorial
+  board, acceptance criteria and Issues 1–3 (contents + official PDFs); the second conference shown as held
+  (27 Dec 2025, online, Event JSON-LD); leadership named in official news on Team; arbitration office +
+  highlights on Services; milestones + partners on About. Removed: an unverifiable news item, a dead
+  editorial-board link, a non-HRC book. unit 122/122 · e2e 206/206 · lint/typecheck/build green.
 - **2026-10-19** — **Post-launch hardening** (live audit). Fixed: touch/manifest icons were
   404 (`apple-touch-icon.png`, `icon-192/512/512-maskable.png` never existed; the
   file-based `/apple-icon` route was swallowed by the locale proxy) → static PNGs drawn

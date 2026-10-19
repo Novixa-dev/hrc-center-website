@@ -252,3 +252,23 @@ A third-party ISSN hit (3134-9390) belongs to a Libyan journal — **not** this 
 
 Removed as unverifiable on the current feed: "International arbitrator training concluded (Jul 2024)" — no
 such item exists on any of the 5 feed pages (the arbitration work is documented by the 2026-10 item instead).
+
+### From the journal and book PDFs (read 2026-10-19)
+
+- **Issue 1** (Sept 2024, 211 pp.) front matter: "مجلة دورية علمية محكمة"; editorial board — Editor-in-Chief
+  Prof. Sadiq Omar Maknoon · Deputy Dr. Ahmed Hadi Bahartha · Managing Editor Dr. Hashem Alawi Muqaibel ·
+  Editorial Secretary Mohammed Salem Al-Bouri · Coordinator Bassam Khamis Al-Tamimi. Publisher: HRC at Al-Ahgaff
+  University, Yemen – Hadramout. 22 acceptance criteria (Arabic-only publication, AR+EN title/abstract/keywords,
+  15–30 pp., fee YER 40,000 in Yemen / USD 120 abroad, citation style). Seven papers — contents on the site.
+  Editorial note: contributors from Yemen, UAE, Turkey and India.
+- **Issue 2** (Jan 2026, 149 pp.): cover reads "مجلة نصف سنوية محكمة", **E-ISSN 3106-9053**; four papers;
+  same board minus the coordinator.
+- **«الطبقية والسياسة»** cover: أ.د. عبدالله سعيد الجبرة النهدي; translated by نجيب سعيد باوزير; HRC logo
+  ("Hadhramaut Research Centre for Studies, Training and Community Development") + Tarim for Studies & Publishing.
+- **«حضرموت والمهجر: السياسة اليمنية والهوية والهجرة»** cover: King Faisal Center for Research and Islamic
+  Studies, ed. Noel Brehony, tr. Bashir Al-Eisawi ("الكتب المترجمة 5") — **not an HRC publication**; it is
+  listed on the Center's page but is not presented as HRC's on our site.
+- Dead links found: `ahgaff.edu/magazines/13/editorial-board/` (404) and the journal page printed in the
+  issues, `ahgaff.edu/mag-centers/magz-soh.aspx` (404). The Issue 3 download link in the official news is a
+  malformed shortener URL — not used.
+- The HRC logo exists (seen on the book cover) — a vector is still needed (checklist I1).

@@ -5,9 +5,11 @@
 > the copy and removes the flag. Until then the site shows neutral wording or an explicit
 > "to be announced" state — never a guess presented as fact.
 
-**Last audited:** 2026-09-09 (Sprint 8 QA & Polish — verified: 100% of provisional items are strictly gated via `confirmed: false`, neutral role titles, or "to be announced" states).
+**Last audited:** 2026-10-19 (S10 verified-content refresh) · previously 2026-09-09 (Sprint 8 QA & Polish — verified: 100% of provisional items are strictly gated via `confirmed: false`, neutral role titles, or "to be announced" states).
 
-**Legend:** ⬜ open · ✅ confirmed by HRC · ✏️ corrected (see note) · ⏭️ deferred by Novixa (with reason)
+**Legend:** ⬜ open · 🔗 sourced from an official/third-party publication (shown on site with a Source link; still needs HRC sign-off) · ✅ confirmed by HRC · ✏️ corrected (see note) · ⏭️ deferred by Novixa (with reason)
+
+**2026-10-19 (S10):** rows marked 🔗 were resolved from the University's own news feed, the journal PDFs and the ISSN register — sources in `docs/research/02` §Refresh 2026-10.
 
 ## A. Identity & contact
 
@@ -27,10 +29,10 @@
 
 | # | Item | Current site behavior | What we need | Status |
 |---|---|---|---|---|
-| B1 | Chairman, Board of Trustees — name + correct spelling (AR/EN) | Role card: "Appointment announced soon" | Name, title, short bio, photo, consent to publish | ⬜ |
-| B2 | Executive Director — name (brief says Prof. Sadiq Omar Maknoon) + is he also University VP? | Role card: role + "appointment announced soon"; `confirmed: false` gates the name out of the DOM entirely | Confirm name + concurrent titles + bio + photo + consent | ⬜ |
+| B1 | Chairman, Board of Trustees — name + correct spelling (AR/EN) | **Mohammed bin Dohry / الأستاذ محمد بن دهري** (official news 2026-10-10), with Source link | Bio, photo, EN spelling preference | 🔗 |
+| B2 | Executive Director — name (brief says Prof. Sadiq Omar Maknoon) + is he also University VP? | **Prof. Sadiq Omar Maknoon**, Executive Director **and** University Vice-President (official news 2025-10, 2026-10), with Source link | Bio, photo | 🔗 |
 | B3 | Board of Trustees — full member list | Two role cards (Chair, Member); no names; `confirmed: false` | List of members with titles/affiliations (+ the Kenya‑based member from the brief) | ⬜ |
-| B4 | Research staff / department heads | Not shown | Names + roles + bios for anyone HRC wants featured | ⬜ |
+| B4 | Research staff / department heads | Director of Training (Dr. Mohammed Salem Al-Bouri) + Head of the Arbitration Office (Counsellor Dr. Hashem Alawi Muqaibel), sourced; journal board on Research page (from Issue 2) | Other heads + bios | 🔗 partial |
 | B5 | University President reference (Prof. Abdullah bin Muhammad Baharoon) | Shown in the affiliation context only | Confirm current + correct spelling | ⬜ |
 | B6 | Advisory network / affiliated researchers | Not shown | Optional — provide if desired | ⬜ |
 
@@ -70,13 +72,13 @@
 | # | Item | Current site behavior | What we need | Status |
 |---|---|---|---|---|
 | F1 | *Al‑Ahgaff Journal for Social Sciences* — exact AR + EN title | Using "مجلة الأحقاف للعلوم الاجتماعية" / "Al‑Ahgaff Journal for Social Sciences" | Confirm | ⬜ |
-| F2 | Journal ISSN (print/online) | Not shown | Provide ISSN(s) | ⬜ |
-| F3 | Editor‑in‑Chief + editorial board | Not named; the Journal section links out to `ahgaff.edu/magazines/13/editorial-board/` | Provide names/affiliations, or confirm the link is the canonical source | ⬜ |
-| F4 | Publication frequency | Not stated (brief says semi‑annual) | Confirm | ⬜ |
-| F5 | Issue archive — real list with dates + contents | Showing **Issue 1 only** (Sept 2024, the one verifiable issue), flagged provisional; later issues held back (dates conflict across sources) | Provide the definitive issue list (number, date, table of contents / PDF links) | ⬜ |
-| F6 | Author guidelines + submission email | Using `law.m@ahgaff.edu` + "complete the form" | Confirm the current submission email + attach/point to the guidelines & template | ⬜ |
+| F2 | Journal ISSN (print/online) | **E-ISSN 3106-9053** (ISSN register + Issue 2 cover) | Print ISSN if any | 🔗 |
+| F3 | Editor‑in‑Chief + editorial board | Board as printed in Issue 2 (Jan 2026); the old link-out is dead (404) and was removed | Advisory board, if any | 🔗 |
+| F4 | Publication frequency | **Semi-annual**, peer-reviewed (issue covers + official news) | — | 🔗 |
+| F5 | Issue archive — real list with dates + contents | Issues 1 (Sep 2024) and 2 (Jan 2026) with full contents + official PDFs; Issue 3 (Jul 2026) announced, contents not yet posted | Issue 3 contents/PDF | 🔗 partial |
+| F6 | Author guidelines + submission email | Key criteria summarised from Issue 1 front matter (incl. fees) + link to the PDF; email `law.m@ahgaff.edu` | Confirm email + whether fees are current | 🔗 partial |
 | F7 | Publication ethics / peer‑review policy statement | Generic | Provide official policy text if any | ⬜ |
-| F8 | Books/reports published (e.g. "Class and Politics…", Dec 2023) | Provisional entry | Confirm title (AR/EN), author, date, availability | ⬜ |
+| F8 | Books/reports published (e.g. "Class and Politics…", Dec 2023) | Full title, author (Prof. Abdullah Saeed Al-Jabrah Al-Nahdi), translator, co-publisher from the cover; PDF linked. *Hadramout and the Diaspora* (listed on the Center page) is a King Faisal Center publication → **not** shown as HRC's | Confirm whether HRC co-published the latter | 🔗 |
 | F9 | Research areas / agenda | Four focus areas shown, inferred from the mandate (society & community / economy & development / law & governance / heritage & culture) | Provide the official research priorities | ⬜ |
 | F10 | Is there an external OJS / journal platform to link to? | No outbound link yet | Provide URL if it exists | ⬜ |
 
@@ -85,7 +87,7 @@
 | # | Item | Current site behavior | What we need | Status |
 |---|---|---|---|---|
 | G1 | First Scientific Conference — year, theme, outcomes | Not shown (nothing verifiable) | Provide details | ⬜ |
-| G2 | Second Scientific Conference — full name, date, theme, status (was "in preparation" Sep 2025) | Provisional entry, status `planned`; **no `Event` structured data** (no confirmed date/venue); date + location render "to be announced" | Confirm status + full name + date + venue + theme + call for papers + proceedings | ⬜ |
+| G2 | Second Scientific Conference — full name, date, theme, status (was "in preparation" Sep 2025) | **Held 27 Dec 2025, online** — «الحضارمة في شرق أفريقيا: الاندماج والحفاظ على الهوية» (League of Islamic Universities); `Event` JSON-LD with `VirtualLocation` | Proceedings, recommendations, photos | 🔗 |
 | G3 | Other events (Translation Day seminar, info‑security event, teacher workshop, etc.) | Provisional news/event entries | Confirm which to publish + dates + descriptions | ⬜ |
 | G4 | Event photo galleries | Placeholder treatments | Provide photos with permission | ⬜ |
 
@@ -93,7 +95,7 @@
 
 | # | Item | Current site behavior | What we need | Status |
 |---|---|---|---|---|
-| H1 | Which announcements to seed the News section with | 4 provisional items from `research/02` §Events (journal issue 1, arbitrator training, English‑diploma graduation, 2nd‑conference prep meeting); day‑level dates approximate where the source gave only a month; a "not a complete record since 2013" note is shown | Confirm which items to publish + accurate dates & text; add any missing | ⬜ |
+| H1 | Which announcements to seed the News section with | 15 items rebuilt from the official feed (2022–2026), each with a Source link; the unverifiable "arbitrator training Jul 2024" item removed | Editorial preference on which items to keep | 🔗 |
 | H2 | Ongoing: who updates News after launch? | Handover guide explains Git‑MDX editing | Decide the update owner/process | ⬜ |
 
 ## I. Visual assets
@@ -119,7 +121,7 @@
 
 | # | Item | Current site behavior | What we need | Status |
 |---|---|---|---|---|
-| K1 | Footer credit wording + link target (`novixa.dev` vs Vercel URL) | "Designed & developed by Novixa" → Vercel URL | Novixa to confirm | ⬜ |
+| K1 | Footer credit wording + link target (`novixa.dev` vs Vercel URL) | "Designed & developed by Novixa" → **https://novixa.dev** (2026-10-19; Novixa’s live domain) | — | ✏️ |
 | K2 | Public case study — HRC approval to publish | Novixa‑internal until approved | HRC sign‑off on a public version | ⬜ |
 | K3 | Social launch posts — HRC to review the drafted AR/EN posts | Draft in `docs/marketing/` (S9) | HRC review before posting | ⬜ |
 
