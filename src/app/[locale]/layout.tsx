@@ -55,7 +55,8 @@ export async function generateMetadata({
         { url: '/favicon.ico', sizes: 'any' },
         { url: '/icon.svg', type: 'image/svg+xml' },
       ],
-      apple: '/apple-touch-icon.png',
+      // ?v=2: the bare URL was pinned as a 404 at the Cloudflare edge before the file existed.
+      apple: '/apple-touch-icon.png?v=2',
     },
     manifest: '/manifest.webmanifest',
   };
