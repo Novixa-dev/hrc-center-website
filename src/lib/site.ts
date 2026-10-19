@@ -38,6 +38,15 @@ export const site = {
 
   founded: '2013',
 
+  /** The Center's journal — E-ISSN from the ISSN register (docs/research/02 §Refresh). */
+  journal: {
+    name: {
+      ar: 'مجلة الأحقاف للعلوم الاجتماعية',
+      en: 'Al-Ahgaff Journal of Social Sciences',
+    },
+    issn: '3106-9053',
+  },
+
   /** Mukalla, Hadramout. Approximate — confirm exact address (checklist A3). */
   geo: { latitude: 14.5426, longitude: 49.1242 },
 
@@ -57,8 +66,8 @@ export const site = {
   studio: {
     name: 'Novixa',
     url: {
-      ar: 'https://novixa-cyan.vercel.app/ar',
-      en: 'https://novixa-cyan.vercel.app/en',
+      ar: 'https://novixa.dev/ar',
+      en: 'https://novixa.dev/en',
     },
   },
 } as const;

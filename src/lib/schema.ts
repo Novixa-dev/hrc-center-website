@@ -30,6 +30,21 @@ export function organizationSchema(locale: Locale): JsonLd {
   };
 }
 
+/** The Center's peer-reviewed journal as a schema.org `Periodical`. */
+export function periodicalSchema(locale: Locale): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Periodical',
+    '@id': `${site.url}/#journal`,
+    name: site.journal.name[locale],
+    alternateName: site.journal.name[locale === 'ar' ? 'en' : 'ar'],
+    issn: site.journal.issn,
+    inLanguage: 'ar',
+    url: `${site.url}/${locale}/research#journal`,
+    publisher: { '@id': `${site.url}/#organization` },
+  };
+}
+
 export function websiteSchema(locale: Locale): JsonLd {
   return {
     '@context': 'https://schema.org',
@@ -156,7 +171,16 @@ export function creativeWorkSchema(
     schema.author = opts.authors.map((name) => ({ '@type': 'Person', name }));
   }
   if (opts.isPartOf) {
-    schema.isPartOf = { '@type': 'Periodical', name: opts.isPartOf };
+    // Journal issues point at the Periodical node (with its ISSN).
+    schema.isPartOf =
+      opts.kind === 'journal-issue'
+        ? {
+            '@type': 'Periodical',
+            '@id': `${site.url}/#journal`,
+            name: opts.isPartOf,
+            issn: site.journal.issn,
+          }
+        : { '@type': 'Periodical', name: opts.isPartOf };
   }
   if (opts.sameAs) schema.sameAs = opts.sameAs;
   return schema;
@@ -175,6 +199,8 @@ export function eventSchema(
     startDate: string;
     endDate?: string | undefined;
     location: string;
+    /** Held online — no physical venue; the page itself is the event URL. */
+    online?: boolean;
   },
 ): JsonLd {
   const schema: JsonLd = {
@@ -185,7 +211,16 @@ export function eventSchema(
     url: `${site.url}/${locale}${opts.path}`,
     startDate: opts.startDate,
     eventStatus: 'https://schema.org/EventScheduled',
-    location: { '@type': 'Place', name: opts.location },
+    eventAttendanceMode: opts.online
+      ? 'https://schema.org/OnlineEventAttendanceMode'
+      : 'https://schema.org/OfflineEventAttendanceMode',
+    location: opts.online
+      ? {
+          '@type': 'VirtualLocation',
+          name: opts.location,
+          url: `${site.url}/${locale}${opts.path}`,
+        }
+      : { '@type': 'Place', name: opts.location },
     organizer: {
       '@type': 'Organization',
       name: site.name[locale],
@@ -204,6 +239,8 @@ export function newsArticleSchema(
     path: string;
     datePublished: string;
     image?: string | undefined;
+    /** URL of the original announcement this article is based on. */
+    isBasedOn?: string | undefined;
   },
 ): JsonLd {
   const schema: JsonLd = {
@@ -218,6 +255,7 @@ export function newsArticleSchema(
     isPartOf: { '@id': `${site.url}/#website` },
   };
   if (opts.image) schema.image = opts.image;
+  if (opts.isBasedOn) schema.isBasedOn = opts.isBasedOn;
   return schema;
 }
 

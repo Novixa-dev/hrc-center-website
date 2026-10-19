@@ -20,6 +20,13 @@ export const baseFrontmatter = z.object({
   provisional: z.boolean().default(false),
   /** ISO date; optional for undated items. */
   date: isoDate.optional(),
+  /**
+   * Where the facts in this item were published (official news item, register
+   * entry…). Rendered as a "Source" link; see docs/research/02 §Refresh 2026-10.
+   */
+  source: z
+    .object({ name: z.string().min(1), url: z.string().url() })
+    .optional(),
 });
 
 export const programStatus = z.enum(['open', 'upcoming', 'archived']);
@@ -65,6 +72,15 @@ export const publicationFrontmatter = baseFrontmatter.extend({
   url: z.string().url().optional(),
   /** Issue label for a journal issue, e.g. "العدد الأول" / "Issue 1". */
   issue: z.string().optional(),
+  /** Table of contents, as printed in the issue/book (title + authors). */
+  contents: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        authors: z.array(z.string().min(1)).default([]),
+      }),
+    )
+    .optional(),
 });
 
 export type PublicationFrontmatter = z.infer<typeof publicationFrontmatter>;
@@ -77,8 +93,10 @@ export const conferenceFrontmatter = baseFrontmatter.extend({
   /** ISO date. `Event` JSON-LD is emitted only when startDate AND location exist. */
   startDate: isoDate.optional(),
   endDate: isoDate.optional(),
-  /** Venue / city. */
+  /** Venue / city — or a label like "Online (Zoom)" when `online`. */
   location: z.string().optional(),
+  /** Held online: `Event` JSON-LD then uses a VirtualLocation. */
+  online: z.boolean().default(false),
   /** Conference theme / track line. */
   theme: z.string().optional(),
 });

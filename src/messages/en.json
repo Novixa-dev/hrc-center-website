@@ -9,7 +9,11 @@
     "readMore": "Read more",
     "backToHome": "Back to home",
     "onThisPage": "On this page",
-    "provisional": "Provisional — under review"
+    "provisional": "Provisional — under review",
+    "source": {
+      "label": "Source:",
+      "newTab": "(opens in a new tab)"
+    }
   },
   "languageSwitcher": {
     "label": "Language",
@@ -81,7 +85,7 @@
     },
     "journal": {
       "eyebrow": "Peer-reviewed journal",
-      "title": "Al-Ahgaff Journal for Social Sciences",
+      "title": "Al-Ahgaff Journal of Social Sciences",
       "body": "A peer-reviewed scholarly journal published by the Center in the social sciences.",
       "browse": "Browse issues",
       "guidelines": "Author guidelines"
@@ -113,7 +117,9 @@
       "visionMission": "Vision & mission",
       "university": "Our relationship with Al-Ahgaff University",
       "departments": "The Center's departments",
-      "governance": "Governance"
+      "governance": "Governance",
+      "milestones": "Milestones",
+      "partners": "Partnerships & agreements"
     },
     "establishment": {
       "body": "Established in 2013 as a scholarly center of Al-Ahgaff University with financial and administrative independence, the Center conducts research and studies, provides consultancy, arbitration, training and translation, organizes conferences, seminars and scholarly workshops, and publishes books and peer-reviewed periodicals."
@@ -159,6 +165,87 @@
     "governance": {
       "body": "The Center is run by an Executive Director and overseen by a Board of Trustees. Leadership and Board names are listed on the Team page.",
       "cta": "Team page"
+    },
+    "milestones": {
+      "heading": "Milestones",
+      "lede": "Key moments in the Center's journey since its founding, as documented in official Al-Ahgaff University news.",
+      "items": [
+        {
+          "date": "2013",
+          "text": "The Hadramout Research Center is founded as a scholarly center of Al-Ahgaff University, financially and administratively independent."
+        },
+        {
+          "date": "February 2022",
+          "text": "Memorandum of understanding with Hadhramout University's Center for Human & Social Studies.",
+          "href": "/news/hadhramout-university-mou"
+        },
+        {
+          "date": "October 2023",
+          "text": "Launch of the book \"Class and Politics\" at a cultural seminar in Mukalla.",
+          "href": "/research/class-and-politics"
+        },
+        {
+          "date": "September 2024",
+          "text": "Issue 1 of the Al-Ahgaff Journal of Social Sciences is published.",
+          "href": "/research/al-ahgaff-journal-issue-1"
+        },
+        {
+          "date": "January 2025",
+          "text": "The English Diploma's 12th cohort presents its graduation research.",
+          "href": "/news/english-diploma-graduation"
+        },
+        {
+          "date": "December 2025",
+          "text": "Second International Scientific Conference: \"Hadramis in East Africa: Integration and Preservation of Identity\".",
+          "href": "/conferences/second-scientific-conference"
+        },
+        {
+          "date": "January 2026",
+          "text": "Issue 2 of the journal, carrying its E-ISSN 3106-9053.",
+          "href": "/research/al-ahgaff-journal-issue-2"
+        },
+        {
+          "date": "September 2026",
+          "text": "\"AI and Judicial Justice\" course with the Hadramout Court of Appeal.",
+          "href": "/news/ai-judicial-justice-course"
+        },
+        {
+          "date": "October 2026",
+          "text": "The International Office for Arbitration & Dispute Resolution opens; first International Commercial Arbitration Diploma cohort graduates.",
+          "href": "/news/arbitration-office-inaugurated"
+        }
+      ]
+    },
+    "partners": {
+      "heading": "Partnerships & agreements",
+      "lede": "Institutions the Center has signed agreements or run joint programs with, as reported in official news.",
+      "more": "Details",
+      "items": [
+        {
+          "name": "Center for Human & Social Studies — Hadhramout University",
+          "kind": "Memorandum of understanding: joint seminars, conferences and training",
+          "date": "February 2022",
+          "href": "/news/hadhramout-university-mou"
+        },
+        {
+          "name": "Al-Mashqas Students Forum",
+          "kind": "Cooperation agreement: training for students from the eastern districts",
+          "date": "January 2025",
+          "href": "/news/mashqas-cooperation-agreement"
+        },
+        {
+          "name": "Hadramout Court of Appeal",
+          "kind": "Joint course: AI and Judicial Justice",
+          "date": "September 2026",
+          "href": "/news/ai-judicial-justice-course"
+        },
+        {
+          "name": "Tarim for Studies & Publishing",
+          "kind": "Co-publication: \"Class and Politics\"",
+          "date": "2023",
+          "href": "/research/class-and-politics"
+        }
+      ]
     }
   },
   "notFound": {
@@ -244,48 +331,80 @@
     "items": {
       "research": {
         "name": "Research & studies",
-        "body": "Scientific research and studies on Hadramout’s social, economic, legal and heritage questions — commissioned by an organization or initiated by the Center."
+        "body": "Scientific research and studies on Hadramout’s history, society, economy and law — commissioned by an organization or initiated by the Center — alongside scholarly and cultural seminars."
       },
       "consultancy": {
         "name": "Consultancy",
-        "body": "Financial, economic, social, legal and technical consultancy and studies for organizations and institutions."
+        "body": "Financial, economic, social and legal consultancy and studies for organizations, plus capacity-building and legal-awareness programs. The technical consultancy department analyses organizations’ technical problems and proposes solutions in data analysis, information-systems management and software development, and trains their staff."
       },
       "arbitration": {
         "name": "Arbitration",
-        "body": "Arbitration, dispute settlement and the related legal studies."
+        "body": "Promoting arbitration as a way to settle disputes and an alternative to conventional litigation, carrying out the related legal studies, and preparing qualified arbitrators through the Center’s International Office for Arbitration & Dispute Resolution.",
+        "highlights": [
+          "October 2026: the International Office for Arbitration & Dispute Resolution opened in Mukalla.",
+          "First cohort of the International Commercial Arbitration Diploma graduated: 25 participants, 120 training hours, accredited by the Ministry of Technical Education & Vocational Training."
+        ],
+        "more": {
+          "label": "News of the opening",
+          "href": "/news/arbitration-office-inaugurated"
+        }
       },
       "translation": {
         "name": "Translation & language editing",
-        "body": "Translation of scholarly work and linguistic proofreading."
+        "body": "Translating scholarly and research papers with care for scientific terminology, and language and grammar editing of research before publication."
       },
       "training": {
         "name": "Training & capacity building",
-        "body": "Professional and technical diplomas and courses through the training department. See the Training page for programs."
+        "body": "Professional and technical diplomas and courses through the training department, some in partnership with professional and judicial bodies. See the Training page for programs.",
+        "highlights": [
+          "English Language Diploma: the 12th cohort presented its graduation research (January 2025).",
+          "\"AI and Judicial Justice\" course for members of the judiciary, with the Hadramout Court of Appeal (September 2026)."
+        ],
+        "more": {
+          "label": "Training news",
+          "href": "/news?tag=training"
+        }
       },
       "conferences": {
         "name": "Conferences & seminars",
-        "body": "Organizing and hosting conferences, seminars and scholarly workshops."
+        "body": "Organizing and hosting conferences, seminars and scholarly workshops.",
+        "highlights": [
+          "December 2025: Second International Scientific Conference, \"Hadramis in East Africa: Integration and Preservation of Identity\".",
+          "October 2025: International Translation Day seminar."
+        ],
+        "more": {
+          "label": "Conferences",
+          "href": "/conferences"
+        }
       },
       "publishing": {
         "name": "Scholarly publishing",
-        "body": "Publishing books and peer-reviewed periodicals — most notably the Al-Ahgaff Journal for Social Sciences."
+        "body": "Publishing books and peer-reviewed periodicals — most notably the Al-Ahgaff Journal of Social Sciences.",
+        "highlights": [
+          "Al-Ahgaff Journal of Social Sciences: peer-reviewed, twice a year, E-ISSN 3106-9053 — three issues since September 2024."
+        ],
+        "more": {
+          "label": "The journal and its issues",
+          "href": "/research#journal"
+        }
       }
-    }
+    },
+    "highlightsLabel": "Highlights"
   },
   "research": {
     "meta": {
       "title": "Research & the Journal — Hadramout Research Center",
-      "description": "The Hadramout Research Center conducts research and studies on Hadramout's society, economy, law and heritage, and publishes the peer-reviewed Al-Ahgaff Journal for Social Sciences."
+      "description": "The Hadramout Research Center conducts research and studies on Hadramout's society, economy, law and heritage, and publishes the peer-reviewed Al-Ahgaff Journal of Social Sciences."
     },
     "header": {
       "eyebrow": "Research",
       "title": "Research in the service of Hadramout",
-      "lede": "The Center conducts research and studies on Hadramout's questions — commissioned by institutions or on its own initiative — and publishes the Al-Ahgaff Journal for Social Sciences."
+      "lede": "The Center conducts research and studies on Hadramout's questions — commissioned by institutions or on its own initiative — and publishes the Al-Ahgaff Journal of Social Sciences."
     },
     "sections": {
       "focus": "What we research",
       "commission": "Commissioning a study",
-      "journal": "Al-Ahgaff Journal for Social Sciences",
+      "journal": "Al-Ahgaff Journal of Social Sciences",
       "publications": "Books & publications"
     },
     "focus": {
@@ -315,14 +434,65 @@
       "servicesCta": "Research services"
     },
     "journal": {
-      "body": "The Al-Ahgaff Journal for Social Sciences is a peer-reviewed scholarly journal published by the Center in the social sciences.",
-      "submitHeading": "Submitting to the journal",
-      "submitBody": "Authors complete the journal's publication form and send it with the manuscript to the editorial email:",
-      "submitEmail": "law.m@ahgaff.edu",
-      "submitNote": "The submission address and author guidelines are being confirmed with the Center.",
+      "body": "A peer-reviewed, semi-annual journal published by the Hadramout Research Center at Al-Ahgaff University since September 2024. It publishes original research in the social sciences and humanities, reviewed by specialist scholars in Yemen and abroad.",
+      "glanceHeading": "The journal at a glance",
+      "glance": [
+        {
+          "label": "ISSN (online)",
+          "value": "E-ISSN 3106-9053"
+        },
+        {
+          "label": "Frequency",
+          "value": "Twice a year"
+        },
+        {
+          "label": "Review",
+          "value": "Peer-reviewed"
+        },
+        {
+          "label": "Language",
+          "value": "Arabic, with title, abstract and keywords in English"
+        },
+        {
+          "label": "Publisher",
+          "value": "Hadramout Research Center — Al-Ahgaff University, Mukalla"
+        }
+      ],
+      "issnCta": "ISSN register entry",
       "boardHeading": "Editorial board",
-      "boardBody": "The journal's editorial board is listed on the Al-Ahgaff University website.",
-      "boardCta": "View the editorial board",
+      "boardBody": "As listed in Issue 2 (January 2026):",
+      "board": [
+        {
+          "role": "Editor-in-Chief",
+          "name": "Prof. Sadiq Omar Maknoon"
+        },
+        {
+          "role": "Deputy Editor-in-Chief",
+          "name": "Dr. Ahmed Hadi Bahartha"
+        },
+        {
+          "role": "Managing Editor",
+          "name": "Dr. Hashem Alawi Muqaibel"
+        },
+        {
+          "role": "Editorial Secretary",
+          "name": "Mohammed Salem Al-Bouri"
+        }
+      ],
+      "submitHeading": "Submitting to the journal",
+      "submitBody": "Send the manuscript with the journal's publication form to the editorial email:",
+      "submitEmail": "law.m@ahgaff.edu",
+      "guidelinesHeading": "Key acceptance criteria",
+      "guidelines": [
+        "Original work, not published or under review elsewhere, with a signed undertaking.",
+        "Written in Arabic; title, abstract (100–250 words) and 5–8 keywords in both Arabic and English.",
+        "15–30 A4 pages, as an unlocked Word file.",
+        "An introduction setting out the problem, significance and aims; a conclusion and references in the journal's citation style.",
+        "A short author bio with academic degree, affiliation and email.",
+        "Publication fee: YER 40,000 within Yemen; USD 120 from abroad."
+      ],
+      "guidelinesNote": "As published in Issue 1 (September 2024); the full criteria and citation style are in the front matter of that issue.",
+      "guidelinesCta": "Full criteria in Issue 1 (PDF)",
       "archiveHeading": "Issues",
       "archiveEmpty": "The issue archive is being compiled with the Center."
     },
@@ -342,7 +512,9 @@
       "authors": "Authors",
       "link": "External link",
       "provisionalNote": "The details shown are provisional and under review with the Center.",
-      "back": "All research"
+      "back": "All research",
+      "contents": "In this issue",
+      "download": "Download the full issue (PDF)"
     }
   },
   "conferences": {
@@ -397,13 +569,15 @@
       "journal": "Journal",
       "training": "Training",
       "conferences": "Conferences",
-      "arbitration": "Arbitration"
+      "arbitration": "Arbitration",
+      "partnerships": "Partnerships",
+      "seminars": "Seminars & events"
     },
     "empty": {
       "title": "Nothing here yet",
       "body": "There are no news items under this topic yet. Try another topic or view all news."
     },
-    "historyNote": "This is a selection of recent updates; it is not a complete record of the Center's activity since 2013.",
+    "historyNote": "A selection of the Center's news as published on the Al-Ahgaff University website since 2022; each item links to its original source. It is not a complete record of the Center's activity since 2013.",
     "detail": {
       "back": "All news",
       "related": "More news",
@@ -420,7 +594,7 @@
     "header": {
       "eyebrow": "Team",
       "title": "The people behind the Center",
-      "lede": "The Center is overseen by a Board of Trustees and led by an Executive Director, within Al-Ahgaff University."
+      "lede": "The Center is overseen by a Board of Trustees and led by an Executive Director, within Al-Ahgaff University in Mukalla."
     },
     "pendingNote": "The Center is finalizing the public list of its Board and leadership. The roles are shown below; names and biographies will be published once confirmed.",
     "groups": {
@@ -432,14 +606,20 @@
     "roles": {
       "botChair": "Chair, Board of Trustees",
       "botMember": "Board member",
-      "executiveDirector": "Executive Director"
+      "executiveDirector": "Executive Director",
+      "trainingDirector": "Director of Training",
+      "arbitrationOfficeHead": "Head, International Office for Arbitration & Dispute Resolution",
+      "universityVicePresident": "Vice-President, Al-Ahgaff University"
     },
     "pending": "Appointment announced soon",
     "affiliation": {
       "heading": "Within Al-Ahgaff University",
       "body": "The Hadramout Research Center is the research and community-service arm of Al-Ahgaff University in Mukalla.",
       "cta": "About Al-Ahgaff University"
-    }
+    },
+    "sourcedNote": "Names are shown as published in official Al-Ahgaff University news, each linked to its source. Other positions will be added once announced.",
+    "sourceLabel": "Source:",
+    "newTab": "(opens in a new tab)"
   },
   "contact": {
     "meta": {

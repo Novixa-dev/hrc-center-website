@@ -145,3 +145,56 @@ describe('all schema builders audit', () => {
     expect(coll['@type']).toBe('CollectionPage');
   });
 });
+
+describe('S10 structured data', () => {
+  it('periodicalSchema carries the journal E-ISSN', async () => {
+    const { periodicalSchema } = await import('@/lib/schema');
+    const p = periodicalSchema('en') as Record<string, unknown>;
+    expect(p['@type']).toBe('Periodical');
+    expect(p.issn).toBe('3106-9053');
+    expect(p.name).toBe('Al-Ahgaff Journal of Social Sciences');
+  });
+
+  it('journal issues point at the Periodical node with its ISSN', async () => {
+    const { creativeWorkSchema } = await import('@/lib/schema');
+    const issue = creativeWorkSchema('ar', {
+      kind: 'journal-issue',
+      name: 'n',
+      description: 'd',
+      path: '/research/x',
+      isPartOf: 'مجلة الأحقاف للعلوم الاجتماعية',
+    }) as Record<string, Record<string, unknown>>;
+    expect(issue.isPartOf!['@id']).toMatch(/#journal$/);
+    expect(issue.isPartOf!.issn).toBe('3106-9053');
+  });
+
+  it('an online event uses a VirtualLocation and the online attendance mode', async () => {
+    const { eventSchema } = await import('@/lib/schema');
+    const e = eventSchema('en', {
+      name: 'n',
+      description: 'd',
+      path: '/conferences/x',
+      startDate: '2025-12-27',
+      location: 'Online (Zoom)',
+      online: true,
+    }) as Record<string, unknown>;
+    expect(e.eventAttendanceMode).toBe(
+      'https://schema.org/OnlineEventAttendanceMode',
+    );
+    expect((e.location as Record<string, unknown>)['@type']).toBe(
+      'VirtualLocation',
+    );
+  });
+
+  it('a news article records the announcement it is based on', async () => {
+    const { newsArticleSchema } = await import('@/lib/schema');
+    const n = newsArticleSchema('en', {
+      headline: 'h',
+      description: 'd',
+      path: '/news/x',
+      datePublished: '2026-10-10',
+      isBasedOn: 'https://ahgaff.edu/centers/1/articles/x/',
+    }) as Record<string, unknown>;
+    expect(n.isBasedOn).toBe('https://ahgaff.edu/centers/1/articles/x/');
+  });
+});

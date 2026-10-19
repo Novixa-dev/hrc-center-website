@@ -14,6 +14,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Container } from '@/components/ui/container';
 import { Link } from '@/components/ui/link';
 import { Prose } from '@/components/ui/prose';
+import { SourceLink } from '@/components/ui/source-link';
 import { getNews, news } from '@/lib/content/news';
 import { locales, routing, type Locale } from '@/i18n/routing';
 import {
@@ -79,6 +80,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
               description: f.summary,
               path,
               datePublished: f.date,
+              isBasedOn: f.source?.url,
             }),
             breadcrumbSchema(
               [
@@ -135,6 +137,10 @@ export default async function NewsArticlePage({ params }: PageProps) {
             <p className="mt-(--space-6) border-s-2 border-border ps-(--space-4) text-xs text-text-muted">
               {t('detail.provisionalNote')}
             </p>
+          ) : null}
+
+          {f.source ? (
+            <SourceLink source={f.source} className="mt-(--space-6)" />
           ) : null}
 
           <p className="mt-(--space-8)">

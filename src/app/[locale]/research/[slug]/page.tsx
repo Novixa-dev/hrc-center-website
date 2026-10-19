@@ -14,6 +14,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Container } from '@/components/ui/container';
 import { Link } from '@/components/ui/link';
 import { Prose } from '@/components/ui/prose';
+import { SourceLink } from '@/components/ui/source-link';
 import { locales, routing, type Locale } from '@/i18n/routing';
 import { getPublications, publications } from '@/lib/content/publications';
 import {
@@ -137,6 +138,39 @@ export default async function PublicationPage({ params }: PageProps) {
             {item.html ? (
               <Prose className="mt-(--space-7)" html={item.html} />
             ) : null}
+
+            {f.contents?.length ? (
+              <section aria-labelledby="contents-h" className="mt-(--space-8)">
+                <h2 id="contents-h" className="text-2xl">
+                  {t('detail.contents')}
+                </h2>
+                <ol className="mt-(--space-4) divide-y divide-border border-y border-border">
+                  {f.contents.map((entry, i) => (
+                    <li
+                      key={entry.title}
+                      className="flex gap-(--space-4) py-(--space-4)"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="w-6 shrink-0 font-(--font-mono) text-sm text-text-muted"
+                      >
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <div>
+                        <p className="font-semibold text-heading">
+                          {entry.title}
+                        </p>
+                        {entry.authors.length ? (
+                          <p className="mt-1 text-sm text-text-muted">
+                            {entry.authors.join(' · ')}
+                          </p>
+                        ) : null}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            ) : null}
           </div>
 
           <aside className="lg:sticky lg:top-[calc(var(--header-height)+var(--space-5))] lg:self-start">
@@ -158,13 +192,18 @@ export default async function PublicationPage({ params }: PageProps) {
                   withArrow
                   className="mt-(--space-5) inline-block text-sm font-semibold no-underline"
                 >
-                  {t('detail.link')}
+                  {externalUrl.toLowerCase().endsWith('.pdf')
+                    ? t('detail.download')
+                    : t('detail.link')}
                 </Link>
               ) : null}
               {f.provisional ? (
                 <p className="mt-(--space-4) text-xs text-text-muted">
                   {t('detail.provisionalNote')}
                 </p>
+              ) : null}
+              {f.source ? (
+                <SourceLink source={f.source} className="mt-(--space-4)" />
               ) : null}
             </div>
           </aside>

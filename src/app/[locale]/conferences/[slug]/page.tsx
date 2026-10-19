@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { Link } from '@/components/ui/link';
 import { Prose } from '@/components/ui/prose';
+import { SourceLink } from '@/components/ui/source-link';
 import { locales, routing, type Locale } from '@/i18n/routing';
 import { conferences, hasEventData } from '@/lib/content/conferences';
 import { breadcrumbSchema, eventSchema, jsonLdScript } from '@/lib/schema';
@@ -103,6 +104,7 @@ export default async function ConferencePage({ params }: PageProps) {
         startDate: f.startDate!,
         endDate: f.endDate,
         location: f.location!,
+        online: f.online,
       }),
     );
   }
@@ -172,6 +174,9 @@ export default async function ConferencePage({ params }: PageProps) {
                 <p className="mt-(--space-4) text-xs text-text-muted">
                   {t('detail.provisionalNote')}
                 </p>
+              ) : null}
+              {f.source ? (
+                <SourceLink source={f.source} className="mt-(--space-4)" />
               ) : null}
             </div>
           </aside>
